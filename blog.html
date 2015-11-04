@@ -1,0 +1,20 @@
+---
+title: Blog posts
+layout: page
+permalink: /blog/
+---
+
+<h1>{{ page.title }}</h1>
+
+
+{% for post in site.posts %}
+    {% assign currentyear = post.date | date: "%Y" %}
+    {% if currentyear != year %}
+      {% unless forloop.first %}</ul>{% endunless %}
+      <h3>{{ currentyear }}</h3>
+      <ul>
+      {% assign year = currentyear %} 
+    {% endif %}
+        <li><i>{{ post.date | date:"%Y-%m-%d" }}</i> <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></li>
+    {% if forloop.last %}</ul>{% endif %}
+{% endfor %}
