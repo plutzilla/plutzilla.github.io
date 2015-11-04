@@ -1,6 +1,9 @@
 body {
     padding-top: 70px;
 }
+.navbar-brand {
+    font-weight: bold;
+}
 
 /* Syntax highlighting styles */
 /* ----------------------------------------------------------*/
