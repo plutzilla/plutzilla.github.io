@@ -12,7 +12,7 @@ var runSequence = require('run-sequence');
      });
  });
 
-gulp.task('minify-html', function() {
+gulp.task('minify:html', function() {
   var opts = {
     conditionals: true,
     spare:true,
@@ -23,7 +23,7 @@ gulp.task('minify-html', function() {
     .pipe(gulp.dest('./_site/'));
 });
 
-gulp.task('minify-css', function() {
+gulp.task('minify:css', function() {
 
   return gulp.src('./_site/assets/css/custom.css')
     .pipe(minifyCss())
@@ -37,6 +37,6 @@ gulp.task('deploy:dev',  function() {
 });
 
 gulp.task('default', function(callback) {
-    runSequence('build:jekyll', ['minify-html', 'minify-css'], 'deploy:dev', callback);
+    runSequence('build:jekyll', ['minify:html', 'minify:css'], 'deploy:dev', callback);
     //TODO: delete _site folder
 });

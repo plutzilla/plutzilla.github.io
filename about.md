@@ -30,6 +30,11 @@ Find me on:
 
 <i class="fa fa-facebook"></i> [Facebook](https://www.facebook.com/{{ site.facebook_username }})
 
+<br /><br />
+
+This blog is built using [Jekyll][jekyll-link] as static site generator,
+[Bootstrap][bootstrap-link] for UI, styled by [Bootswatch "United" theme][bootswatch-link] and [Fontawesome][fontawesome-link], using [Gulp][gulp-link] as task runner. 
+
 [profile-photo]: http://www.gravatar.com/avatar/fda0d2e32e4327bf0698141fb8d98a66?s=256
 
 [jjg-link]: http://www.jjanonis.su.lt
@@ -50,3 +55,9 @@ Find me on:
 [openid-link]: http://www.openid.org
 [oauth-link]: http://www.oauth.net
 [agile-link]: http://www.agile.lt
+
+[jekyll-link]: http://jekyllrb.com/
+[gulp-link]: http://gulpjs.com/
+[bootstrap-link]: http://getbootstrap.com/
+[bootswatch-link]: http://bootswatch.com/
+[fontawesome-link]: http://fontawesome.io/
