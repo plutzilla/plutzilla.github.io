@@ -2,22 +2,22 @@
 layout: page
 ---
 
-  <h1>Posts</h1>
+  <h1>Latest blog posts</h1>
 
-  <ul class="posts">
+
     {% for post in site.posts limit:5 %}
-      <li>
-        <span class="post-date">{{ post.date | date: "%b %-d, %Y" }}</span>
-        <a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a>
-        <br />
-        {{ post.content | strip_html | truncatewords:30 }}
-      </li>
+    <div class="well well-lg">
+        <h2><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h2>
+        <span class="label label-default">{{ post.date | date: site.date_format }}</span>
+        <p>
+            {{ post.content | strip_html | truncatewords:30 }}
+        </p>
+      </div>
     {% endfor %}
-  </ul>
   
       <nav>
         <ul class="pager">
-            <li class="next"><a href="{{ site.baseurl }}/blog/">All posts <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></li>
+            <li class="previous"><a href="{{ site.baseurl }}/blog/">All posts <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></li>
         </ul>
     </nav>
 

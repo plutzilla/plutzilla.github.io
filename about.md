@@ -11,7 +11,24 @@ permalink: /about/
 
 I am Paulius Leščinskas.
 
-I'm a security pod owner at [Adform][adform-link].
+I work as the security pod owner at [Adform][adform-link].
+
+Previously I was working at [Tipro][tipro-link] as CTO, [Epasas.lt][epasas-link], [Klase.lt][klase-link], [Interprekyba][interprekyba-link] as developer,
+also as an IT engineer at [KPVM][kpvm-link] and lecturer at [KTU JKM][jkm-link].
+
+I have studied at [JJG][jjg-link], [VIKO][viko-link], [KTU][ktu-link] and [UCN][noea-link].
+
+I am interested in [Application security][owasp-link], [Agile methodologies][agile-link], [OpenID][openid-link], [OAuth][oauth-link], [Ubuntu Linux][ubuntu-link].
+
+<br /><br />
+
+Find me on:
+
+<i class="fa fa-twitter"></i> [Twitter](https://www.twitter.com/{{ site.twitter_username }})
+
+<i class="fa fa-linkedin"></i> [LinkedIn](https://www.linkedin.com/in/{{ site.linkedin_username }})
+
+<i class="fa fa-facebook"></i> [Facebook](https://www.facebook.com/{{ site.facebook_username }})
 
 [profile-photo]: http://www.gravatar.com/avatar/fda0d2e32e4327bf0698141fb8d98a66?s=256
 
@@ -20,6 +37,7 @@ I'm a security pod owner at [Adform][adform-link].
 [viko-link]: http://eif.viko.lt
 [noea-link]: http://www.ucn.dk
 
+[jkm-link]: http://www.jkm.lt
 [kpvm-link]: http://www.mpcentras.lt
 [interprekyba-link]: http://www.interprekyba.lt
 [klase-link]: http://www.klase.lt

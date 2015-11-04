@@ -15,6 +15,6 @@ permalink: /blog/
       <ul>
       {% assign year = currentyear %} 
     {% endif %}
-        <li><i>{{ post.date | date:"%Y-%m-%d" }}</i> <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></li>
+        <li><span class="label label-default">{{ post.date | date: site.date_format_archive }}</span> <a href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></li>
     {% if forloop.last %}</ul>{% endif %}
 {% endfor %}

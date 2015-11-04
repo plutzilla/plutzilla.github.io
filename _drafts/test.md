@@ -3,8 +3,6 @@ title: Test draft
 layout: post
 ---
 
-## Test
-
 This is a test draft
 
 {% highlight php %}
