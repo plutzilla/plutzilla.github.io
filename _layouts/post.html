@@ -6,7 +6,7 @@
     <body>
     {% include navbar.html %}
 
-    <div class="container">
+    <article class="container">
         <h1>{{ page.title }}</h1>
         <p>
             <span class="label label-default">{{ page.date | date: site.date_format }}</span>
@@ -23,7 +23,7 @@
             {% endif %}
         </ul>
     </nav>
-    </div>
+    </article>
 
     {% include footer.html %}
     </body>
