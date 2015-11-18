@@ -1,6 +1,7 @@
 var gulp = require('gulp');
 var minifyHTML = require('gulp-minify-html');
 var minifyCss = require('gulp-minify-css');
+var rsync = require('gulp-rsync');
 var runSequence = require('run-sequence');
 
  gulp.task('build:jekyll', function (gulpCallBack) {
@@ -36,7 +37,22 @@ gulp.task('deploy:dev',  function() {
         .pipe(gulp.dest('../lescinskas.local/'));
 });
 
+gulp.task('deploy:prod',  function() {
+
+    return gulp.src(['./_site/**/*'], {dot: true})
+        .pipe(rsync({
+            root: '_site',
+            hostname: 'lescinskas.lt',
+            destination: '~/lescinskas.lt/data'
+        }));
+});
+
 gulp.task('default', function(callback) {
     runSequence('build:jekyll', ['minify:html', 'minify:css'], 'deploy:dev', callback);
+    //TODO: delete _site folder
+});
+
+gulp.task('release', function(callback) {
+    runSequence('build:jekyll', ['minify:html', 'minify:css'], 'deploy:prod', callback);
     //TODO: delete _site folder
 });

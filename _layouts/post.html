@@ -15,11 +15,11 @@
       
     <nav>
         <ul class="pager">
-            {% if page.next %} <!-- Newer post -->
-                <li class="previous"><a href="{{ page.next.url }}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> {{ page.next.title }}</a></li>
-            {% endif %}
             {% if page.previous %} <!-- Older post -->
-                <li class="next"><a href="{{ page.previous.url }}">{{ page.previous.title }} <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></li>
+                <li class="previous"><a href="{{ page.previous.url }}"><span class="glyphicon glyphicon-menu-left" aria-hidden="true"></span> {{ page.previous.title }}</a></li>
+            {% endif %}
+            {% if page.next %} <!-- Newer post -->
+                <li class="next"><a href="{{ page.next.url }}">{{ page.next.title }} <span class="glyphicon glyphicon-menu-right" aria-hidden="true"></span></a></li>
             {% endif %}
         </ul>
     </nav>
