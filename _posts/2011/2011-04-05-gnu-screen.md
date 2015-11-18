@@ -2,6 +2,8 @@
 layout: post
 title: GNU screen
 ---
+> This page was initially [written in Lithuanian](http://old.lescinskas.lt/gnu-screen).
+
 GNU screen is a virtual terminal multiplexer. It is possible to run multiple virtual terminals in the same console window, switch between them, split the window and place the terminals in it, execute the commands or run programs simultaneously. It is also possible to tun multiple `screen` instances.
 
 ![GNU screen]({{ "/assets/img/posts/2011/gnu-screen.png" | prepend: site.baseurl }})
@@ -32,7 +34,7 @@ Resuming to the screen:
 
 If there are multiple running screens, their list is returned:
 
-{% highlight bash %}
+{% highlight text %}
 There are screens on:
 31296.pavadinimas	(04/05/2011 06:04:51 PM)	(Detached)
 30781.pts-0.paulius	(04/05/2011 05:39:06 PM)	(Attached)

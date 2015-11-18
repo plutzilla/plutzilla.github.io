@@ -33,7 +33,7 @@ Find me on:
 <br /><br />
 
 This blog is built using [Jekyll][jekyll-link] as static site generator,
-[Bootstrap][bootstrap-link] for UI, styled by [Bootswatch "United" theme][bootswatch-link] and [Fontawesome][fontawesome-link], using [Gulp][gulp-link] as task runner. 
+[Bootstrap][bootstrap-link] for UI, styled by [Bootswatch "United" theme][bootswatch-link] and [Fontawesome][fontawesome-link], using [Gulp][gulp-link] as task runner for building the project.
 
 [profile-photo]: http://www.gravatar.com/avatar/fda0d2e32e4327bf0698141fb8d98a66?s=256
 

@@ -10,7 +10,7 @@ tags:
  - icu
 ---
 
-> This page was initially [written in Lithuanian][old-post]. The examples contain Lithuanian phrases.
+> This page was initially [written in Lithuanian](http://old.lescinskas.lt/daugiakalbiskumas-php). The examples contain Lithuanian phrases.
 
 One of the most actual problems that application developers have to solve is adopting application to different languages (internationalication, i18n) and multi-cultural preferences, i.e. number, date formats etc. (localication, l10n).
 
@@ -188,5 +188,3 @@ More information in text formatting: [http://userguide.icu-project.org/formatpar
 Full list of plural forms: [http://unicode.org/repos/cldr-tmp/trunk/diff/supplemental/language_plural_rules.html](http://unicode.org/repos/cldr-tmp/trunk/diff/supplemental/language_plural_rules.html)
 
 Please give a feedback on working with `intl` functions with PHP since the functions are not fully documented in the manual. Thanks in advance :)
-
-[old-post]: http://old.lescinskas.lt/daugiakalbiskumas-php
