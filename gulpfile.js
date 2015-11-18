@@ -6,7 +6,8 @@ var runSequence = require('run-sequence');
 
  gulp.task('build:jekyll', function (gulpCallBack) {
      var spawn = require('child_process').spawn;
-     var jekyll = spawn('jekyll', ['build', '--drafts'], {stdio: 'inherit'});
+     var jekyll = spawn('jekyll', ['build'], {stdio: 'inherit'});
+     //var jekyll = spawn('jekyll', ['build', '--drafts'], {stdio: 'inherit'}); // @TODO Build with drafts only in dev mode
  
      jekyll.on('exit', function(code) {
          gulpCallBack(code === 0 ? null : 'ERROR: Jekyll process exited with code: '+code);
@@ -49,10 +50,10 @@ gulp.task('deploy:prod',  function() {
 
 gulp.task('default', function(callback) {
     runSequence('build:jekyll', ['minify:html', 'minify:css'], 'deploy:dev', callback);
-    //TODO: delete _site folder
+    //@TODO: delete _site folder
 });
 
 gulp.task('release', function(callback) {
     runSequence('build:jekyll', ['minify:html', 'minify:css'], 'deploy:prod', callback);
-    //TODO: delete _site folder
+    //@TODO: delete _site folder
 });
