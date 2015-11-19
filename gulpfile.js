@@ -44,7 +44,8 @@ gulp.task('deploy:prod',  function() {
         .pipe(rsync({
             root: '_site',
             hostname: 'lescinskas.lt',
-            destination: '~/lescinskas.lt/data'
+            destination: '~/lescinskas.lt/data',
+            incremental: true
         }));
 });
 
