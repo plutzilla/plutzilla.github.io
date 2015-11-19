@@ -14,6 +14,6 @@ $ gem install jekyll
 $ jekyll build
 ```
 
-I use [Gulp](http://gulpjs.com/) to build, compress and release the site to production. You can refer to [gulpfile.js].
+I use [Gulp](http://gulpjs.com/) to build, compress and release the site to production. You can refer to [gulpfile.js](gulpfile.js).
 
 Please share your feedback via email: paulius.lescinskas@gmail.com
