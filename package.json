@@ -1,20 +1,20 @@
 {
-  "description": "Paulius Leščinskas blog",
-  "author": "Paulius Leščinskas <paulius.lescinskas@gmail.com>",
-  "homepage": "http://lescinskas.lt",
-  "license": "CC-BY-4.0",
-  "repository": {
-      "type": "git",
-      "url": "git@github.com:plutzilla/plutzilla.github.io.git"
-  },
-  "engines": {
-    "node": ">= 0.10.0"
-  },
-  "devDependencies": {
-    "gulp": "*",
-    "gulp-minify-html": "*",
-    "gulp-minify-css": "*",
-    "gulp-rsync": "*",
-    "run-sequence": "*"
-  }
+    "description": "Paulius Leščinskas blog",
+    "author": "Paulius Leščinskas <paulius.lescinskas@gmail.com>",
+    "homepage": "http://lescinskas.lt",
+    "license": "CC-BY-4.0",
+    "repository": {
+        "type": "git",
+        "url": "git@github.com:plutzilla/lescinskas.lt.git"
+    },
+    "engines": {
+        "node": ">= 0.10.0"
+    },
+    "devDependencies": {
+        "gulp": "*",
+        "gulp-minify-html": "*",
+        "gulp-minify-css": "*",
+        "gulp-rsync": "*",
+        "run-sequence": "*"
+    }
 }
