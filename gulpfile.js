@@ -18,6 +18,7 @@ gulp.task('minify:html', function () {
     var opts = {
         conditionals: true,
         spare: true,
+        empty: true
     };
 
     return gulp.src('./_site/**/*.html')
