@@ -24,10 +24,11 @@
         </ul>
     </nav>
     </article>
-    
+    {% if jekyll.environment == "production" %}
     <div class="container">
         {% include disqus-widget.html %}
     </div>
+    {% endif %}
 
     {% include footer.html %}
     </body>

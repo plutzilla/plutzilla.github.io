@@ -1,2 +1,4 @@
-{% include footer/google-analytics.html %}
-{% include footer/disqus-count.html %}
+{% if jekyll.environment == "production" %}
+    {% include footer/google-analytics.html %}
+    {% include footer/disqus-count.html %}
+{% endif %}

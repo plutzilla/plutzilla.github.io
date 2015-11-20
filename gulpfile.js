@@ -2,6 +2,7 @@ var gulp = require('gulp');
 var minifyHTML = require('gulp-minify-html');
 var minifyCss = require('gulp-minify-css');
 var rsync = require('gulp-rsync');
+var env = require('gulp-env');
 var runSequence = require('run-sequence');
 
 gulp.task('build:jekyll', function (gulpCallBack) {
@@ -50,12 +51,20 @@ gulp.task('deploy:prod', function () {
         }));
 });
 
+gulp.task('setenv:production', function() {
+    env({
+        vars: {
+            "JEKYLL_ENV": "production"
+        }
+    });
+});
+
 gulp.task('default', function (callback) {
     runSequence('build:jekyll', ['minify:html', 'minify:css'], 'deploy:dev', callback);
     //@TODO: delete _site folder
 });
 
 gulp.task('release', function (callback) {
-    runSequence('build:jekyll', ['minify:html', 'minify:css'], 'deploy:prod', callback);
+    runSequence('setenv:production', 'build:jekyll', ['minify:html', 'minify:css'], 'deploy:prod', callback);
     //@TODO: delete _site folder
 });
