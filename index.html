@@ -9,6 +9,7 @@ layout: page
     <div class="well well-lg">
         <h2><a class="post-link" href="{{ post.url | prepend: site.baseurl }}">{{ post.title }}</a></h2>
         <span class="label label-default">{{ post.date | date: site.date_format }}</span>
+        <span class="label"><a href="{{ post.url | prepend: site.url }}#disqus_thread"></a></span>
         <p>
             {{ post.content | strip_html | truncatewords:30 }}
         </p>

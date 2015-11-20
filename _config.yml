@@ -8,6 +8,7 @@ twitter_username: lescinskas
 facebook_username:  paulius.lescinskas
 linkedin_username: pluton
 google_analytics_id: UA-771978-2
+disqus_sitename: lescinskas
 
 date_format: "%B %e, %Y"
 date_format_archive: "%B %e"
