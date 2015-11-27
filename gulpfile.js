@@ -3,12 +3,21 @@ var minifyHTML = require('gulp-minify-html');
 var minifyCss = require('gulp-minify-css');
 var rsync = require('gulp-rsync');
 var env = require('gulp-env');
+var rev = require('gulp-rev');
+var revCollector = require('gulp-rev-collector');
 var runSequence = require('run-sequence');
+
+var environment = 'development';
 
 gulp.task('build:jekyll', function (gulpCallBack) {
     var spawn = require('child_process').spawn;
-    var jekyll = spawn('jekyll', ['build'], { stdio: 'inherit' });
-    //var jekyll = spawn('jekyll', ['build', '--drafts'], {stdio: 'inherit'}); // @TODO Build with drafts only in dev mode
+    if(environment == 'production') {
+        var jekyll = spawn('jekyll', ['build'], { stdio: 'inherit' });
+    } else if(environment == 'development') {
+        var jekyll = spawn('jekyll', ['build', '--drafts'], {stdio: 'inherit'}); // Build with drafts only in dev env
+    } else {
+        throw 'Unknown environment';
+    }
  
     jekyll.on('exit', function (code) {
         gulpCallBack(code === 0 ? null : 'ERROR: Jekyll process exited with code: ' + code);
@@ -29,7 +38,7 @@ gulp.task('minify:html', function () {
 
 gulp.task('minify:css', function () {
 
-    return gulp.src('./_site/assets/css/custom.css')
+    return gulp.src('./_site/assets/css/*.css')
         .pipe(minifyCss())
         .pipe(gulp.dest('./_site/assets/css/'));
 });
@@ -52,6 +61,7 @@ gulp.task('deploy:prod', function () {
 });
 
 gulp.task('setenv:production', function() {
+    environment = 'production';
     env({
         vars: {
             "JEKYLL_ENV": "production"
@@ -59,12 +69,31 @@ gulp.task('setenv:production', function() {
     });
 });
 
+/**
+ * Should be run after build and before minification
+ */
+gulp.task('revision', function() {
+    return gulp.src(['./assets/**/*.{css,js}'])
+        .pipe(rev())
+        .pipe(gulp.dest('./_site/assets/'))
+        .pipe(rev.manifest({ path: 'manifest.json'}))
+        .pipe(gulp.dest('./_site/assets/'));
+});
+/**
+ * Should be run after minification
+ */
+gulp.task('revision:collect', function() {
+    return gulp.src(['./_site/assets/manifest.json', './_site/**/*.html'])
+        .pipe(revCollector())
+        .pipe(gulp.dest('./_site'));
+});
+
 gulp.task('default', function (callback) {
-    runSequence('build:jekyll', ['minify:html', 'minify:css'], 'deploy:dev', callback);
+    runSequence('build:jekyll', 'revision', ['minify:html', 'minify:css'], 'revision:collect', 'deploy:dev', callback);
     //@TODO: delete _site folder
 });
 
 gulp.task('release', function (callback) {
-    runSequence('setenv:production', 'build:jekyll', ['minify:html', 'minify:css'], 'deploy:prod', callback);
+    runSequence('setenv:production', 'build:jekyll', 'revision', ['minify:html', 'minify:css'], 'revision:collect', 'deploy:prod', callback);
     //@TODO: delete _site folder
 });
