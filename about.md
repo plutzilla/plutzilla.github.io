@@ -4,8 +4,7 @@ title: About
 permalink: /about/
 ---
 
-
-![Paulius Leščinskas][profile-photo]
+<img src="http://www.gravatar.com/avatar/fda0d2e32e4327bf0698141fb8d98a66?s=256" alt="Paulius Leščinskas" class="img-thumbnail" />
 
 ### Hello!
 
