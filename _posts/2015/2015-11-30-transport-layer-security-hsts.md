@@ -1,7 +1,6 @@
 ---
 layout: post
 title: Transport layer security - HSTS
-published: false
 ---
 
 Transport layer security (TLS) is a protocol to encrypt data being sent over the network. Despite some flaws of the protocol itself ([POODLE], [Heartbleed]), it ensures that data sent through the network is not being read or intercepted (changed) by third parties. It should also ensure the privacy of the user, but since it is known that NSA and other intelligence agencies can decrypt and eavesdrop the data, we should not rely on it that much. However, it is still very beneficial to protect the user data against malicious 3rd party activities.
