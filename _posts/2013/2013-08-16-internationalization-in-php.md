@@ -12,7 +12,7 @@ tags:
 
 > This page was initially [written in Lithuanian](http://old.lescinskas.lt/daugiakalbiskumas-php). The examples contain Lithuanian phrases.
 
-One of the most actual problems that application developers have to solve is adopting application to different languages (internationalication, i18n) and multi-cultural preferences, i.e. number, date formats etc. (localication, l10n).
+One of the most actual problems that application developers have to solve is adapting application to different languages (internationalization, i18n) and multi-cultural preferences, i.e. number, date formats etc. (localication, l10n).
 
 For example:
 
@@ -20,7 +20,7 @@ For example:
  - plural forms, i.e.: English has 2 plural forms (one apple, many apples) whereas Lithuanian has three (vienas obuolys, du obuoliai, daug obuolių);
  - dates, i.e. European: 2013-08-16; USA: 8/16/13
  - currency, i.e.: 10 Lt, $10
- - length (meters, feet), weight (kilogrammes, pounds), capacity (liters, gallons) and other standarts (metric/imperial);
+ - length (meters, feet), weight (kilograms, pounds), capacity (liters, gallons) and other standarts (metric/imperial);
  - text writing from left to write (LTR), right-to-left (RTL);
  - etc.
 

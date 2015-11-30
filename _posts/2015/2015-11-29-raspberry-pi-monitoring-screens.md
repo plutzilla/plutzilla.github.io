@@ -168,7 +168,7 @@ rm -rf ~/.chromium_temp_dir
 chromium-browser --kiosk --incognito --disable-translate --user-data-dir=.chromium_temp_dir http://example.com
 {% endhighlight %}
 
-It uses the custom user directory in order to prevent unclean shutdown errors. `--incognito` flag should be enough, but if the user profile directory gets corrupted, this is the easiest ways to bypass any errors.
+It uses the custom user directory in order to prevent unclean shutdown errors. `--incognito` flag should be enough, but if the user profile directory gets corrupted, this is the easiest way to bypass any errors.
 
 `--kiosk` will run browser in "Kiosk" (full-screen with some other restrictions) mode.
 
