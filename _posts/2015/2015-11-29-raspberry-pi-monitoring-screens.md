@@ -127,7 +127,7 @@ We will be using the following applications:
  - `unclutter` to hide the mouse cursor
  - `xscreensaver` to disable screen from sleeping
 
-We can install then from repository using the following commands:
+We can install them from repository using the following commands:
 
 {% highlight text %}
 paulius@pcpaulesl1:~$ sudo apt-get install chromium-browser unclutter xscreensaver
