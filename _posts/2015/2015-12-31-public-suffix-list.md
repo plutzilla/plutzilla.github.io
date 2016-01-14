@@ -16,6 +16,8 @@ In regular scenario, when whole 2nd level domain is controlled by the same owner
 
 The same situation might happen not only with TLDs, but with hosting providers as well. Especially with those who allow their customers to use a 3rd level domain (i.e. `example.herokuapp.com`).
 
+The similar issues might occur with wildcard SSL certificates, i.e. issuing wildcard certificate for the whole public suffix. Validating/invalidating an SSL certificate of the whole public suffix seems to be also under consideration ([RFC6125 section 7.2](http://tools.ietf.org/html/rfc6125#section-7.2)).
+
 Since there is no easy way to distinguish which part of the particular domain is a publix suffix (especially, considering 4th level domain scenarios), the publix suffix list has been created: [publicsuffix.org](https://publicsuffix.org). It is maintained by [Mozilla foundation](http://www.mozilla.org/) and is used by the most common web browsers. According to the [learn page](https://publicsuffix.org/learn/) at publixsuffix.org these are the main use cases of the list for the browsers: 
 
 ### Firefox
@@ -44,6 +46,8 @@ Since there is no easy way to distinguish which part of the particular domain is
  * Domain highlighting in the URL bar
  * Zone determination
  * ActiveX opt-in list security restriction
+
+More generic list of use cases can be found at [Mozilla.org](https://wiki.mozilla.org/Public_Suffix_List/Use_Cases).
 
 The use of this list is also suggested in [RFC6265](https://tools.ietf.org/html/rfc6265#section-5.3), saying that "If feasible, user agents SHOULD use an up-to-date public suffix list".
 
