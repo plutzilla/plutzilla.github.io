@@ -3,15 +3,19 @@ layout: post
 title: Mixing charsets
 ---
 
-Recently I've had a weird situation
+Recently I've had a weird situation when trying to login to VMI (Lithuanian tax inspection) website via SEB bank system (banking systems are commonly used for authenticating users in Lithuania. They act as single-sign-on solutions where user identification is required). After authentication and redirection to the VMI website I received an error message of failed login. I was using Chrome web browser.
 
+Although I contacted them, I've received a polite response with a "go fix yourself" message. Therefore I tried to investigate what's going on with the workflow. What motivated me even more is that I was able to login using other browsers (Chrome on Android, Firefox).
 
+> tl;dr; I have found out that the issue is due to lack of HTTP response header providing the information of the character set. Always make sure your backend application returns `Content-type` header with appropriate character set.
 
+## Investigation
 
+I used [Burp](https://portswigger.net/burp/) to track the HTTP workflow and later to intercept the requests to validate my assumptions.
 
-### Chrome
+You can see the workflow from the requests and responses below.
 
-https://ebankas.seb.lt/cgi-bin/vbint.sh/web.p response
+`https://ebankas.seb.lt/cgi-bin/vbint.sh/web.p` response
 {% highlight html %}
 HTTP/1.1 200 OK
 Date: Fri, 15 Jan 2016 07:34:44 GMT
@@ -28,7 +32,7 @@ Content-Length: 805
 <html><body onload="window.document.vorm.submit();">  <form name="vorm" method="POST" action="https://deklaravimas.vmi.lt/InternetAuth.aspx">    <input type="hidden" name="SRC" value="70440">    <input type="hidden" name="TIME" value="2016.01.15 09:34:44">    <input type="hidden" name="PERSON_CODE" value="**HIDDEN**">    <input type="hidden" name="PERSON_FNAME" value="Leðèinskas"/>    <input type="hidden" name="PERSON_LNAME" value="Paulius"/>    <input type="hidden" name="SIGNATURE" value="TNwHpH3QNTbdYj2TKsejQKgyu26LIQhR5NKQoV5OtnWSQ1vNXYbE3rx+/3g0QygxXrUJ10ErwRfgPCmUQb+iUfjd/yhLoAN9S0wftPuk4KNdTGMRG6y0wvB4vnaIuESXvzNDIBkoeytJCentuvt1+yijfF+JKwxgvYoXHYXOjHA=">    <input type="hidden" name="TYPE" value="BANK-01">  </form></body></html>
 {% endhighlight %}
 
-https://deklaravimas.vmi.lt/InternetAuth.aspx response
+`https://deklaravimas.vmi.lt/InternetAuth.aspx` response
 {% highlight html %}
 HTTP/1.0 200 OK
 Server: BigIP
@@ -42,7 +46,8 @@ As the response does not have a defined character encoding (neither in HTTP resp
 
 Since the surname characters `š` and `č` from the form field (PERSON_NAME) are not recognized as the proper UTF-8 characters, they are replaced by Unicode [replacement character](http://www.fileformat.info/info/unicode/char/0fffd/index.htm) (`U+FFFD`). When these characters are encoded back to the UTF-8, their representation becomes: `0xEF 0xBF 0xBD`.
 
-Request to https://www.vmi.lt/sso/internetauth
+Request to `https://www.vmi.lt/sso/internetauth`
+
 {% highlight yaml %}
 POST /sso/internetauth HTTP/1.1
 Host: www.vmi.lt

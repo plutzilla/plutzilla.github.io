@@ -24,6 +24,11 @@ gulp.task('build:jekyll', function (gulpCallBack) {
     });
 });
 
+gulp.task('serve', function() {
+    var spawn = require('child_process').spawn;
+    spawn('jekyll', ['serve', '--drafts', '--watch'], { stdio: 'inherit' });
+});
+
 gulp.task('minify:html', function () {
     var opts = {
         conditionals: true,
