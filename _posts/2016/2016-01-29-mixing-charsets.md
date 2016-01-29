@@ -32,6 +32,10 @@ Content-Length: 805
 <html><body onload="window.document.vorm.submit();">  <form name="vorm" method="POST" action="https://deklaravimas.vmi.lt/InternetAuth.aspx">    <input type="hidden" name="SRC" value="70440">    <input type="hidden" name="TIME" value="2016.01.15 09:34:44">    <input type="hidden" name="PERSON_CODE" value="**HIDDEN**">    <input type="hidden" name="PERSON_FNAME" value="Leðèinskas"/>    <input type="hidden" name="PERSON_LNAME" value="Paulius"/>    <input type="hidden" name="SIGNATURE" value="TNwHpH3QNTbdYj2TKsejQKgyu26LIQhR5NKQoV5OtnWSQ1vNXYbE3rx+/3g0QygxXrUJ10ErwRfgPCmUQb+iUfjd/yhLoAN9S0wftPuk4KNdTGMRG6y0wvB4vnaIuESXvzNDIBkoeytJCentuvt1+yijfF+JKwxgvYoXHYXOjHA=">    <input type="hidden" name="TYPE" value="BANK-01">  </form></body></html>
 {% endhighlight %}
 
+You can see that for some (legacy?) reasons the response from SEB is encoded using `windows-1257` charset.
+
+The further data flow in VMI system is encoded using `UTF-8`.
+
 `https://deklaravimas.vmi.lt/InternetAuth.aspx` response
 {% highlight html %}
 HTTP/1.0 200 OK
@@ -105,7 +109,9 @@ As it works with other browsers (Firefox, Chrome on Android), it just confirms t
 
 ## Conclusion
 
-Well, not much to summarize here - ALWAYS ensure that your web application includes the charset in the HTTP response headers. Especially if you don't use Unicode.
+Well, not much to summarize here - ALWAYS ensure that your web application includes the charset in the HTTP response headers, especially if you don't use Unicode.
+
+If possible, always use UTF-8, which is the *de-facto* standard for data communication in the web. Otherwise you **will** have problems more or less - storing data in the DB, converting data to one or another charset, validating and sanitizing data etc.
 
 ## Other insights
 
