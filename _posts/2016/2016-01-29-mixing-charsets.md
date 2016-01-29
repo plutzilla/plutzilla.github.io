@@ -3,7 +3,7 @@ layout: post
 title: Mixing charsets
 ---
 
-Recently I've had a weird situation when trying to login to VMI (Lithuanian tax inspection) website via SEB bank system (banking systems are commonly used for authenticating users in Lithuania. They act as single-sign-on solutions where user identification is required). After authentication and redirection to the VMI website I received an error message of failed login. I was using Chrome web browser.
+Recently I've had a weird situation when trying to login to [VMI](http://www.vmi.lt) (Lithuanian tax inspection) website via [SEB](https://e.seb.lt) bank system (banking systems are commonly used for authenticating users in Lithuania. They act as single-sign-on solutions where user identification is required). After authentication and redirection to the VMI website I received an error message of failed login. I was using Chrome web browser.
 
 Although I contacted them, I've received a polite response with a "go fix yourself" message. Therefore I tried to investigate what's going on with the workflow. What motivated me even more is that I was able to login using other browsers (Chrome on Android, Firefox).
 
@@ -69,13 +69,13 @@ SRC=70440&TIME=2016.01.15+09%3A34%3A44&PERSON_CODE=**HIDDEN**&PERSON_FNAME=Le%EF
 
 You can see that `0xEF 0xBF 0xBD` (URL-encoded value: `%EF%BF%BD`) is posted as the HTML form value. As it differs from the original value, the signature, obviously, becomes wrong and further workflow is rejected.
 
-#### How to make it work
+## How to make it work
 
 Browser must treat the character set of response from https://deklaravimas.vmi.lt/InternetAuth.aspx respectively to make a proper request to further to https://www.vmi.lt/sso/internetauth.
 
 There are 2 ways to make it work - either configure the user agent (browser) or provide the information about the charset in HTTP response headers.
 
-##### Client setup
+### Client setup
 
 Setting the default charset to **windows-1257** solves the issue on the clien side:
 
@@ -83,7 +83,7 @@ Setting the default charset to **windows-1257** solves the issue on the clien si
 
 However it just fixes the consequence, but **NOT** the cause, therefore it is just a hack, but not a solution.
 
-##### Server setup
+### Server setup
 
 I have used Burp to intercept and modify the traffic to validate my assumptions.
 
@@ -101,12 +101,7 @@ Content-Length: 796
 
 Since this solution is client-agnostic and can be controlled by the asset (system) owner, this is the proper solution.
 
-### Firefox
-
-Under firefox everything works fine, however it is a bit weird for me, as Firefox is configured to use system locale, which is not Baltic:
-![Firefox charset settings]({{ "/assets/img/posts/2016/firefox-fonts.png" | prepend:site.baseurl }})
-
-This also validates the assumption, that relying on the user agent is a bad practice.
+As it works with other browsers (Firefox, Chrome on Android), it just confirms that relying on user agent (browser) is a bad practice.
 
 ## Conclusion
 
