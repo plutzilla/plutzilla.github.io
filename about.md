@@ -15,7 +15,7 @@ I work as the security pod owner at [Adform][adform-link].
 Previously I was working at [Tipro][tipro-link] as CTO, [Epasas.lt][epasas-link], [Klase.lt][klase-link], [Interprekyba][interprekyba-link] as developer,
 also as an IT engineer at [KPVM][kpvm-link] and lecturer at [KTU JKM][jkm-link].
 
-I have studied at [JJG][jjg-link], [VIKO][viko-link], [KTU][ktu-link] and [UCN][noea-link].
+I have studied at [JJG][jjg-link], [VIKO][viko-link], [KTU][ktu-link], [UCN][noea-link] and had the trainings and workshops with [Alistair Cockburn], [Esther Derby], [Lasse Ziegler], [Niels Pflaeging], [Bob Marshall], [James Bach] and other great people.
 
 I am interested in [Application security][owasp-link], [Agile methodologies][agile-link], [OpenID][openid-link], [OAuth][oauth-link], [Ubuntu Linux][ubuntu-link].
 
@@ -50,6 +50,13 @@ You can find the source of this site on Github: [https://github.com/plutzilla/le
 [epasas-link]: http://www.epasas.lt
 [tipro-link]: http://www.tipro.lt
 [adform-link]: http://www.adform.com
+
+[Alistair Cockburn]: http://alistair.cockburn.us/
+[Esther Derby]: http://www.estherderby.com/
+[Lasse Ziegler]: http://www.lasseziegler.com/
+[Niels Pflaeging]: http://www.nielspflaeging.com/
+[Bob Marshall]: https://flowchainsensei.wordpress.com/
+[James Bach]: http://www.satisfice.com/blog/
 
 [ubuntu-link]: http://www.ubuntu.com
 [owasp-link]: http://www.owasp.org
