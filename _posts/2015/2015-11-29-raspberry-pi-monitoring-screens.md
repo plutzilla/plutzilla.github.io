@@ -157,6 +157,8 @@ mode: off
 
 ### Configuring chromium
 
+ > 2016-03-23 note: the latest version of Chromium in the repository is 22. For some web applications (i.e. Kibana 4) this version is too old. Consider using other up-to-date web browser (i.e. Firefox).
+
 #### Running chromium
 
 `Chromium` is run by executing the `~/run_chromium.sh` script. The only thing that needs to be changed is the URL that has to be opened.
