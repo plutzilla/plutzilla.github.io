@@ -21,7 +21,7 @@ However I wanted to try the format and activities suggested in the [Agile Retros
 
 ### Review what we have done during last months
 
-Big projects, or product epics that last for multiple months are tend to be forgotten. Especially smaller parts of it. Therefore I wanted my team to remember and review the things we have done during last half-year. This can be the foundation of the further discussion and can also help the team understand its capacity and velocity better.
+The details of the big projects, or product epics that last for multiple months are tend to be forgotten. Especially, smaller details. Therefore I wanted my team to remember and review the things we have done during last half-year. This can be the foundation of the further discussion and can also help the team understand its capacity and velocity better.
 
 ### Celebrate the completion of an epic
 
@@ -34,14 +34,18 @@ Definitely, generating insights and agreeing on the particular actions are the m
 
 ## Retro plan
 
+I have followed the most well known pattern for having retrospectives - five stages: "set the stage", "gather the data", "generate insights", "decide what to do", "close the retro". The initial thoughts were taken using [Retromat] tool, but then adjusted accordingly.
+
 ### Set the stage
 
-During this stage I asked every team member to tell his expectations for this retrospective and I stated why in my opinion we need this event.
+During this stage I asked every team member to tell his expectations for this retrospective and I stated why in my opinion we need this event. I've also presented my goals of the current retrospective.
 
 ### Gather the data
 
 As one of my goals was to review what's been done during past half year, I asked my teammates to draw a timeline and define what was done during particular time.
+
 It was fun to compare the results with the real facts.
+
 Also it was a good start for the further discussions which led to generating insights and declaring actions.
 
 ### Generate insights
@@ -49,6 +53,7 @@ Also it was a good start for the further discussions which led to generating ins
 After gathering the data the team has already had numerous topics to discuss on what we did well and what we should have done better. The retrospective plan then shifted to the team-driven, but as long as it was meeting the goals and expectations, it was ok.
 
 If the self-organization wouldn't have happened, I had planned the following actions: since it was clear previously, that the project took too much time than it was planned, I would have asked the team to make an ideal plan (user stories) of such project and compare it to how we were working.
+
 In addition, to see where we had failed I wanted to map our effort to [Agile Manifesto] to see where we had lost the agility.
 
 We however have defined our findings of this project naturally - you will find them below.
@@ -63,11 +68,11 @@ As the closing part of retro I asked the team to review whether their expectatio
 
 ## Findings
 
-Here are our findings and advises of running a big cross-team projects. It is definitely not a complete list, but the one based on our experience.
+Here are our findings and advises of running a cross-team project. It is definitely not a complete list, but the one based on our experience and observations during the retrospective.
 
 ### Cross-team dependencies should be clear and transparent
 
-When working in an Agile environment, we like to use the "decide as late as possible" paradigm. However it is quite hard to see when this "late" becomes "too late". This especially happens when you are working on a cross-team projects. Understanding what each stakeholder has to do and how they are dependent is crucial before starting the project. Otherwise it might explode the scope, affect the estimates and plan or even fail the whole project.
+When working in an Agile environment, the "decide as late as possible" paradigm is likely to be used. However it is quite hard to see when this "late" becomes "too late". This especially happens when working on a cross-team projects. Understanding what each stakeholder has to do and how they are dependent is crucial before starting the project. Otherwise it might explode the scope, affect the estimates and plan or even fail the whole project.
 
 ### Everything should be written down
 
@@ -75,29 +80,33 @@ People are tend to forget things, stakeholders are tend to change, so it is very
 
 ### Such project must have project manager and followed all management activities (planning, stakeholder management etc.)
 
-It's pretty obvious, but sometimes we might think that everyone understands everything and everyone knows what to do. For the very trivial tasks it might work out, but for more complex projects essential project management activities are needed, as Dwight Eisenhower [said][[Eisenhower-wikiquote]: "plans are useless, but planning is indispensable".
+It's pretty obvious, but sometimes it might seem that everyone understands everything and everyone knows what to do. For the very trivial tasks it might work out, but for more complex projects essential project management activities are needed, as Dwight Eisenhower [said][Eisenhower-wikiquote]: "plans are useless, but planning is indispensable".
 
 ### There must be an integration plan
 
-Well, plans might not be that useless. It's just important to respond to change and adjust the plans accordingly, keeping the agility.
+Well, plans might not be that useless after all. It's just important to respond to change and adjust the plans accordingly, keeping the agility.
+
+Planning - means thinking up-front, and thinking of the integration reduces the possibility of failure.
 
 ### Backlog refinement (grooming) activities should include old stories
 
-If you are working according Scrum, Backlog Grooming (refinement) is the ceremony for handling changes and adjusting plans. Teams should review the planned tasks (or user stories) and adjust them according to the changes in the environment. The output of this ceremony in most cases is estimated user stories in the backlog, which is then prioritized by the Product Owner.
+When working according Scrum, Backlog Grooming (refinement) is the ceremony for handling changes and adjusting plans. Teams should review the planned tasks (or user stories) and adjust them according to the changes in the environment. The output of this ceremony in most cases is estimated user stories in the backlog, which is afterwards prioritized by the Product Owner.
+
 However, there are cases when this activity is misused and treated only as the estimation session for the unestimated stories. Some even have the story status "Groomed", which naturally leads to sticking to the plan, which violates the fourth statement of [Agile Manifesto].
-This once again reminds us to understand and apply the manifesto in order to be truly agile.
+
+This once again reminds to understand and apply the manifesto in order to be truly agile.
 
 ### Iterative approach should be followed, trade-offs should be made
 
-It's the very common scenario when the client needs EVERYTHING and ASAP. It's up to the Product Owner to make the decisions, but in order to be Agile, delivering the product in small working chunks of the product, collecting feedback and adjusting the product is a must. It often requires trade-offs to be made and close collaboration with the clients and other customers. Declaring that "we need to deliver everyhing at once" means we are failing being truly agile.
+It is a very common scenario when the client needs EVERYTHING and ASAP. It's up to the Product Owner to make the decisions, but in order to be Agile, delivering the product in small working chunks of the product, collecting feedback and adjusting the product is a must. It often requires trade-offs to be made and close collaboration with the clients and other stakeholders. Declaring that "it is needed to deliver everything at once" means there is a possibility of failing being truly agile.
 
 ### There should be a plan how to collect feedback
 
-One of the reasons why we fail delivering small increments is that we might not know how to properly collect the feedback from the clients. In such cases hoping to deliver everything at the same time and make the customer satisfied is very risky, because there's the same or even bigger chance of upset the customer as well. In such case you'd have to remake much bigger part of the product, spend more time, and end up creating much more waste.
+One of the reasons to fail delivering small increments is that it might not be known how to properly collect the feedback from the clients. In such cases hoping to deliver everything at the same time and make the customer satisfied is very risky, because there's the same or even bigger chance to upset the customer as well. In such case you'd have to remake much bigger part of the product, spend more time, and end up creating much more waste.
 
 ## Epilogue
 
-Retrospectives are the great way to improve how you work. As we tend to plan small iterations (sprints), and the bigger ones (product vision and roadmap), it's also useful to have retrospectives of both scales - small ones (sprint retro), and bigger ones (epic retro, half-year retro or whatever) - they will give you different results and you'll find different ways to improve.
+Retrospectives are the great way to improve how you work. As we tend to plan small iterations (sprints), and the bigger ones (product vision and roadmap), it's also useful to have retrospectives of both scales - small ones (sprint retro), and bigger ones (epic retro, half-year retro etc.) - they will give you different results and you'll find different ways to improve.
 
 [Retromat]: http://plans-for-retrospectives.com/
 [Agile Retrospectives]: https://pragprog.com/book/dlret/agile-retrospectives
