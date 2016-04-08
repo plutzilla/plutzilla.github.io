@@ -7,7 +7,7 @@ title: Retrospective in the sky
 
 Yup, that's literally what it sounds like. Retro 326m above the ground in [Vilnius TV tower].
 
-Me and my team have been working on a cross-team project for a quite long period of time (half year). Although the whole project is not finished yet, we have completed one big epic, and decided to celebrate it and also have a reflective session (retrospective) what's been done, what we succeeded and what not.
+Me and my team have been working on a cross-team project for a quite long period of time (half year). Although the whole project is not finished yet, we have completed one big epic, and decided to celebrate it and also have a reflective session (retrospective) what's been done, what we succeeded and what not. In project management such activity is often called *project post-mortem*.
 
 ## Retro goals
 
