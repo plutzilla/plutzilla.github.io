@@ -51,7 +51,7 @@ More generic list of use cases can be found at [Mozilla.org](https://wiki.mozill
 
 The use of this list is also suggested in [RFC6265](https://tools.ietf.org/html/rfc6265#section-5.3), saying that "If feasible, user agents SHOULD use an up-to-date public suffix list".
 
-As modern browsers are dependent on such single sources of truth (like this list, or [HSTS]({%post_url 2015/2015-12-01-transport-layer-security-hsts %}) preload list) it becomes more clear why browser updates are such frequent, and it leverages the importance of using up-to-date browsers to ensure the proper workflow and security of the web.
+As modern browsers are dependent on such single sources of truth (like this list, or [HSTS]({%post_url 2015-12-01-transport-layer-security-hsts %}) preload list) it becomes more clear why browser updates are such frequent, and it leverages the importance of using up-to-date browsers to ensure the proper workflow and security of the web.
 
 ## Links
 

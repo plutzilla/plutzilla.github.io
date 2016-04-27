@@ -115,4 +115,4 @@ If possible, always use UTF-8, which is the *de-facto* standard for data communi
 
 ## Other insights
 
-Neither SEB bank website, nor VMI website, who operate PII (personally identifyable information) do not ensure strict transport security (via [HSTS]({%post_url 2015/2015-12-01-transport-layer-security-hsts %}), CSP and HPKP). Therefore it *might* be possible to spoof the certificates and intercept network traffic to these systems, storing sensitive information.
+Neither SEB bank website, nor VMI website, who operate PII (personally identifyable information) do not ensure strict transport security (via [HSTS]({%post_url 2015-12-01-transport-layer-security-hsts %}), CSP and HPKP). Therefore it *might* be possible to spoof the certificates and intercept network traffic to these systems, storing sensitive information.
