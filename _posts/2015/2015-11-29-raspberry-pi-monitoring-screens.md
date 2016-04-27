@@ -123,14 +123,14 @@ sudo apt-get upgrade
 
 The following applications will be used:
 
- - `chromium` web browser
+ - `chromium` or `iceweasel` web browser
  - `unclutter` to hide the mouse cursor
  - `xscreensaver` to disable a screen from sleeping
 
 It is possible to install them from a repository using the following commands:
 
 {% highlight text %}
-$ sudo apt-get install chromium-browser unclutter xscreensaver
+$ sudo apt-get install chromium-browser iceweasel unclutter xscreensaver
 {% endhighlight %}
 
 ### Configuring unclutter
@@ -204,6 +204,19 @@ Terminal=false
 StartupNotify=false
 {% endhighlight %}
 
+### Iceweasel - an alternative to Chromium
+
+As stated previously, Chromium build is very old in the repository. To use Kibana4 and other modern web applications, the recent web browser is needed.
+
+The good alternative can be the Firefox fork **Iceweasel**.
+
+The configuration is identical to the one described in the previous section, despite the content of `run_chromium.sh` should be the following
+
+{% highlight bash %}
+iceweasel "http://www.example.com" --display=:0 &
+sleep 15s;
+xte "key F11" -x:0
+{% endhighlight %}
 
 ## Cloning SD card
 
