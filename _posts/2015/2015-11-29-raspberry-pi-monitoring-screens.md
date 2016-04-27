@@ -213,6 +213,8 @@ The good alternative can be the Firefox fork **Iceweasel**.
 The configuration is identical to the one described in the previous section, despite the content of `run_chromium.sh` should be the following
 
 {% highlight bash %}
+#!/bin/bash
+
 iceweasel "http://www.example.com" --display=:0 &
 sleep 15s;
 xte "key F11" -x:0
