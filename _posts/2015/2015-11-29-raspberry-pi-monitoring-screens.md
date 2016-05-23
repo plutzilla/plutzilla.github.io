@@ -32,7 +32,9 @@ However it needs to be configured properly in order to satisfy the following nee
  - 8GB microSD card (preferably with microSD -> SD adapter)
  - (preferably) RaspberryPi case
  - DC charger with 5V output of **2 Amperes** and with microUSB jack (very common nowadays, as it is used for charging smartphones and tablets).
- - USB keyboard for configuration. A mouse is not necessary 
+ - USB keyboard for configuration. A mouse is not necessary
+
+ > Be aware that NOT all the SD cards are compatible with RaspberryPi. Refer to the [compatibility list](http://elinux.org/RPi_SD_cards) for the list of compatible/incompatible SD cards.
 
 <img src="{{ '/assets/img/posts/2015/raspberry-pi-black.jpg' | prepend:site.baseurl }}" alt="RaspberryPi" class="img-responsive img-rounded" />
 
