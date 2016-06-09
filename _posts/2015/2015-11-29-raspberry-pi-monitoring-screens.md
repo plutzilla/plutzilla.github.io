@@ -120,6 +120,11 @@ The password can be changed with `passwd` command.
 
 Also I recommend to use SSH keys when connecting to RaspberryPI via SSH.
 
+### Changing time zone
+
+By default RaspberryPI should operate in UTC time. It can be useful to set the timezone according to specific location.
+It can be done using command `dpkg-reconfigure tzdata`.
+
 ### Updating system
 
 Run the following commands to update the system:
