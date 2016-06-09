@@ -112,6 +112,14 @@ The default user is `pi`, the password is `raspberry`.
 
 The one thing that needs to be known is the IP address to connect to. This information can be obtained using `ifconfig` command (run from RaspberyPi command line).
 
+### Changing password
+
+Due to security reasons it is wise not to use the default password for RaspberryPI, as it is a normal computer inside your network.
+
+The password can be changed with `passwd` command.
+
+Also I recommend to use SSH keys when connecting to RaspberryPI via SSH.
+
 ### Updating system
 
 Run the following commands to update the system:
@@ -128,11 +136,12 @@ The following applications will be used:
  - `chromium` or `iceweasel` web browser
  - `unclutter` to hide the mouse cursor
  - `xscreensaver` to disable a screen from sleeping
+ - `xautomation` - to send commands to X system via `xte` command (to make iceweasel run in fullscreen mode).
 
 It is possible to install them from a repository using the following commands:
 
 {% highlight text %}
-$ sudo apt-get install chromium-browser iceweasel unclutter xscreensaver
+$ sudo apt-get install chromium-browser iceweasel unclutter xscreensaver xautomation
 {% endhighlight %}
 
 ### Configuring unclutter
