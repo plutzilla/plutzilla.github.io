@@ -94,7 +94,7 @@ Although (very weird) not many CISOs (according OWASP CISO Survey 2013) think of
 
 ![S-SDLC]({{ "/assets/img/posts/2016/sdlc.png"|prepend:site.baseurl }})
 
-S-SDLC should not be implemented "step-by-step" - it should be risk-driven according the specifics of the company.
+S-SDLC should not be implemented literally according the papers - it should be risk-driven according the specifics of the company.
 The roll-out should be phased and there should be sufficient measures to track the progress.
 
 There are several great secure development lifecycle implementations. Lessons learned by Tobias Gondrom:
