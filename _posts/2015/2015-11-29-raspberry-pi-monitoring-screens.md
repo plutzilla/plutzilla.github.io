@@ -183,7 +183,7 @@ Create `~/run_chromium.sh` with content:
 {% highlight bash %}
 #!/bin/bash
 rm -rf ~/.chromium_temp_dir
-chromium-browser --kiosk --incognito --disable-translate --user-data-dir=.chromium_temp_dir http://example.com
+DISPLAY=:0 chromium-browser --kiosk --incognito --disable-translate --user-data-dir=.chromium_temp_dir http://example.com
 {% endhighlight %}
 
 It uses the custom user directory in order to prevent unclean shutdown errors. The `--incognito` flag should be enough, but if the user profile directory gets corrupted, this is the easiest way to bypass any errors.
@@ -202,8 +202,8 @@ Create `~/restart_chromium.sh` with content:
 {% highlight bash %}
 #/bin/sh
 
-killall chromium
-DISPLAY=:0 ~/run_chromium.sh > /dev/null 2>&1 &
+killall chromium-browser
+~/run_chromium.sh > /dev/null 2>&1 &
 {% endhighlight %}
 
 #### Making chromium auto-run
