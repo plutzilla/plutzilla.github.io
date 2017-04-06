@@ -208,6 +208,8 @@ killall chromium-browser
 
 #### Making chromium auto-run
 
+Shell scripts should be runnable. This can be done by running command `chmod 0755 ~/run_chromium.sh ~/restart_chromium.sh`.
+
 Create `~/.config/autostart/chromium.desktop` with the content:
 
 {% highlight ini %}
@@ -219,6 +221,8 @@ Exec=~/run_chromium.sh
 Terminal=false
 StartupNotify=false
 {% endhighlight %}
+
+> Note: if Chromium does not start from Desktop file, add text `@/home/pi/run_chromium.sh` to `~/.config/lxsession/LXDE-pi/autostart` file.
 
 ### Iceweasel - an alternative to Chromium
 
