@@ -18,7 +18,9 @@ This extension shows Ubuntu AppIndicators and Gnome tray items in the top panel,
 
 ![App indicators](/assets/img/posts/2018/appindicators.png)
 
-For non-ubuntu users the same extension can be installed from [(K)StatusNotifierItem/AppIndicator Support ](https://extensions.gnome.org/extension/615/appindicator-support/).
+For non-ubuntu users the same extension can be installed from [(K)StatusNotifierItem/AppIndicator Support](https://extensions.gnome.org/extension/615/appindicator-support/).
+
+The legacy tray icons can be "moved" to the top panel using the [Top Icons Plus extension](https://extensions.gnome.org/extension/1031/topicons/).
 
 
 ### Ubuntu Dock
@@ -47,7 +49,7 @@ This could be achieved using the [Clipboard indicator extension](https://extensi
 
 ### Display Button
 
-I use my computer in different locations using various external monitors and media projectors. It is not convenient to havigate through the settings each time I want to change the display layout (mirrored or joined displays).
+I use my computer in different locations using various external monitors and media projectors. It is not convenient to navigate through the settings each time I want to change the display layout (mirrored or joined displays).
 
 The [Display Button extension](https://extensions.gnome.org/extension/939/display-button/) allows accessing the Display Settings within a single click.
 
@@ -59,7 +61,9 @@ The [Hide Activities Button extension](https://extensions.gnome.org/extension/11
 
 ### No Title Bar
 
-Another great extension that optimizes the screen space is [No Title Bar](https://extensions.gnome.org/extension/1267/no-title-bar/). It is a highly customizable extension, which allows removing the unneccessary title bar for maximized applications, replace the application name with the window name etc. While standard Gnome apps look good, as they don't have separate title bar, which is not the case in other applications.
+Another great extension that optimizes the screen space is [No Title Bar](https://extensions.gnome.org/extension/1267/no-title-bar/). It is a highly customizable extension, which allows removing the unneccessary title bar for maximized applications, replacing the application name with the window name etc.
+
+While standard Gnome apps look good in any case, as they don't have separate title bar, this is not the case in other applications.
 
 So, instead of
 
@@ -71,7 +75,7 @@ this extension lets you see
 
 ### OpenWeather
 
-Apparently, one of the most popular Gnome extension is [OpenWeather extention](https://extensions.gnome.org/extension/750/openweather/):
+Apparently, one of the most popular Gnome extension is [OpenWeather extension](https://extensions.gnome.org/extension/750/openweather/):
 
 ![After No Title Bar](/assets/img/posts/2018/openweather.png)
 
@@ -84,7 +88,7 @@ The [Removable Drive Menu](https://extensions.gnome.org/extension/7/removable-dr
 
 ### Sound Input & Output Device Chooser
 
-[Sound Input & Output Device Chooser extention](https://extensions.gnome.org/extension/906/sound-output-device-chooser/) is one of the most useful extensions, which allows to switch the sound input and output devices and their profiles:
+[Sound Input & Output Device Chooser extension](https://extensions.gnome.org/extension/906/sound-output-device-chooser/) is one of the most useful extensions, which allows to switch the sound input and output devices and their profiles:
 
 ![Sound Input & Output Device Chooser](/assets/img/posts/2018/sound-input-output.png)
 
@@ -128,15 +132,13 @@ $ sudo apt install gnome-tweak-tool
 
 Back in 2010 when window controls (close, minimize, maximize) were moved to left, it seemed strange for me at first. However the reason behind this move is pretty clear - as most important information (i.e. text in the document) and controls (i.e. menu items) are displayed in the top left side, placing window controls in the left side reduces the shift on the visual focus.
 
-Although the default window controls are now placed on the right side, I don't treat this as a right decision. Good at least, this can be changed quite easily:
+Although the default window controls are now placed on the right side, I don't treat this as a right decision. Good at least, this can be changed quite easily using the aforementioned `Tweaks` application:
 
 ![Window controls](/assets/img/posts/2018/window-controls.png)
 
 ### Top menu tweaks
 
-Activity hot corner, week numbers, battery percentage
-
-I also tweak some of the top menu configuration parametes:
+I also tweak some of the top menu configuration parameters:
 
  * Enable activity hot corner
  * Display week numbers in the calendar
@@ -146,6 +148,6 @@ I also tweak some of the top menu configuration parametes:
 
 ### Touchpad tweaks
 
-Using a laptop touchpad a lot it makes sense to define how the secondary and middle clicks are treated: either by tapping with 2 or 3 fingers, or bu clicking the certain touchpad area. Clicking the certain area seems to me more error-prone therefore I use the "Fingers" option:
+Using a laptop touchpad a lot it makes sense to define how the secondary and middle clicks are treated: either by tapping with 2 or 3 fingers, or by clicking the certain touchpad area. Clicking the certain area seems to me more error-prone therefore I use the "Fingers" option:
 
 ![Touchpad tweaks](/assets/img/posts/2018/touchpad-tweaks.png)
