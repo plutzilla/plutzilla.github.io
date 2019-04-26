@@ -1,0 +1,9 @@
+version: '2'
+
+services:
+  jekyll:
+    image: plutzilla/lescinskas.lt:jekyll
+    volumes:
+      - .:/site
+    ports:
+      - '8080:4000'
