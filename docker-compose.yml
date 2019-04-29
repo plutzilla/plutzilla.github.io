@@ -2,6 +2,9 @@ version: '2'
 
 services:
   jekyll:
+    build:
+      context: .
+      dockerfile: Dockerfile
     image: plutzilla/lescinskas.lt:jekyll
     volumes:
       - .:/site

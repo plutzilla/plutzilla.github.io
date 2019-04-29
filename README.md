@@ -16,7 +16,7 @@ Prerequisites: `docker-ce`, `docker-compose`.
 Building the docker image:
 ```
 $ cd /path/to/cloned/repo
-$ docker build -t plutzilla/lescinskas.lt:jekyll .
+$ docker-compose build
 ```
 
 Building the static site:
