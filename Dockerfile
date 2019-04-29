@@ -9,4 +9,6 @@ EXPOSE 4000
 
 WORKDIR /site
 
-CMD ["bundle", "exec", "jekyll", "serve", "--drafts", "--watch", "--incremental", "-H", "0.0.0.0", "-P", "4000"]
+ENTRYPOINT ["bundle", "exec", "jekyll"]
+
+CMD ["serve", "--drafts", "--watch", "--incremental", "-H", "0.0.0.0", "-P", "4000"]
