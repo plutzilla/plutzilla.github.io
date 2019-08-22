@@ -18,7 +18,7 @@ gulp.task('build:jekyll', function (gulpCallBack) {
     } else {
         throw 'Unknown environment';
     }
- 
+
     jekyll.on('exit', function (code) {
         gulpCallBack(code === 0 ? null : 'ERROR: Jekyll process exited with code: ' + code);
     });
@@ -50,8 +50,8 @@ gulp.task('minify:css', function () {
 
 gulp.task('deploy:dev', function () {
 
-    return gulp.src(['./_site/**/*'], { dot: true })
-        .pipe(gulp.dest('../lescinskas.test/'));
+    // return gulp.src(['./_site/**/*'], { dot: true })
+    //     .pipe(gulp.dest('../lescinskas.test/'));
 });
 
 gulp.task('deploy:prod', function () {
@@ -94,11 +94,11 @@ gulp.task('revision:collect', function() {
 });
 
 gulp.task('default', function (callback) {
-    runSequence('build:jekyll', 'revision', ['minify:html', 'minify:css'], 'revision:collect', 'deploy:dev', callback);
+    runSequence(/*'build:jekyll', */'revision', ['minify:html', 'minify:css'], 'revision:collect', 'deploy:dev', callback);
     //@TODO: delete _site folder
 });
 
 gulp.task('release', function (callback) {
-    runSequence('setenv:production', 'build:jekyll', 'revision', ['minify:html', 'minify:css'], 'revision:collect', 'deploy:prod', callback);
+    runSequence('setenv:production', /*'build:jekyll',*/ 'revision', ['minify:html', 'minify:css'], 'revision:collect', 'deploy:prod', callback);
     //@TODO: delete _site folder
 });

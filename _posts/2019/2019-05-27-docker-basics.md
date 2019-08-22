@@ -234,7 +234,7 @@ services:
     build: # Build section. The directives are applied when building the image
       context: .
       dockerfile: Dockerfile
-    image: plutzilla/lescinskas.lt:jekyll # The image which is used to tag the image during the build and to run the containers from
+    image: image:tag # The image which is used to tag the image during the build and to run the containers from
     volumes:
       - ".:/site" # Mounts current directory to the container
       - "dbdata:/path/to/db/files" # Reusable volume among the containers
