@@ -48,11 +48,6 @@ gulp.task('minify:css', function () {
         .pipe(gulp.dest('./_site/assets/css/'));
 });
 
-gulp.task('deploy:dev', function () {
-
-    // return gulp.src(['./_site/**/*'], { dot: true })
-    //     .pipe(gulp.dest('../lescinskas.test/'));
-});
 
 gulp.task('deploy:prod', function () {
 
@@ -94,7 +89,7 @@ gulp.task('revision:collect', function() {
 });
 
 gulp.task('default', function (callback) {
-    runSequence(/*'build:jekyll', */'revision', ['minify:html', 'minify:css'], 'revision:collect', 'deploy:dev', callback);
+    runSequence(/*'build:jekyll', */'revision', ['minify:html', 'minify:css'], 'revision:collect', callback);
     //@TODO: delete _site folder
 });
 

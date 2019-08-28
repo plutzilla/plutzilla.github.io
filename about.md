@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-<img src="http://www.gravatar.com/avatar/fda0d2e32e4327bf0698141fb8d98a66?s=256" alt="Paulius Leščinskas" class="img-thumbnail" />
+<img src="https://www.gravatar.com/avatar/fda0d2e32e4327bf0698141fb8d98a66?s=256" alt="Paulius Leščinskas" class="img-thumbnail" />
 
 ### Hello!
 
@@ -32,7 +32,7 @@ Find me on:
 <br /><br />
 
 This blog is built using [Jekyll][jekyll-link] as static site generator,
-[Bootstrap][bootstrap-link] for UI, styled by [Bootswatch "United" theme][bootswatch-link] and [Fontawesome][fontawesome-link], using [Gulp][gulp-link] as task runner for building the project.
+[Bootstrap][bootstrap-link] for UI, styled by [Bootswatch "United" theme][bootswatch-link] and [Fontawesome][fontawesome-link], built as [Docker](https://www.docker.com) images and hosted in the [Kubernetes](https://kubernetes.io) cluster.
 
 You can find the source of this site on Github: [https://github.com/plutzilla/lescinskas.lt](https://github.com/plutzilla/lescinskas.lt).
 
