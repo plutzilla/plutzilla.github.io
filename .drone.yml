@@ -1,0 +1,10 @@
+kind: pipeline
+name: default
+
+steps:
+- name: build
+  image: plutzilla/lescinskas.lt:jekyll
+  environment:
+  - JEKYLL_ENV: production
+  commands:
+    - bundle exec jekyll build
