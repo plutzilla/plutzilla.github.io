@@ -8,3 +8,6 @@ steps:
   - JEKYLL_ENV: production
   commands:
     - bundle exec jekyll build
+  when:
+    branches: master
+    event: push
