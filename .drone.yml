@@ -11,3 +11,6 @@ steps:
   when:
     branches: master
     event: push
+
+image_pull_secrets:
+- drone_config
