@@ -13,4 +13,4 @@ steps:
     event: [push]
 
 image_pull_secrets:
-- drone_config
+- docker_config
