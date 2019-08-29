@@ -81,6 +81,7 @@ TLS error: SSL_ERROR_NO_CYPHER_OVERLAP
 502 error
 
 https://medium.com/google-cloud/kubernetes-nodeport-vs-loadbalancer-vs-ingress-when-should-i-use-what-922f010849e0
+https://medium.com/@pczarkowski/kubernetes-services-exposed-86d45c994521
 
 ## Declarative configuration
 

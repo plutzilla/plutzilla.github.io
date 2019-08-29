@@ -5,12 +5,12 @@ steps:
 - name: build
   image: plutzilla/lescinskas.lt:jekyll
   environment:
-  - JEKYLL_ENV: production
+    JEKYLL_ENV: production
   commands:
     - bundle exec jekyll build
   when:
-    branches: master
-    event: push
+    branches: [master]
+    event: [push]
 
 image_pull_secrets:
 - drone_config
