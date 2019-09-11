@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   annotations:
-    kubernetes.io/change-cause: Changed About file
+    kubernetes.io/change-cause: Added anti-affinity spec
   labels:
     app: beta-lescinskas-lt-deploy
   name: beta-lescinskas-lt-deploy
@@ -27,3 +27,13 @@ spec:
         imagePullPolicy: Always
         name: nginx-server
         resources: {}
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - beta-lescinskas-lt-pod
+            topologyKey: "kubernetes.io/hostname"
