@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   annotations:
-    kubernetes.io/change-cause: Added anti-affinity spec
+    kubernetes.io/change-cause: Managed certs blogpost
   labels:
     app: beta-lescinskas-lt-deploy
   name: beta-lescinskas-lt-deploy
