@@ -23,7 +23,7 @@ spec:
         app: beta-lescinskas-lt-pod
     spec:
       containers:
-      - image: eu.gcr.io/lescinskas-lt/nginx-server:v4
+      - image: eu.gcr.io/lescinskas-lt/nginx-server:v5
         imagePullPolicy: Always
         name: nginx-server
         resources: {}
