@@ -76,7 +76,7 @@ The list of private keys can be retrieved by the command:
 ```sh
 $ gpg --list-secret-keys
 ```
-_
+
 The `sec` section contains the cryptography algorithm, expiration date and the key ID.
 
 The following commands exports the ASCII-armored private key (secret key) with the id `<KEY ID>` to the file `<FILENAME>.asc`:
@@ -121,7 +121,7 @@ You will be asked to provide the Passphrase of your private key to decrypt the f
 
 ## Signing
 
-ASCII-armored signature of the file <FILENAME> is generated using a command:
+ASCII-armored signature of the file `<FILENAME>` is generated using a command:
 
 ```sh
 $ gpg --sign --armor <FILENAME>

@@ -3,8 +3,8 @@
 docker run -v $(dirname "$(pwd)"):/site -e JEKYLL_ENV=production plutzilla/lescinskas.lt:jekyll build
 sudo chown -R paulius:paulius ../_site
 gulp -f ../gulpfile.js
-docker build -t eu.gcr.io/lescinskas-lt/nginx-server:latest -t eu.gcr.io/lescinskas-lt/nginx-server:v6 -f ../nginx.Dockerfile ..
+docker build -t eu.gcr.io/lescinskas-lt/nginx-server:latest -t eu.gcr.io/lescinskas-lt/nginx-server:v7 -f ../nginx.Dockerfile ..
 docker push eu.gcr.io/lescinskas-lt/nginx-server:latest
-docker push eu.gcr.io/lescinskas-lt/nginx-server:v6
+docker push eu.gcr.io/lescinskas-lt/nginx-server:v7
 # TODO Deploy to k8s
 # kubectl apply -f ./k8s/deploy-beta.yml
