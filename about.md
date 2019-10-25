@@ -17,7 +17,7 @@ also as an IT engineer at [KPVM][kpvm-link] and lecturer at [KTU JKM][jkm-link].
 
 I have studied at [JJG][jjg-link], [VIKO][viko-link], [KTU][ktu-link], [UCN][noea-link] and had the trainings and workshops with [Alistair Cockburn], [Esther Derby], [Lasse Ziegler], [Niels Pflaeging], [Bob Marshall], [James Bach] and other great people.
 
-I am interested in [Application security][owasp-link], [Agile methodologies][agile-link], [OpenID][openid-link], [OAuth][oauth-link], [Ubuntu Linux][ubuntu-link].
+I am interested in [Application security][owasp-link], [Agile methodologies][agile-link], [OpenID][openid-link], [OAuth][oauth-link], [Ubuntu Linux][ubuntu-link], [Cloud-native](https://www.cncf.io/) application development.
 
 <br /><br />
 

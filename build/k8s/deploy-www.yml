@@ -2,7 +2,7 @@ apiVersion: extensions/v1beta1
 kind: Deployment
 metadata:
   annotations:
-    kubernetes.io/change-cause: GPG blogpost (typo fixes)
+    kubernetes.io/change-cause: HTTPS blogpost
   labels:
     app: lescinskas-lt-deploy
   name: lescinskas-lt-deploy
@@ -23,7 +23,7 @@ spec:
         app: lescinskas-lt-pod
     spec:
       containers:
-      - image: eu.gcr.io/lescinskas-lt/nginx-server:v7
+      - image: eu.gcr.io/lescinskas-lt/nginx-server:v8
         imagePullPolicy: Always
         name: nginx-server
         resources: {}

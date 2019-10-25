@@ -30,7 +30,7 @@ The sample activity plan for the implementation:
 * Reporting and testing
   * CSP configuration, tuning
   * Manual testing
-  * Verifying and increasing TTL for reporting
+  * Verifying and increasing TTL for NEL reporting
 * Forcing HTTPS
   * Upgrading insecure requests
   * Configuring HTTPS redirects
@@ -75,21 +75,144 @@ As the ultimate target is to fully migrate to HTTPS, there is a need to be safe 
 
 ## Content Security Policy (CSP) violation reporting
 
+One of the main means to ensure HTTP transport security is by utilizing [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) (CSP). Using CSP the web browsers are instructed to control the origins that web application can load assets from.
 
+CSP can work both in `enforced` mode (User Agents are blocking certain requests) and in `report-only` mode (violations are logged). The latter mode can be used to safely define a desired set of CSP directives and to perform a dry-run without actual negative impact to the end users.
+
+The CSP directive configuration very much depends on the web application structure and the origins that are (and should be) allowed to load the assets from.
+
+The violations can be logged to the Reporting service, [report-uri.com](https://report-uri.com) being one of the popular ones, run by [Scott Helme](https://scotthelme.co.uk/) and [Troy Hunt](https://www.troyhunt.com/) - the well-known figures in the Application Security universe.
+
+I suggest to start from the very strict policy (i.e. `default-src https:`) and to loosen it with the directives that fixing costs too much to be included to scope of the mirgation to HTTPS project.
+Just be aware that once you make changes in production, your logs might get filled REALLY quickly.
+
+After number of CSP alteration we defined the safe policy to be used in the `report-only` mode. This is how the HTTP response looks like for such policy:
+
+```
+Content-Security-Policy-Report-Only: default-src data: https: 'unsafe-inline' 'unsafe-eval' 'report-sample'; report-uri https://EXAMPLE.report-uri.com/r/d/csp/reportOnly
+```
+
+While being a safe to be used in the production within a scope of a HTTPS migration, such CSP is **NOT** secure, especially `data:`, `'unsafe-inline'` and `'unsafe-eval'` origins. However, if these origins are used in the application, it needs to be refactored in order to exclude it from the CSP origin whitelist.
+
+The CSP reports are submitted in JSON format. The report example:
+
+```json
+{
+    "csp-report": {
+        "blocked-uri": "eval",
+        "column-number": 2718,
+        "document-uri": "https://www.example.com/some-uri",
+        "line-number": 1,
+        "original-policy": "default-src https:; script-src https: 'unsafe-inline' 'report-sample'; report-uri https://EXAMPLE.report-uri.com/r/d/csp/reportOnly",
+        "script-sample": "function anonymous(\n) {\nreturn this.GetP…",
+        "source-file": "https://www.example.com/document-with-a-csp-violation",
+        "violated-directive": "script-src"
+    }
+}
+```
+
+Analysing and tuning the CSP gives a good overview of the dependencies of your application(s) and lets you adjust the scope of the migration to HTTPS project.
+
+For example, we found out that some of our applications load assets from the user-defined origins and introducing the restrictions might result in the undesired behavior. Therefore we left such applications out of scope (HTTPS is enabled but not forced), accepting the risk of a mixed content-based threats.
 
 ## Network Error Logging (NEL) reporting
 
+[Network Error Logging](https://www.w3.org/TR/network-error-logging/) is a modern standard allowing web browsers to report the Network Errors by utilizing [W3C Reporting API](https://www.w3.org/TR/reporting/).
+Scott Helme has a [comprehensive blogpost](https://scotthelme.co.uk/network-error-logging-deep-dive/) about NEL.
+
+The following TLS errors can be reported:
+
+```
+tls.version_or_cipher_mismatch
+    The TLS connection was aborted due to version or cipher mismatch
+tls.bad_client_auth_cert
+    The TLS connection was aborted due to invalid client certificate
+tls.cert.name_invalid
+    The TLS connection was aborted due to invalid name
+tls.cert.date_invalid
+    The TLS connection was aborted due to invalid certificate date
+tls.cert.authority_invalid
+    The TLS connection was aborted due to invalid issuing authority
+tls.cert.invalid
+    The TLS connection was aborted due to invalid certificate
+tls.cert.revoked
+    The TLS connection was aborted due to revoked server certificate
+tls.cert.pinned_key_not_in_cert_chain
+    The TLS connection was aborted due to a key pinning error
+tls.protocol.error
+    The TLS connection was aborted due to a TLS protocol error
+tls.failed
+    The TLS connection failed due to reasons not covered by previous errors
+```
+
+The errors can indicate wrong configuration, use of expired or revoked TLS certificate and the misuse or potential TLS-based attack scenarios.
+
+The errors can be logged to the aforementioned report-uri.com service by adding the certain HTTP response headers (replce term "EXAMPLE" with your configured one):
+
+```
+Report-To: {"group":"default","max_age":604800,"endpoints":[{"url":"https://EXAMPLE.report-uri.com/a/d/g"}],"include_subdomains":true}
+NEL: {"report_to":"default","max_age":604800,"include_subdomains":true}
+```
+
+In this example the `max_age` directive is set to 7 days (604 800 seconds). This is the time for which web browser stores this setting for a certain domain (or for all subdomains as well as in the example above).
+After testing period the `max_age` attribute should be increased to a much longer period (i.e. 365 days / 31 536 000 seconds).
+
+
 ## Manual testing
 
-ModHeaders extension
+While `report-only` CSP can be deployed in production and over time most violations will get reported, there are certain cases when manual testing is needed, for example:
+
+* Internal applications of subsystems with restricted access
+* Specific browser extensions are used and reports show blocked `chrome-extension` or similar URI
+
+Manual testing provides the ability not only to report the violations, but to see the actual impact.
+Therefore during the manual testing it is needed to use the `enforced` CSP mode which actually blocks requests. Due to potential negative impact it obviously cannot be done for all users.
+
+One of the easiest ways is to use the browser extension to modify the HTTP headers.
+[ModHeaders](https://bewisse.com/modheader/) extension is available for [Chrome](https://chrome.google.com/webstore/detail/modheader/idgpnmonknjnojddfkpgkljpfnnfcklj?hl=en) and [Firefox](https://addons.mozilla.org/en-US/firefox/addon/modheader-firefox/), allowing to perform the manual test.
+
+Read further section to get the actual CSP policy which can be used along with this extension for testing.
 
 # Forcing HTTPS
 
+After the web application(s) are accessible via HTTPS, testing is performed, scope for forcing HTTPS is clarified and the CSP policy is defined, it is time to move the the second stage - force the HTTPS for these applicaitons.
+
 ## Upgrading insecure requests
+
+[Upgrade insecure requests](https://www.w3.org/TR/upgrade-insecure-requests/) is a CSP directive informing web browsers to seamlessly upgrade all requests from the web application to use HTTPS even if the HTTP is used in the application code.
+As the result it reduces the mixed content likelihood and improves the application security with very little effort.
+
+Under the hood it works this way: the browser indicates the support of this feature via request HTTP header
+```
+Upgrade-insecure-requests: 1
+```
+
+The upgrade itself is set via response HTTP header:
+```
+Content-Security-Policy: upgrade-insecure-requests; default-src https:
+```
+
+Combined with the previously defined CSP policy, we can now define and activate the final CSP which works in the `enforced` mode:
+
+```
+Content-Security-Policy: upgrade-insecure-requests; default-src data: https: 'unsafe-inline' 'unsafe-eval' 'report-sample'; report-uri https://EXAMPLE.report-uri.com/r/d/csp/reportOnly
+```
+
+> There are some caveats though for using CSP upgrade-insecure-requests: at the time of writing (October 2019) the specification is still a Candidate Recommendation and [lacks support](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests#Browser_compatibility) from MSIE and Edge browsers. Also it does not protect against initial insecure requests, which can eavesdropped or intercepted.
+> Therefore we need additional measures (HTTP redirects and HTTP Strict Transport Security) to overcome these limitations.
 
 ## HTTP redirects
 
-Search engines, S2S (non-UA) integrations, UAs that do not support this CSP level.
+There are cases when the `upgrade-insecure-requests` does not ensure the protocol upgrade:
+* Web browsers not supporting this CSP directive (MSIE, Edge)
+* Search engines and web crawlers (robots)
+* Service-to-service integrations (when the User Agent is not a web browser)
+
+For such cases, instead of serving the HTML content via HTTP, we need to perform the HTTP to HTTPS redirect. This is done by responding the `301`, `302`, `307` or `308` HTTP Response code with the `Location` header containing the URL with upgraded HTTP scheme.
+
+`301` and `302` response codes work well for `GET` requests, but browsers do not resend full HTTP body if the method is `POST` or other method containing the HTTP body. `308` is not supported by legacy browsers.
+
+Therefore the best option in this case is to use `HTTP 307 Temporary Redirect` response.
 
 ## Secure cookies
 
@@ -108,6 +231,3 @@ secure flag, `__Secure_` prefix
 (Chrome Console:)
 HTTP 307
 Non-Authoritative-Reason: HSTS
-
-As of October 2019 the specification is still a [Candidate Recommendation](https://www.w3.org/TR/upgrade-insecure-requests/) and [lack support](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests#Browser_compatibility) from MSIE and Edge browsers.
-
