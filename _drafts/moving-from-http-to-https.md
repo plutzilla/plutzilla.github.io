@@ -216,18 +216,67 @@ Therefore the best option in this case is to use `HTTP 307 Temporary Redirect` r
 
 ## Secure cookies
 
-secure flag, `__Secure_` prefix
+HTTP cookies can be sent both via secure and insecure connections. As usually the session identifiers are stored in cookies, exposing this information via unencrypted network might result in the session hijacking attacks. In order to limit the cookies to be sent via HTTPS only, it is needed to set the `secure` cookie attribute.
+
+Another modern (but not yet standartized) cookie improvement is [cookie prefixes](https://tools.ietf.org/html/draft-ietf-httpbis-cookie-prefixes-00).
+In order to allow the cookies to be set only from the secure connection, it is suggested to add the `__Secure-` prefix to the cookie name.
+However this change would require the changes in the application code, so cookies named i.e. `session_id` would be renamed to `__Secure-session_id`.
+
+The cookie prefixes are not yet supported by MSIE and Edge browsers, but this is not a breaking change, so still worth implementing.
 
 ## HTTP Strict Transport Security (HSTS)
 
+In order to reduce the likelihood of protocol downgrade attacks, the HTTP Strict Transport Security (HSTS) should be used.
+It instructs web browsers to remember that all connections to certain (sub)domains need to be done **only** using HTTPS.
+
+It is done by sending the HTTP response header:
+```
+Strict-Transport-Security: max-age=31536000
+```
+where `31536000` means the `365` days period in seconds for which this setting should be remembered by the particular user's web browser.
+
+I recommend to set this value for a shorter time (starting from minutes and increasing to multiple days), and extend it once everything works as expected.
+
+If all subdomains for particular domain work under HTTPS, we can also add the directive `includeSubDomains`:
+```
+Strict-Transport-Security: max-age=31536000; includeSubDomains
+```
+
+In such case, this header needs to be sent from the root domain, so even if the application runs from `www.example.com`, at least one asset (including the HSTS header) needs to be loaded from `example.com` (non-www) domain.
+
+Interesting note, confirming the choice of `307` redirect header in the previous chapter is that Chrome's internal redirect used for HSTS-based redirects uses the same `307` HTTP response code:
+```
+HTTP 307
+Non-Authoritative-Reason: HSTS
+```
+
 # Further actions
+
+After all these measures are applied, the following measures can also be considered:
 
 ## HSTS Preload
 
+While HSTS works for the particular web browser instance, the new visitors of the web application can be attacked.
+The `HSTS Preload` feature can be used to include the certain domain to the [HSTS Preload](https://hstspreload.org/) list.
+This list is hardcoded in all major web browsers. To include the domain to the list the following needs to be done:
+
+ * Include the following HSTS header (note that the value of `max-age` is equal to 2 years):
+
+```
+Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
+```
+
+ * Submit the domain to the [HSTS Preload](https://hstspreload.org/) list.
+
+As the side-effect, you need to be aware that there will be no easy way back from HTTPS :)
+
 ## Tuning CSP
+
+
 
 ## Moving to HTTP2
 
-(Chrome Console:)
-HTTP 307
-Non-Authoritative-Reason: HSTS
+
+# ...Refs
+
+https://infosec.mozilla.org/guidelines/web_security
