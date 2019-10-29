@@ -15,9 +15,9 @@ This post is the summary of a practical experience obtained from migrating one l
 
 ## Defining the scope
 
-If you operate more that one domain, it is important to define the scope - for which products the HTTPS will be forced.
+If you operate more that one domain, it is important to define the scope - for which product(s) the HTTPS will be forced.
 
-If the web application loads the assets (images, CSS stylesheets, JS scripts, fonts etc.) from HTTP origins, this would result in the Mixed Content. Depending on the Mixed Content type (active, passive) it result in the incorrect behaviour or incorrect visual representation of the application, therefore such changes need to be taked with a proper care and monitoring of the potential impact.
+If the web application loads the assets (images, CSS stylesheets, JS scripts, fonts etc.) from HTTP origins, this would result in the Mixed Content. Depending on the Mixed Content type (active, passive) it would cause the incorrect behaviour or incorrect visual representation of the application, therefore such changes need to be taked with a proper care and monitoring of the potential impact.
 The W3C Reporting API can be utilized to identify the impact and to adjust the scope of the change.
 
 ## Planning
@@ -48,11 +48,11 @@ To enable HTTPS in the web system, it is needed to obtain the TLS certificate fr
 
 ## Obtaining certificate
 
-The TLS certificate can be bough from one of many CAs or to get one for free from the non-profit CA [Let's Encrypt](https://letsencrypt.org/).
+The TLS certificate can be bough from one of many CAs or obtained for free from the non-profit CA [Let's Encrypt](https://letsencrypt.org/).
 
 Let's Encrypt utilizes the Automated Certificate Management Environment (ACME) protocol to automate the certficate issuing, validation and renewal, therefore the certificate validity is 3 months, thus should be obtained and renewed in the automated manner. The same ACME protocol is used by other CAs as well.
 
-The other CAs issue TLS certificates that are valid for a longer time (1 or 2 years usually), therefore in certain (premature) environments this can be more suitable option.
+TLS certificates issued by other CAs are valid for a longer time (1 or 2 years usually), therefore in certain (premature) environments this can be more suitable option.
 
 Also, TLS encryption can be provided out-of-the-box as a managed service. As an example, Cloudflare provides a [TLS proxy service](https://www.cloudflare.com/ssl/), Google Cloud Platform provides managed TLS service, that is also [available for Kubernetes]({%post_url 2019/2019-10-03-letsencrypt-managed-tls-certificates-kubernetes-gke %}).
 
@@ -83,10 +83,10 @@ The CSP directive configuration very much depends on the web application structu
 
 The violations can be logged to the Reporting service, [report-uri.com](https://report-uri.com) being one of the popular ones, run by [Scott Helme](https://scotthelme.co.uk/) and [Troy Hunt](https://www.troyhunt.com/) - the well-known figures in the Application Security universe.
 
-I suggest to start from the very strict policy (i.e. `default-src https:`) and to loosen it with the directives that fixing costs too much to be included to scope of the mirgation to HTTPS project.
+I suggest to start from the very strict policy (i.e. `default-src 'self'`) and to loosen it with the needed origins (i.e. CDN domains) and with the directives that fixing costs too much to be included to scope of the mirgation to HTTPS project (i.e. `'unsafe-inline'`).
 Just be aware that once you make changes in production, your logs might get filled REALLY quickly.
 
-After number of CSP alteration we defined the safe policy to be used in the `report-only` mode. This is how the HTTP response looks like for such policy:
+After number of CSP alteration we defined the safe policy (suitable for our web application) to be used in the `report-only` mode. This is how the HTTP response header looks like for such policy:
 
 ```
 Content-Security-Policy-Report-Only: default-src data: https: 'unsafe-inline' 'unsafe-eval' 'report-sample'; report-uri https://EXAMPLE.report-uri.com/r/d/csp/reportOnly
@@ -147,7 +147,7 @@ tls.failed
 
 The errors can indicate wrong configuration, use of expired or revoked TLS certificate and the misuse or potential TLS-based attack scenarios.
 
-The errors can be logged to the aforementioned report-uri.com service by adding the certain HTTP response headers (replce term "EXAMPLE" with your configured one):
+The errors can be logged to the aforementioned report-uri.com service by adding the certain HTTP response headers (replace term "EXAMPLE" with your configured one):
 
 ```
 Report-To: {"group":"default","max_age":604800,"endpoints":[{"url":"https://EXAMPLE.report-uri.com/a/d/g"}],"include_subdomains":true}
@@ -162,7 +162,7 @@ After testing period the `max_age` attribute should be increased to a much longe
 
 While `report-only` CSP can be deployed in production and over time most violations will get reported, there are certain cases when manual testing is needed, for example:
 
-* Internal applications of subsystems with restricted access
+* Internal applications or subsystems with restricted access
 * Specific browser extensions are used and reports show blocked `chrome-extension` or similar URI
 
 Manual testing provides the ability not only to report the violations, but to see the actual impact.
@@ -175,7 +175,7 @@ Read further section to get the actual CSP policy which can be used along with t
 
 # Forcing HTTPS
 
-After the web application(s) are accessible via HTTPS, testing is performed, scope for forcing HTTPS is clarified and the CSP policy is defined, it is time to move the the second stage - force the HTTPS for these applicaitons.
+After the web application(s) are accessible via HTTPS, testing is performed, scope for forcing HTTPS is clarified and the CSP policy is defined, it is time to move the the second stage - force the HTTPS for these applications.
 
 ## Upgrading insecure requests
 
@@ -208,7 +208,7 @@ There are cases when the `upgrade-insecure-requests` does not ensure the protoco
 * Search engines and web crawlers (robots)
 * Service-to-service integrations (when the User Agent is not a web browser)
 
-For such cases, instead of serving the HTML content via HTTP, we need to perform the HTTP to HTTPS redirect. This is done by responding the `301`, `302`, `307` or `308` HTTP Response code with the `Location` header containing the URL with upgraded HTTP scheme.
+For such cases, instead of serving the HTML content via HTTP, we need to perform the HTTP to HTTPS redirect. This can be done by responding the `301`, `302`, `307` or `308` HTTP Response code with the `Location` header containing the URL with upgraded HTTP scheme.
 
 `301` and `302` response codes work well for `GET` requests, but browsers do not resend full HTTP body if the method is `POST` or other method containing the HTTP body. `308` is not supported by legacy browsers.
 
@@ -235,7 +235,7 @@ Strict-Transport-Security: max-age=31536000
 ```
 where `31536000` means the `365` days period in seconds for which this setting should be remembered by the particular user's web browser.
 
-I recommend to set this value for a shorter time (starting from minutes and increasing to multiple days), and extend it once everything works as expected.
+I recommend to start from the shorter time (minutes to days), and extend it once everything works as expected.
 
 If all subdomains for particular domain work under HTTPS, we can also add the directive `includeSubDomains`:
 ```
@@ -252,7 +252,7 @@ Non-Authoritative-Reason: HSTS
 
 # Further actions
 
-After all these measures are applied, the following measures can also be considered:
+After all these measures are applied, we have a web application fully operating via HTTPS. However the following measures can also be considered:
 
 ## HSTS Preload
 
@@ -272,11 +272,15 @@ As the side-effect, you need to be aware that there will be no easy way back fro
 
 ## Tuning CSP
 
+Content Security Policy can ease migration to HTTPS, but its main purpose is to protect agains code injection attacks (i.e. XSS).
+Although during the migration project we might whitelist the insecure origins like `unsafe-eval`, `unsafe-inline` and others, such CSP policy does not do what it's meant for. The is even a list of such [Useless CSP](https://uselesscsp.com/).
 
+The assessment of the application, identification of threats and remediating them, potentially utilizing CSP as a tool is a good follow-up activity.
 
-## Moving to HTTP2
+## Learning more about web application security
 
+There are way more topics and techniques to ensure the web application security.
 
-# ...Refs
+Learning them and planning for the implementation within the web application should be the further steps.
 
-https://infosec.mozilla.org/guidelines/web_security
+As a good start, Mozilla Infosec team has a [good overview](https://infosec.mozilla.org/guidelines/web_security) of them ranked according to the security benefit and implementation effort.
