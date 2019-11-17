@@ -3,13 +3,51 @@ title: Agile product backlog management
 layout: post
 ---
 
-Capacity = feature development + operations/maintenance
+During my career in product development I've been working on Agile Product Backlog Management in different roles: as a software engineer, product owner, engineering manager and other stakeholder.
+
+With every team I was working on we had the same questions:
+
+ * How to accurately plan a Scrum sprint?
+ * How to make a long-term plan?
+ * Should we estimate in story points or hours?
+ * Should we log hours?
+ * When to treat the user story as "Completed"?
+ * Should we reduce the estimate of the incomplete task after the sprint?
+ * Should technical, maintenance tasks and defects (bugs) be treated as the user stories?
+ * etc.
+
+In this blogpost I am sharing what I found to be working best, including the answers to the aforementioned questions.
+
+Surely, your mileage may vary, as we're all working in different environments, have different management and stakeholder expectations and constraints.
+
+## Backlog composition and task types
+
+While it sometimes seems that agile product development is only the new feature development, however in practice the engineering team's capacity consists of:
+
+ * Feature development
+ * Operations/maintenance
+ * Unplanned effort (i.e. defects in production)
+
+These are very different activities and there is no treat them the same. Instead, we can use differentiate these types of work. In case we use Jira or other tool for task and backlog management, it would reflect in different task types:
+
+ * User story
+ * Task
+ * Defect
+
+Different task types allow us to treat them differently: apply different Definition of Ready, Definition of Done, task description, estimate etc.
+
+**User story** brings business value as added functionality to the end user. It naturally follows the user story format (*"As a ... I want ... so I could ..."*)
+
+## DoR, DoD
+
+## Planning, estimating
+
 
 Different issue types:
 
- - User story. Links with Epic
- - Task
- - Bug
+ - User story. Links with Epic. Brings business value as added functionality
+ - Task. Technical work.
+ - Defect
 
 Different task types have different DoRs, DoDs. Only USs are estimated in SPs (bringing actual business value). Only USs follow US format.
 US have funcspec, include mockups/wireframes etc, other types - technical info, analysis tasks, operational, maintenance tasks, which do not generate the business value as new features. Value is better stability, visibility, customer satisfaction, reduced risks...
