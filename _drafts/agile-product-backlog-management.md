@@ -22,7 +22,7 @@ Surely, your mileage may vary, as we're all working in different environments, h
 
 ## Backlog composition and task types
 
-While it sometimes seems that agile product development is only the new feature development, however in practice the engineering team's capacity consists of:
+While it sometimes seems that agile product development is about the new feature development, however in practice the engineering team's capacity consists of:
 
  * Feature development
  * Operations/maintenance
@@ -36,12 +36,21 @@ These are very different activities and there is no treat them the same. Instead
 
 Different task types allow us to treat them differently: apply different Definition of Ready, Definition of Done, task description, estimate etc.
 
-**User story** brings business value as added functionality to the end user. It naturally follows the user story format (*"As a ... I want ... so I could ..."*)
+**User story** brings business value as added functionality to the end user. It naturally follows the User Story format (*"As a ... I want ... so I could ..."*). It usually has a direct interaction with the end-user via some interface (UI, API). They are estimated using Story Points (by comparing User Story complexity), prioritized by Product Owner and planned in a roadmap.
+
+**Task** may be technical task, task for technical analysis, operational activity, maintenance task or enabler for other user story. It brings business value by increased system stability, visibility, security, customer satisfaction, managed (reduced) risks. The nature of these tasks is very different, therefore it is difficult to use a comparative them. Estimating them using Story Points doesn't make sense either. The format doesn't need to meet the User Story format, but the value still need to be defined and measured where applicable.
+
+**Defect** is the incorrect system functional or non-functional behavior, discovered after completion of the original task/user story. Like the Task, it doesn't have a User Story estimate nor User Story format. However, in order to prioritize the defects accordingly, it is needed to identify the threat that is caused by the defect and the risk it poses.
 
 ## DoR, DoD
 
-## Planning, estimating
+As different task are treated differently,
 
+## Planning, estimating, tracking time
+
+
+
+# Draft ideas:
 
 Different issue types:
 
@@ -57,6 +66,10 @@ TBD: include example of DoR, DoD, example of common NFRs for UI, API, backend et
 Version means release. Useful for higher-level business planning and communication.
 
 Subtasks cover all work.
+
+Remaining work is what matters. Spent time has a meaning for operational, maintenance tasks - in order to plan such capacity in advance.
+
+For consistency, some functions in organization might be centralized. I.e.: UI/UX design,
 
 US have SPs. Used for planning/prediction of future releases/sprints. Can have preliminary plan of multiple future sprints if needed.
 Reviewed and refined periodically to reflect the actual situation. Fine-grain refinement done 1 sprint in advance, so missing details could be provided until the actual planning.
