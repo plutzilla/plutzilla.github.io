@@ -20,7 +20,7 @@ In this blogpost I am sharing what I found to be working best, including the ans
 
 Surely, your mileage may vary, as we're all working in different environments, have different management and stakeholder expectations and constraints.
 
-## Backlog composition and task types
+## Backlog composition, task types
 
 While it sometimes seems that agile product development is about the new feature development, however in practice the engineering team's capacity consists of:
 
@@ -42,11 +42,36 @@ Different task types allow us to treat them differently: apply different Definit
 
 **Defect** is the incorrect system functional or non-functional behavior, discovered after completion of the original task/user story. Like the Task, it doesn't have a User Story estimate nor User Story format. However, in order to prioritize the defects accordingly, it is needed to identify the threat that is caused by the defect and the risk it poses.
 
-## DoR, DoD
+## Backlog prioritization, definition of ready
 
-As different task are treated differently,
+As different task are treated differently, there are obvious differences in specifying details and prioritizing them.
 
-## Planning, estimating, tracking time
+The **user stories** are prioritized by Product Owner according to the expected Business Value and Estimate (Story Points value).
+
+The **tasks** are usually the prerequisites for the User Stories, therefore they are naturally prioritized higher and planned to be implemented one or more sprints in advance. The operational or maintenance tasks are usually included to the sprint by default to ensure the stability of the system.
+
+The **defects** are prioritized according to the Risk they pose. There is no silver bullet how to prioritize them along Business items (User Stories) - the company has to define itself how to measure the value of the Risk mitigation.
+One of the options is to define the expected remediation time for certain Risk ratings, and then after evaluation of the defect, plan the remediation according to this expectation.
+
+In order to prepare the backlog items for implementation, the **Definition of Ready** needs to be defined. The DoR is the alignment between the Team, Product Owner and other stakeholders on the criteria the item needs to meet, so it could be accepted to Sprint for implementation.
+
+The example of the DoR for the User Story:
+
+* The User Story is written in a proper format, all parts (actor, function, value) is clear to the team
+* Acceptance Criteria (functional and non-functional requirements) is clear (not ambiguous) and testable
+* Meets INVEST criteria
+* Dependencies are identified and impediments are removed (i.e. the wireframes/mockups are prepared by UX team; the translations are provided by Translations team etc.)
+
+The example of the DoR of the Defect:
+
+* The defect is reproducible
+* The impact (damage, scope etc.) is defined
+
+The DoR for the Task does not have most of these requirements, so it defining them brings value to your team, you can do it for your specific case.
+
+
+## Sprint planning, estimating, tracking time, definition of done
+
 
 
 
