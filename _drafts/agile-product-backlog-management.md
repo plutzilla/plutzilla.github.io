@@ -70,12 +70,33 @@ The example of the DoR of the Defect:
 The DoR for the Task does not have most of these requirements, so it defining them brings value to your team, you can do it for your specific case.
 
 
-## Sprint planning, estimating, tracking time, definition of done
+## Sprint planning, estimating
 
+While the product roadmap (backlog) is owned and maintained by the Product Owner, the sprint plan is the team's commitment for the certain timebox (sprint).
 
+The content of the sprint is usually the following:
 
+* New feature development (User Stories from Product Backlog)
+* Technical tasks
+* Maintenance and operational tasks
+* Leftovers from previous sprints
+* Unplanned urgent items
 
-# Draft ideas:
+As only User Stories are initially estimated using Story Points, the team's velocity is not sufficient to ensure accuracy of the sprint content.
+Also, having in mind that the team's capacity isn't constant: team member rotation, annual vacations, planned absences, partial availability etc. directly impacts the sprint capacity. Also, certain factors (i.e. seasonal events) impact how much operations and maintenance is needed. Therefore the mean team's velocity (Story Points completed per sprint) cannot be automatically planned for the Sprint's delivery.
+
+What I found useful for the team is to split the tasks into subtasks, estimate them in timed units during the Sprint Planning activity and use this metric to plan the sprint.
+In such case the team knows up-front its capacity, the operational task effort (from empirical data) and how much feature tasks (User Stories) can be planned.
+
+Additionally, during the planning the team may assign certain tasks in advance to specific team members. Due to different knowledge and experience, the esimate can also differ (i.e. during the onboarding period of a team member), although the complexity and the Story Point estimate does not and should not correlate.
+
+> It is very important not to try correlating them and to leave purely for the team. While management usually tries to include time in various calculations, it brings more harm, as it results in either "safe" overestimates or cutting quality corners in favor of meeting estimates. I've seen this both behaviour and both of them cause negative impact and, what is even worse, this impact is hidden behind good-looking KPIs.
+
+## Tracking time, definition of done, leftovers
+
+TBD: physical board, trello, jira
+
+## Draft ideas:
 
 Different issue types:
 
