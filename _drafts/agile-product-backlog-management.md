@@ -20,7 +20,7 @@ In this blogpost I am sharing what I found to be working best, including the ans
 
 Surely, your mileage may vary, as we're all working in different environments, have different management and stakeholder expectations and constraints.
 
-## Backlog composition, task types
+## Backlog composition
 
 While it sometimes seems that agile product development is about the new feature development, however in practice the engineering team's capacity consists of:
 
@@ -53,7 +53,7 @@ The **tasks** are usually the prerequisites for the User Stories, therefore they
 The **defects** are prioritized according to the Risk they pose. There is no silver bullet how to prioritize them along Business items (User Stories) - the company has to define itself how to measure the value of the Risk mitigation.
 One of the options is to define the expected remediation time for certain Risk ratings, and then after evaluation of the defect, plan the remediation according to this expectation.
 
-In order to prepare the backlog items for implementation, the **Definition of Ready** needs to be defined. The DoR is the alignment between the Team, Product Owner and other stakeholders on the criteria the item needs to meet, so it could be accepted to Sprint for implementation.
+In order to prepare the backlog items for implementation, the **Definition of Ready** (DoR) needs to be defined. The DoR is the alignment between the Team, Product Owner and other stakeholders on the criteria the item needs to meet, so it could be accepted to Sprint for implementation.
 
 The example of the DoR for the User Story:
 
@@ -61,13 +61,16 @@ The example of the DoR for the User Story:
 * Acceptance Criteria (functional and non-functional requirements) is clear (not ambiguous) and testable
 * Meets INVEST criteria
 * Dependencies are identified and impediments are removed (i.e. the wireframes/mockups are prepared by UX team; the translations are provided by Translations team etc.)
+* Business metrics are defined for monitoring
 
 The example of the DoR of the Defect:
 
 * The defect is reproducible
 * The impact (damage, scope etc.) is defined
 
-The DoR for the Task does not have most of these requirements, so it defining them brings value to your team, you can do it for your specific case.
+The DoR for the Task does not have most of these requirements, so it defining them brings value to your team, you can do it for your specific case. The good example of such DoR would be "Service Level Objectives (SLO) are defined", which results in a mutual business and technical effort, and impacts the Service Level Agreement (SLA) of the product.
+
+In order to meet all criteria for DoR, the backlog items need to be refined in advance (at least 1-2 sprints before the actual implementation), so missing information could be provided either by Product Owner or by certain stakeholders.
 
 
 ## Sprint planning, estimating
@@ -85,64 +88,57 @@ The content of the sprint is usually the following:
 As only User Stories are initially estimated using Story Points, the team's velocity is not sufficient to ensure accuracy of the sprint content.
 Also, having in mind that the team's capacity isn't constant: team member rotation, annual vacations, planned absences, partial availability etc. directly impacts the sprint capacity. Also, certain factors (i.e. seasonal events) impact how much operations and maintenance is needed. Therefore the mean team's velocity (Story Points completed per sprint) cannot be automatically planned for the Sprint's delivery.
 
+The consensus however must be achieved between the Product Owner, team and other stakeholders which features and technical tasks are aimed to be planned for the sprint. This is usually done during the Sprint Planning first part.
+
 What I found useful for the team is to split the tasks into subtasks, estimate them in timed units during the Sprint Planning activity and use this metric to plan the sprint.
-In such case the team knows up-front its capacity, the operational task effort (from empirical data) and how much feature tasks (User Stories) can be planned.
+In such case the team knows up-front its capacity, the operational task effort (from empirical data) and how much feature tasks (User Stories) can be planned. This can be done during the Sprint Planning second part, where the Product Owner participation is rather optional.
 
 Additionally, during the planning the team may assign certain tasks in advance to specific team members. Due to different knowledge and experience, the esimate can also differ (i.e. during the onboarding period of a team member), although the complexity and the Story Point estimate does not and should not correlate.
 
 > It is very important not to try correlating them and to leave purely for the team. While management usually tries to include time in various calculations, it brings more harm, as it results in either "safe" overestimates or cutting quality corners in favor of meeting estimates. I've seen this both behaviour and both of them cause negative impact and, what is even worse, this impact is hidden behind good-looking KPIs.
 
-## Tracking time, definition of done, leftovers
+## Tracking time, leftovers
 
-TBD: physical board, trello, jira
+When the sprint is planned, there is a question - should the spent time be tracked. Unless there is a strict management requirement to do so, estimating spent time should not be a wasteful activity.
 
-## Draft ideas:
+I find the value of estimating the operational and maintenance tasks, as such information is useful for planning operational effort. Also, for the finance department it might be relevant when calculating the product capitalization.
+Regarding tracking feature tasks, it is up for the particualar team whether there is value in doing it. Just beware that exposing such information to other stakeholders is risky, as I mentioned previously.
 
-Different issue types:
+Another common question is how to handle unfinished sprint items. And the common example is "Everything is implemented, tested, but not deployed. Should we complete the User Story?". I've seen various ways teams deal with such leftovers:
 
- - User story. Links with Epic. Brings business value as added functionality
- - Task. Technical work.
- - Defect
+* Completing the User Story and creating another one
+* Reestimating the User Story (changing the Story Points) and moving it to the upcoming sprint
 
-Different task types have different DoRs, DoDs. Only USs are estimated in SPs (bringing actual business value). Only USs follow US format.
-US have funcspec, include mockups/wireframes etc, other types - technical info, analysis tasks, operational, maintenance tasks, which do not generate the business value as new features. Value is better stability, visibility, customer satisfaction, reduced risks...
+Both of these ways are **wrong** - they create a fake sense of achievement, hide the information of the lead time (the feature is not yet in a production) and distort the User Story attributes (complexity evaluation).
 
-TBD: include example of DoR, DoD, example of common NFRs for UI, API, backend etc.
+This topic naturally leads to the **Definition of Done** (DoD) topic. Like the Definition of Ready, the common agreement of the DoD is needed within the team and depends on the product development lifecycle.
+For example, for products with the timeboxed release cycles (i.e. software is physically shipped every 6 weeks or so) the implementation, testing and integration might be enough to treat the User Story as completed, but for the products where the features are released once they are implemented, the deployment (and likely some post-development activities) should be included in the DoD, meaning that the User Story can be treated as Completed only when the DoD is fully met.
 
-Version means release. Useful for higher-level business planning and communication.
+This results in some cases when deployment is left to the upcoming spring on purpose (i.e. if there is a team agreement not to deploy on fridays, or there is some external dependency). And while the User Story would not be completed within the sprint, from the long-term perspective it would not matter that much, as the long-term average team velocity would not change.
 
-Subtasks cover all work.
+As such Subtask would have relatively small timed estimate, the remaining time of the User Story would be quite small as well, so moving the User Story to the upcoming sprint would consume a small part of the upcoming sprint capacity.
+Also, moving the User Story between sprints ensures the visibility of the lead time. It is a good indicator (i.e. if User Story spans more than 2 sprints) for the Scrum Master to review the impediments for the delivery of the User Story in order to resolve or escalate it.
 
-Remaining work is what matters. Spent time has a meaning for operational, maintenance tasks - in order to plan such capacity in advance.
+Velocity and Story Point completeness ratio should not treated as the team's performance indicator, as it would lead to faking this metric.
+Hour-completeness ratio may indicate team's estimation accuracy. It might indicate unforeseen issues (underestimate), or found opportunities (overestimate), that can be reviewed during the retrospective, but this should be left solely to the team.
 
-For consistency, some functions in organization might be centralized. I.e.: UI/UX design,
+## Definition of Done and non-functional requirements
 
-US have SPs. Used for planning/prediction of future releases/sprints. Can have preliminary plan of multiple future sprints if needed.
-Reviewed and refined periodically to reflect the actual situation. Fine-grain refinement done 1 sprint in advance, so missing details could be provided until the actual planning.
+Here is the example of the Definition of Done:
 
-Planning:
+* Functionality is implemented and meets functional requirements (workflows, wireframes and other supplementary functional specifications for the specific User Story)
+* Code is written and meets non-functional requirements
+* Code is reviewed by other engineer and merged to the appropriate branch
+* Functionality is reviewed and verified (accepted) by the Product Owner (applicable to User Stories; for technical tasks QA acceptance might be sufficient)
+* Functionality is tested (integration tests are implemented, running in certain environment and passing)
+* Deployed in production (if applicable according to your SDLC)
 
- * US - with PO
- * Tech items and implementation - without PO (2nd planning part). Common agreement on the needed capacity for tech. tasks
+The DoD needs to be defined and aligned within the engineering team.
 
-Sub-tasks estimated in timed units (hours).
-Sub-task estimation is used to plan the capacity of sprint.
-Time may be tracked to know the operational costs, also to know the needed operational capacity for upcoming sprint(s)
+For functional requirements we use Confluence and link the specific pages to the Jira task. For easier navigation we prefix the Confluence pages with the Jira issue ID.
 
-Wrong to anyhow relate SPs to time.
+The non-functional requirements are both task-specific and generic for the team. Also, in a large scale organizations, it makes sense to have the generic non-functional requirements within all organization. As a prerequisite certain requirements, guidelines, policies, services and teams need to be established, but the benefit is the consistency between multiple teams, and engineering efficiency due to centralized services (both technical and labor ones).
 
-DoD includes deployment.
+## Epilogue
 
-It is OK not to deploy in the end of the sprint, if only development is left. US is not closed.
-Although velocity is lower, only the average velocity value within multiple sprints is meaningful.
-However, not done tasks indicate incomplete features within sprint.
-Velocity and US completeness ratio is not treated as the team's performance indicator.
-Hour-completeness ratio may indicate team's estimation accuracy. It might indicate unforeseen issues (underestimate), or found opportunities (overestimate), that can be reviewed during the retrospective.
-
-US moved to next sprint consume only the subtask-estimated capacity from the sprint capacity. Not the SPs.
-
-Sprint swimlanes (in Jira case) are USs/tasks ordered by priority.
-Columns are very team workflow-specific.
-
-If US/task spans multiple (>2) sprints, it may indicate the obstacles (i.e. blocking dependencies), that may need to be resolved or escalated.
-Closing partial USs create fake sense of achievement, hiding potential issues. Should be avoided.
+Despite certain good practices, it is most important to keep the Agile mindset and support its values. The practices are very specific for the certain organization, product and team, so we need to experiment and look for what works best in the certain situation. The other people's experience can help achieving results faster, but the specific organizational and technical context should always be considered.
