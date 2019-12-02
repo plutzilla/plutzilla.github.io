@@ -21,23 +21,23 @@ HSTS is a technique to force user agents (web browsers) to make requests to the 
 
 Forcing user agents to use HTTPS is done by the HTTP response header `Strict-Transport-Security`, sent by the website. The values of the header can be the following:
 
- - `max-age` - time in seconds for the browser to remember to use HTTPS only for this domain (in this example - 30 days).
+* `max-age` - time in seconds for the browser to remember to use HTTPS only for this domain (in this example - 30 days).
 
-{% highlight text %}
+```
 Strict-Transport-Security: max-age=2592000
-{% endhighlight %}
+```
 
- - `includeSubDomains` - user agent will use the same HSTS policy for all nested subdomains. It should be used with caution, as there might be different applications running under other subdomains, that might not be configured to work properly with TLS.
- 
-{% highlight text %}
+* `includeSubDomains` - user agent will use the same HSTS policy for all nested subdomains. It should be used with caution, as there might be different applications running under other subdomains, that might not be configured to work properly with TLS.
+
+```
 Strict-Transport-Security: max-age=2592000; includeSubDomains
-{% endhighlight %}
+```
 
- - `preload` - will add domain to the [HSTS preload list][hsts-preload]. This list is maintained by Chromium and also used by Firefox, Safari, IE and Edge browsers. This list is hardcoded and shipped with the browser. It solves the situation, when the first client request is made using plain HTTP, and attacker intercepts the response and removes the HSTS header.
+* `preload` - will add domain to the [HSTS preload list][hsts-preload]. This list is maintained by Chromium and also used by Firefox, Safari, IE and Edge browsers. This list is hardcoded and shipped with the browser. It solves the situation, when the first client request is made using plain HTTP, and attacker intercepts the response and removes the HSTS header.
 
-{% highlight text %}
+```
 Strict-Transport-Security: max-age=2592000; includeSubDomains; preload
-{% endhighlight %}
+```
 
 ### Further reading
 

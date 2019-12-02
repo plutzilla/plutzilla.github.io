@@ -16,22 +16,23 @@ One of the most actual problems that application developers have to solve is ada
 
 For example:
 
- - direct text translation, text sorting, special chars conversion to latin symbols (transliteration);
- - plural forms, i.e.: English has 2 plural forms (one apple, many apples) whereas Lithuanian has three (vienas obuolys, du obuoliai, daug obuolių);
- - dates, i.e. European: 2013-08-16; USA: 8/16/13
- - currency, i.e.: 10 Lt, $10
- - length (meters, feet), weight (kilograms, pounds), capacity (liters, gallons) and other standarts (metric/imperial);
- - text writing from left to write (LTR), right-to-left (RTL);
- - etc.
+* direct text translation, text sorting, special chars conversion to latin symbols (transliteration);
+* plural forms, i.e.: English has 2 plural forms (one apple, many apples) whereas Lithuanian has three (vienas obuolys, du obuoliai, daug obuolių);
+* dates, i.e. European: 2013-08-16; USA: 8/16/13
+* currency, i.e.: 10 Lt, $10
+* length (meters, feet), weight (kilograms, pounds), capacity (liters, gallons) and other standarts (metric/imperial);
+* text writing from left to write (LTR), right-to-left (RTL);
+* etc.
 
 Internationalization problems are commonly solved using standart operating system tool - locales. I.e.:
-{% highlight php %}
+
+```php
 <?php
 setlocale(LC_TIME, 'lt_LT.UTF-8');
 echo strftime('%c'); // 2013 m. rugpjūčio 16 d. 11:50:29
 setlocale(LC_TIME, 'en_US.UTF-8');
 echo strftime('%c'); // Fri 16 Aug 2013 11:50:29 AM EEST
-{% endhighlight %}
+```
 
 However, locales do not solve all problems. Also, they must be installed in the operating system.
 
@@ -47,24 +48,24 @@ PHP library is called `intl`. You can install it from PECL repository or if you'
 
 Converting non-latin symbols to latin ones is a common problem, i.e.: when it is needed to form a clean URL.
 
-`Transliterator` class can be used to perform such conversion: 
+`Transliterator` class can be used to perform such conversion:
 
-{% highlight php %}
+```php
 <?php
 $id = "Any-Latin; NFD; [:Nonspacing Mark:] Remove; NFC; [:Punctuation:] Remove; Lower();";
 $transliterator = Transliterator::create($id);
 $string = "ąčįū!?_-&% ĄČĘĖĮŠŲŪŽ";
 echo $transliterator->transliterate($string);
 // aciu aceeisuuz
-{% endhighlight %}
+```
 
 If it is needed to generate URL slug, we can convert spaces to hyphens using RegExp:
 
-{% highlight php %}
+```php
 <?php
 echo preg_replace('/\s+/', '-', 'tekstas   tekstas2');
 // tekstas-tekstas2
-{% endhighlight %}
+```
 
 The argument passed to Transliterator::create() can be formed according the [ICU transformation guide](http://userguide.icu-project.org/transforms/general).
 
@@ -76,25 +77,26 @@ Let's assume we need to sort Lithuanian words: urvas, ūkas, Ukmergė, ugnis. Th
 
 Normally the PHP array is sorted like this:
 
-{% highlight php %}
+```php
 <?php
 $arr = ['urvas', 'ūkas', 'Ukmergė', 'ugnis'];
 sort($arr);
 print_r($arr);
 // Array ( [0] => Ukmergė [1] => ugnis [2] => urvas [3] => ūkas )
-{% endhighlight %}
+```
 
 The result is incorrect due to wrong collation (the capital letter is sorted first, the u with macron is sorted the last).
 
 It is possible to hint `sort()` to use system locale by passing `SORT_LOCALE_STRING` as second argument:
-{% highlight php %}
+
+```php
 <?php
 setlocale(LC_ALL, 'lt_LT.UTF-8');
 $arr = ['urvas', 'ūkas', 'Ukmergė', 'ugnis'];
 sort($arr, SORT_LOCALE_STRING);
 print_r($arr);
 // Array ( [0] => ugnis [1] => ūkas [2] => Ukmergė [3] => urvas )
-{% endhighlight %}
+```
 
 The result is correct, but it can have negative impact, because in this example the locale is set globally. Also, it must be installed in the operating system.
 
@@ -111,7 +113,8 @@ print_r($arr);
 ## Number formats
 
 The number and currency formats are different in different languages. `NumberFormatter` can be used to display them correctly:
-{% highlight php %}
+
+```php
 <?php
 $ltNum = new NumberFormatter('lt_LT', NumberFormatter::CURRENCY);
 echo $ltNum->formatCurrency(1234567890.25, 'LTL');
@@ -120,7 +123,7 @@ echo $ltNum->formatCurrency(1234567890.25, 'EUR');
 // 1,234,567,890.25 €
 echo $ltNum->formatCurrency(1234567890.25, 'USD');
 // 1,234,567,890.25 US$
- 
+
 $enNum = new NumberFormatter('en_US', NumberFormatter::CURRENCY);
 echo $enNum->formatCurrency(1234567890.25, 'LTL');
 // LTL1,234,567,890.25
@@ -128,13 +131,13 @@ echo $enNum->formatCurrency(1234567890.25, 'EUR');
 // €1,234,567,890.25
 echo $enNum->formatCurrency(1234567890.25, 'USD');
 // $1,234,567,890.25
-{% endhighlight %}
+```
 
 As we see the currencies are displayed differently depending on locale.
 
- 
 NumberFormatter class can also convert numbers to text (spellout):
-{% highlight php %}
+
+```php
 <?php
 $ltNum = new NumberFormatter('lt_lt', NumberFormatter::SPELLOUT);
 echo $ltNum->format(1234567890.25);
@@ -143,15 +146,15 @@ echo $ltNum->format(1234567890.25);
 $enNum = new NumberFormatter('en_US', NumberFormatter::SPELLOUT);
 echo $enNum->format(1234567890.25);
 // one billion two hundred thirty-four million five hundred sixty-seven thousand eight hundred ninety point two five
-{% endhighlight %}
- 
+```
+
 ## Text formatting
 
 It is very important to ensure not only the correct text translation, but also, the format of dates, numbers and plural forms of the words.
 
 `MessageFormatter` class is used to do it, i.e. to display dates correctly:
- 
-{% highlight php %}
+
+```php
 <?php
 $enDate = new MessageFormatter('en_US', 'Today {0,date,short}');
 echo $enDate->format(array(time()));
@@ -166,23 +169,23 @@ echo $ltDate->format(array(time()));
 $ltDate = new MessageFormatter('lt_LT', 'Šiandien {0,date,long}');
 echo $ltDate->format(array(time()));
 // Šiandien 2013 m. rugpjūtis 16 d.
-{% endhighlight %}
- 
+```
+
 The locale and text format is passed to the constructor.
 The `format()` argument is the array of data that is used by formatter.
 
- `{0,date,short}` means that the first `format()` array item is used as the date in short format.
- 
+`{0,date,short}` means that the first `format()` array item is used as the date in short format.
+
 `MessageFormatter` is also useful when working with plural forms:
- 
-{% highlight php %}
+
+```php
 <?php
 {% raw %}
 $x = new MessageFormatter('lt_LT', 'Parduodu {0, plural, one{{0,number} obuolį} few{{0,number} obuolius} other{{0,number} obuolių}} ir {1, plural, one{{1,number} bandelę}few{{1,number} bandeles}other{{1,number} bandelių}} už {2,number,currency}');
 {% endraw %}
 echo $x->format(array(15, 2, 15));
 // Parduodu 15 obuolių ir 2 bandeles už 15.00 Lt
-{% endhighlight %}
+```
 
 More information in text formatting: [http://userguide.icu-project.org/formatparse/messages](http://userguide.icu-project.org/formatparse/messages)
 Full list of plural forms: [http://unicode.org/repos/cldr-tmp/trunk/diff/supplemental/language_plural_rules.html](http://unicode.org/repos/cldr-tmp/trunk/diff/supplemental/language_plural_rules.html)

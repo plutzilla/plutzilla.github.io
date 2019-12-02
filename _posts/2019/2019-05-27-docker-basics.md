@@ -5,17 +5,17 @@ layout: post
 
 <img src="{{ '/assets/img/posts/2019/docker.png' | prepend:site.baseurl }}" alt="Docker" class="img-responsive img-rounded" />
 
-# What Docker is
+## What Docker is
 
 Docker is a container virtualization technology, allowing running applications in the isolated environments simultaneously in a single machine.
 
 The main benefits are the following:
 
- * Quick developer onboarding (no need for manual installation and configuration of environment)
- * Environment isolation between applications
- * Consistency between environments
- * Fast deployment
- * Quick startup and shutdown
+* Quick developer onboarding (no need for manual installation and configuration of environment)
+* Environment isolation between applications
+* Consistency between environments
+* Fast deployment
+* Quick startup and shutdown
 
 As Docker does not virtualize the whole operating system, but the application environment (libraries, binaries, configuration) it runs fast and with low footprint and is extremely useful for building [12-factor apps](https://12factor.net/).
 
@@ -23,7 +23,7 @@ As Docker does not virtualize the whole operating system, but the application en
 
 Source: [https://medium.com/@satish1v/docker-for-net-developers-e73961b24e9d](https://medium.com/@satish1v/docker-for-net-developers-e73961b24e9d)
 
-# Installing Docker
+## Installing Docker
 
 There are different versions of Docker: CE (Community edition) and EE (Enterprise Edition). For personal use we will use Community Edition.
 
@@ -33,7 +33,7 @@ It is beneficial to add your user to the `docker` group after install and [perfo
 
 The installation options for other operating systems are also available in Docker website.
 
-# What a Docker image is
+## What a Docker image is
 
 Image is a layered file system that is used to run a container. According to [Docker docs](https://docs.docker.com/develop/develop-images/dockerfile_best-practices/) "Docker image consists of read-only layers each of which represents a `Dockerfile` instruction. The layers are stacked and each one is a delta of the changes from the previous layer."
 
@@ -50,7 +50,7 @@ For example:
 * `gcr.io/google-samples/echo-node:1.0` - the image at `gcr.io` registry from a user `google-samples` named `echo-node` and tagged `1.0`
 * `ubuntu` - the image at `docker.io` (DockerHub) registry from the *official (void)* user, named `ubuntu` and having a `latest` tag
 
-# What a container is
+## What a container is
 
 Container is the application running as the instance of the container image. In most cases it is a single process running in the isolated environment within the Docker Engine.
 During the lifetime of the process the container is `running` and is automatically `stopped` after the process is terminated.
@@ -65,11 +65,11 @@ The container should be treated as the stateless application instance, thus migh
 
 If needed, the persistent storage can be achieved by mounted volumes or by using the external storage or database services.
 
-# Docker tools
+## Docker tools
 
 Below you can find the list of most commonly used docker command.
 
-## Image commands
+### Image commands
 
 `docker pull <image>` - downloads the image from the registry. It might require logging-in using `docker login` if the image is from the private repository.
 
@@ -105,7 +105,7 @@ The image content can be exported (saved as **tar** archive) using a command:
 
 `docker image save <image> -o <file>`
 
-## Container commands
+### Container commands
 
 `docker container run <image> <cmd args>` (shorthand: `docker run ...`) - runs the container from the image. Also automatically pulls (downloads) image if it's not available locally. The image has an **entry point** command which is invoked when running command. It can have default argument list, but it can be overriden by the command arguments when running the container.
 
@@ -140,8 +140,7 @@ Other common container commands:
 
 `docker container prune` - removes the stopped containers
 
-
-## System commands
+### System commands
 
 `docker system df` - show the summary of size used by the images, containers, volumes
 
@@ -151,7 +150,7 @@ Other common container commands:
 
 `docker system prune --volumes` - removes all volumes
 
-# Building images with Dockerfile
+## Building images with Dockerfile
 
 Docker images are built using the instructions written in the file, usually named `Dockerfile`. The most common instructions:
 
@@ -175,7 +174,7 @@ The image is build using the command:
 
 `docker build -t <image>:<tag> <path>` - builds the Docker image from the instuction defined in the `Dockerfile` file in the path (path can be `.` if the command is run from the same directory as Dockerfile). The different file name can be provided using `-f` key. Multiple tags can be provided. CPU and memory limits can be set using `-c` and `-m` keys respectively.
 
-## Multi-stage builds
+### Multi-stage builds
 
 It is useful to separate the images for development and building the application and the ones running in production. The main benefit is the smaller size of the image running code in production.
 
@@ -193,7 +192,7 @@ The `--from=` parameter can also be used to copy the files from the external ima
 
 More info on Multi-stage builds: [https://docs.docker.com/develop/develop-images/multistage-build/](https://docs.docker.com/develop/develop-images/multistage-build/).
 
-## Pushing image to the registry
+### Pushing image to the registry
 
 The built images may be pushed to the online image registry for later reuse.
 
@@ -207,7 +206,7 @@ After authentication the image can be pushed using the command:
 
 `docker push <image>`
 
-# Docker compose
+## Docker compose
 
 Compose is a tool for defining and running multi-container Docker applications. With Compose, you use a YAML file to configure your application’s services. Then, with a single command, you create and start all the services from your configuration. ([source](https://docs.docker.com/compose/overview/))
 
@@ -253,7 +252,6 @@ volumes:
 
 [Full Compose file reference](https://docs.docker.com/compose/compose-file)
 
-
 ## Docker-compose commands
 
 These are the most common docker-compose commands. The commands should be run in the same directory as the `docker-compose.yml` file location:
@@ -274,7 +272,7 @@ These are the most common docker-compose commands. The commands should be run in
 
 `docker-compose rm` - removes stopped containers
 
-# What next?
+## What's next
 
 While Docker is very popular, the other application container engine is [rkt](https://coreos.com/rkt/) is very promising and worth attention. Also, it is conceptually closer to the very popular container orchestration system [Kubernetes](https://kubernetes.io/) and [Application Container specification](https://github.com/appc/spec) by the [Open Container Initiative](https://www.opencontainers.org/).
 

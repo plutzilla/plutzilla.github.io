@@ -34,12 +34,12 @@ Resuming to the screen:
 
 If there are multiple running screens, their list is returned:
 
-{% highlight text %}
+```
 There are screens on:
 31296.pavadinimas	(04/05/2011 06:04:51 PM)	(Detached)
 30781.pts-0.paulius	(04/05/2011 05:39:06 PM)	(Attached)
 2 Sockets in /var/run/screen/S-paulius.
-{% endhighlight %}
+```
 
 In this case it is needed to provide the instance name to resume to, i.e.:
 
@@ -73,7 +73,6 @@ Change window name: `C-a A`
 
 ### Region (split windows) management commands
 
-
 Split active window horizontally: `C-a S`
 
 Split active window vertically: `C-a |`
@@ -81,6 +80,5 @@ Split active window vertically: `C-a |`
 Switch to other region: `C-a <tab>`
 
 Close active region: `C-a X`
-
 
 After creating new region and moving to it, is is needed to create a new window (`C-a c`) or to switch to existing window (`C-a <space>` or choose from window list - `C-a "`).

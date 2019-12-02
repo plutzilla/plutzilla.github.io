@@ -95,22 +95,22 @@ The usability is similar to the standalone Android Auto, although the user exper
 
 Good:
 
- * Google Maps with Traffic data
- * Modern infotainment experience
- * Android Auto 2.0 has standalone mode. Bluetooth is enough to use Android Auto.
- * Voice messaging and commands (only in English though)
- * Possibly bright future with more apps/integrations
- * Control volume, switch songs on the driving wheel
+* Google Maps with Traffic data
+* Modern infotainment experience
+* Android Auto 2.0 has standalone mode. Bluetooth is enough to use Android Auto.
+* Voice messaging and commands (only in English though)
+* Possibly bright future with more apps/integrations
+* Control volume, switch songs on the driving wheel
 
 Bad:
 
- * Voice control is not accurate, especially for non-English content
- * Not available in many countries
- * Always using ambient sensor
- * Limited scrolling capabilities and control when driving. Doesn't make sense if a passenger controls the unit
- * Requires cabling (cannot be used wirelessly)
- * Poor car infotainment system resolution (800x480) limits the experience
- * Navigation info is displayed in the infotainment system, but not in the dash
+* Voice control is not accurate, especially for non-English content
+* Not available in many countries
+* Always using ambient sensor
+* Limited scrolling capabilities and control when driving. Doesn't make sense if a passenger controls the unit
+* Requires cabling (cannot be used wirelessly)
+* Poor car infotainment system resolution (800x480) limits the experience
+* Navigation info is displayed in the infotainment system, but not in the dash
 
 My verdict: if you are able to connect to car's audio system via Bluetooth, better buy a car phone holder:
 

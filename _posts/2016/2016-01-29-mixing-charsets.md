@@ -16,7 +16,8 @@ I used [Burp](https://portswigger.net/burp/) to track the HTTP workflow and late
 You can see the workflow from the requests and responses below.
 
 `https://ebankas.seb.lt/cgi-bin/vbint.sh/web.p` response
-{% highlight html %}
+
+```html
 HTTP/1.1 200 OK
 Date: Fri, 15 Jan 2016 07:34:44 GMT
 Server: Apache
@@ -30,21 +31,22 @@ X-UA-Compatible: IE=Edge,chrome=1
 Content-Length: 805
 
 <html><body onload="window.document.vorm.submit();">  <form name="vorm" method="POST" action="https://deklaravimas.vmi.lt/InternetAuth.aspx">    <input type="hidden" name="SRC" value="70440">    <input type="hidden" name="TIME" value="2016.01.15 09:34:44">    <input type="hidden" name="PERSON_CODE" value="**HIDDEN**">    <input type="hidden" name="PERSON_FNAME" value="Leðèinskas"/>    <input type="hidden" name="PERSON_LNAME" value="Paulius"/>    <input type="hidden" name="SIGNATURE" value="TNwHpH3QNTbdYj2TKsejQKgyu26LIQhR5NKQoV5OtnWSQ1vNXYbE3rx+/3g0QygxXrUJ10ErwRfgPCmUQb+iUfjd/yhLoAN9S0wftPuk4KNdTGMRG6y0wvB4vnaIuESXvzNDIBkoeytJCentuvt1+yijfF+JKwxgvYoXHYXOjHA=">    <input type="hidden" name="TYPE" value="BANK-01">  </form></body></html>
-{% endhighlight %}
+```
 
 You can see that for some (legacy?) reasons the response from SEB is encoded using `windows-1257` charset.
 
 The further data flow in VMI system is encoded using `UTF-8`.
 
 `https://deklaravimas.vmi.lt/InternetAuth.aspx` response
-{% highlight html %}
+
+```html
 HTTP/1.0 200 OK
 Server: BigIP
 Connection: close
 Content-Length: 796
 
 <HTML><HEAD><script type=text/javascript language=javascript>  function s(){ document.f.submit(); } </script></HEAD><BODY onload=s(); >  <FORM name=f action='https://www.vmi.lt/sso/internetauth' method=post><INPUT type=hidden name='SRC' value='70440'><INPUT type=hidden name='TIME' value='2016.01.15 09:34:44'><INPUT type=hidden name='PERSON_CODE' value='**HIDDEN**'><INPUT type=hidden name='PERSON_FNAME' value='Leðèinskas'><INPUT type=hidden name='PERSON_LNAME' value='Paulius'><INPUT type=hidden name='SIGNATURE' value='TNwHpH3QNTbdYj2TKsejQKgyu26LIQhR5NKQoV5OtnWSQ1vNXYbE3rx+/3g0QygxXrUJ10ErwRfgPCmUQb+iUfjd/yhLoAN9S0wftPuk4KNdTGMRG6y0wvB4vnaIuESXvzNDIBkoeytJCentuvt1+yijfF+JKwxgvYoXHYXOjHA='><INPUT type=hidden name='TYPE' value='BANK-01'><INPUT type=submit value=Send></FORM></BODY></HTML>
-{% endhighlight %}
+```
 
 As the response does not have a defined character encoding (neither in HTTP response headers, nor as the HTML meta tag), the Chrome browser treats the response as the default character set - in this situation **UTF-8**.
 
@@ -52,7 +54,7 @@ Since the surname characters `š` and `č` from the form field (PERSON_NAME) are
 
 Request to `https://www.vmi.lt/sso/internetauth`
 
-{% highlight yaml %}
+```yaml
 POST /sso/internetauth HTTP/1.1
 Host: www.vmi.lt
 Connection: close
@@ -69,7 +71,7 @@ Accept-Language: en-US,en;q=0.8,lt;q=0.6
 Cookie: JSESSIONID=4743BDEAFA7A95F704C47C4EC2451AFA; ASP.NET_SessionId_For_ESKIS_EP=e55j2cxr4qovq03ug1aasfp5; BIGipServer~ESKIS~eskis-ext-ssp-https=116854956.47873.0000; BIGipServer~ESKIS~eskis-ext-p2-vip-https=250941612.47873.0000; BIGipServer~ESKIS~eskis-ext-p1-vip-https=234164396.47873.0000; JSESSIONID=A65217F77A4AEC379E06BB9F40D86010; BIGipServer~ESKIS~eskis-ext-p1-vip-http=234164396.20480.0000; __utma=22184892.1996620081.1452842668.1452842668.1452842668.1; __utmb=22184892.1.10.1452842668; __utmc=22184892; __utmz=22184892.1452842668.1.1.utmcsr=(direct)|utmccn=(direct)|utmcmd=(none); AccessibilityMode=False
 
 SRC=70440&TIME=2016.01.15+09%3A34%3A44&PERSON_CODE=**HIDDEN**&PERSON_FNAME=Le%EF%BF%BD%EF%BF%BDinskas&PERSON_LNAME=Paulius&SIGNATURE=TNwHpH3QNTbdYj2TKsejQKgyu26LIQhR5NKQoV5OtnWSQ1vNXYbE3rx%2B%2F3g0QygxXrUJ10ErwRfgPCmUQb%2BiUfjd%2FyhLoAN9S0wftPuk4KNdTGMRG6y0wvB4vnaIuESXvzNDIBkoeytJCentuvt1%2ByijfF%2BJKwxgvYoXHYXOjHA%3D&TYPE=BANK-01
-{% endhighlight %}
+```
 
 You can see that `0xEF 0xBF 0xBD` (URL-encoded value: `%EF%BF%BD`) is posted as the HTML form value. As it differs from the original value, the signature, obviously, becomes wrong and further workflow is rejected.
 
@@ -93,7 +95,7 @@ I have used Burp to intercept and modify the traffic to validate my assumptions.
 
 Adding the `Content-Type: text/html; charset=windows-1257` response header makes the browser interpret the data correctly and solves the issue:
 
-{% highlight html %}
+```html
 HTTP/1.0 200 OK
 Server: BigIP
 Content-Type: text/html; charset=windows-1257
@@ -101,7 +103,7 @@ Connection: close
 Content-Length: 796
 
 <HTML><HEAD><script type=text/javascript language=javascript>  function s(){ document.f.submit(); } </script></HEAD><BODY onload=s(); >  <FORM name=f action='https://www.vmi.lt/sso/internetauth' method=post><INPUT type=hidden name='SRC' value='70440'><INPUT type=hidden name='TIME' value='2016.01.15 17:14:01'><INPUT type=hidden name='PERSON_CODE' value='**HIDDEN**'><INPUT type=hidden name='PERSON_FNAME' value='Leðèinskas'><INPUT type=hidden name='PERSON_LNAME' value='Paulius'><INPUT type=hidden name='SIGNATURE' value='CenMIXDs3iLMM9vL+KGYMS3h75Y+H/cbGAoTuU9XeGfjslw124S9qp7W/30xx2dLZcXGIOhqd1ZV7pkdvI5b0AcJpr+yMT6dol81UqCVlo5QhHOh7iz1DhscXkkF26USaOU8E9jRHwZzx/oUIVcMbye7EzP4VPnWCNpnGT5PER4='><INPUT type=hidden name='TYPE' value='BANK-01'><INPUT type=submit value=Send></FORM></BODY></HTML>
-{% endhighlight %}
+```
 
 Since this solution is client-agnostic and can be controlled by the asset (system) owner, this is the proper solution.
 

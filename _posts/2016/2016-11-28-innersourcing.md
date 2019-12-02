@@ -33,7 +33,7 @@ The most wonderful thing about open source is that these principles can be used 
 
 However even in open communities adopting open source principles in [not always a common sense](https://github.com/vilniusphp/vilniusphp-meetups/pull/1).
 
-## What's that InnerSource?
+## What's that InnerSource
 
 Originally stated by [Tim O'reilly back in 2000](http://archive.oreilly.com/pub/a/oreilly/ask_tim/2000/opengl_1200.html) - it's basically adopting open source principles in the enterprise.
 
@@ -52,7 +52,7 @@ Bas Peters from GitHub had a great talk on InnerSourcing at HighLoadStrategy 201
 * Participate in OpenSource
 * Community leader is essential
 
-## How to innersource in the company?
+## How to innersource in the company
 
 Although it is quite clear what InnerSourcing is, there is very little information how to start it in the company.
 
@@ -74,13 +74,13 @@ My takeaways from these information sources:
 * InnerSourcing (contribution to other product) must be treated as the normal development practice. There must be a common understanding and agreement that InnerSourcing generates unplanned work effort. If the teams try to put EVERY development task to the (sprint) backlog, there will be a conflicting situation, which is likely to lead to the failure of InnerSourcing.
 * The team's output should be explicitly defined fine grained products instead of the monolithic result. I.e.: have products as separate repositories, separate Wiki spaces, separate monitoring screens, have product-centric chat channels instead of team-centric etc.
 
-## What are the concerns of InnerSourcing?
+## What are the concerns of InnerSourcing
 
 According to the recent [interview](https://text.sourcegraph.com/github-universe-liveblog-innersource-and-reaping-the-benefits-of-open-source-behind-your-firewall-2af906c3e0ae#.8nmrntlcn), security is one of the biggest concerns within InnerSourcing.
 
 The cultural shift, knowledge concentration and firewalls are also mentioned as challenges.
 
-## What is the right tool to leverage InnerSourcing?
+## What is the right tool to leverage InnerSourcing
 
 As InnerSource is about culture, collaboration of the developers community, it says nothing about the tools. Therefore we should focus on processes first, and then choose the most proper tool.
 

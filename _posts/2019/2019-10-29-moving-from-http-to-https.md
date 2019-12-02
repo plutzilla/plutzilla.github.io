@@ -11,16 +11,16 @@ While HTTPS brings many benefits for all parties and is being promoted by the br
 
 This post is the summary of a practical experience obtained from migrating one large web system to HTTPS.
 
-# Preparation and enabling HTTPS
+## Preparation and enabling HTTPS
 
-## Defining the scope
+### Defining the scope
 
 If you operate more that one domain, it is important to define the scope - for which product(s) the HTTPS will be forced.
 
 If the web application loads the assets (images, CSS stylesheets, JS scripts, fonts etc.) from HTTP origins, this would result in the Mixed Content. Depending on the Mixed Content type (active, passive) it would cause the incorrect behaviour or incorrect visual representation of the application, therefore such changes need to be taked with a proper care and monitoring of the potential impact.
 The W3C Reporting API can be utilized to identify the impact and to adjust the scope of the change.
 
-## Planning
+### Planning
 
 The sample activity plan for the implementation:
 
@@ -42,11 +42,11 @@ There might be additional steps needed. Also, it makes sense to run these activi
 
 For us it took approximately 3 months to do the smooth and safe transition to HTTPS.
 
-# Enabling HTTPS
+## Enabling HTTPS
 
 To enable HTTPS in the web system, it is needed to obtain the TLS certificate from the Certificate Authority (CA) and to configure the HTTP(S) server or proxy to support it.
 
-## Obtaining certificate
+### Obtaining certificate
 
 The TLS certificate can be bough from one of many CAs or obtained for free from the non-profit CA [Let's Encrypt](https://letsencrypt.org/).
 
@@ -56,7 +56,7 @@ TLS certificates issued by other CAs are valid for a longer time (1 or 2 years u
 
 Also, TLS encryption can be provided out-of-the-box as a managed service. As an example, Cloudflare provides a [TLS proxy service](https://www.cloudflare.com/ssl/), Google Cloud Platform provides managed TLS service, that is also [available for Kubernetes]({%post_url 2019/2019-10-03-letsencrypt-managed-tls-certificates-kubernetes-gke %}).
 
-## TLS configuration
+### TLS configuration
 
 The certificate itself does not ensure the security - it enables the client to verify the server's authenticity and to perform the TLS handshake.
 
@@ -69,11 +69,11 @@ The [TLS configuration test](https://www.ssllabs.com/ssltest/) can be used to ev
 The continuous improvement of the HTTPS server setup is needed as new weaknesses are discovered in the certain TLS protocol versions and cipher suits, thus new configuration options emerge.
 There's a good quick summary of [protocol and cipher security in Wikipedia](https://en.wikipedia.org/wiki/Transport_Layer_Security#Cipher).
 
-# Reporting and Testing
+## Reporting and Testing
 
 As the ultimate target is to fully migrate to HTTPS, there is a need to be safe that such change will not introduce any regression and faulty web application behavior.
 
-## Content Security Policy (CSP) violation reporting
+### Content Security Policy (CSP) violation reporting
 
 One of the main means to ensure HTTP transport security is by utilizing [Content Security Policy](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) (CSP). Using CSP the web browsers are instructed to control the origins that web application can load assets from.
 
@@ -115,7 +115,7 @@ Analysing and tuning the CSP gives a good overview of the dependencies of your a
 
 For example, we found out that some of our applications load assets from the user-defined origins and introducing the restrictions might result in the undesired behavior. Therefore we left such applications out of scope (HTTPS is enabled but not forced), accepting the risk of a mixed content-based threats.
 
-## Network Error Logging (NEL) reporting
+### Network Error Logging (NEL) reporting
 
 [Network Error Logging](https://www.w3.org/TR/network-error-logging/) is a modern standard allowing web browsers to report the Network Errors by utilizing [W3C Reporting API](https://www.w3.org/TR/reporting/).
 Scott Helme has a [comprehensive blogpost](https://scotthelme.co.uk/network-error-logging-deep-dive/) about NEL.
@@ -157,8 +157,7 @@ NEL: {"report_to":"default","max_age":604800,"include_subdomains":true}
 In this example the `max_age` directive is set to 7 days (604 800 seconds). This is the time for which web browser stores this setting for a certain domain (or for all subdomains as well as in the example above).
 After testing period the `max_age` attribute should be increased to a much longer period (i.e. 365 days / 31 536 000 seconds).
 
-
-## Manual testing
+### Manual testing
 
 While `report-only` CSP can be deployed in production and over time most violations will get reported, there are certain cases when manual testing is needed, for example:
 
@@ -173,21 +172,23 @@ One of the easiest ways is to use the browser extension to modify the HTTP heade
 
 Read further section to get the actual CSP policy which can be used along with this extension for testing.
 
-# Forcing HTTPS
+## Forcing HTTPS
 
 After the web application(s) are accessible via HTTPS, testing is performed, scope for forcing HTTPS is clarified and the CSP policy is defined, it is time to move the the second stage - force the HTTPS for these applications.
 
-## Upgrading insecure requests
+### Upgrading insecure requests
 
 [Upgrade insecure requests](https://www.w3.org/TR/upgrade-insecure-requests/) is a CSP directive informing web browsers to seamlessly upgrade all requests from the web application to use HTTPS even if the HTTP is used in the application code.
 As the result it reduces the mixed content likelihood and improves the application security with very little effort.
 
 Under the hood it works this way: the browser indicates the support of this feature via request HTTP header
+
 ```
 Upgrade-insecure-requests: 1
 ```
 
 The upgrade itself is set via response HTTP header:
+
 ```
 Content-Security-Policy: upgrade-insecure-requests; default-src https:
 ```
@@ -201,9 +202,10 @@ Content-Security-Policy: upgrade-insecure-requests; default-src data: https: 'un
 > There are some caveats though for using CSP upgrade-insecure-requests: at the time of writing (October 2019) the specification is still a Candidate Recommendation and [lacks support](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Content-Security-Policy/upgrade-insecure-requests#Browser_compatibility) from MSIE and Edge browsers. Also it does not protect against initial insecure requests, which can eavesdropped or intercepted.
 > Therefore we need additional measures (HTTP redirects and HTTP Strict Transport Security) to overcome these limitations.
 
-## HTTP redirects
+### HTTP redirects
 
 There are cases when the `upgrade-insecure-requests` does not ensure the protocol upgrade:
+
 * Web browsers not supporting this CSP directive (MSIE, Edge)
 * Search engines and web crawlers (robots)
 * Service-to-service integrations (when the User Agent is not a web browser)
@@ -214,7 +216,7 @@ For such cases, instead of serving the HTML content via HTTP, we need to perform
 
 Therefore the best option in this case is to use `HTTP 307 Temporary Redirect` response.
 
-## Secure cookies
+### Secure cookies
 
 HTTP cookies can be sent both via secure and insecure connections. As usually the session identifiers are stored in cookies, exposing this information via unencrypted network might result in the session hijacking attacks. In order to limit the cookies to be sent via HTTPS only, it is needed to set the `secure` cookie attribute.
 
@@ -224,20 +226,23 @@ However this change would require the changes in the application code, so cookie
 
 The cookie prefixes are not yet supported by MSIE and Edge browsers, but this is not a breaking change, so still worth implementing.
 
-## HTTP Strict Transport Security (HSTS)
+### HTTP Strict Transport Security (HSTS)
 
 In order to reduce the likelihood of protocol downgrade attacks, the HTTP Strict Transport Security (HSTS) should be used.
 It instructs web browsers to remember that all connections to certain (sub)domains need to be done **only** using HTTPS.
 
 It is done by sending the HTTP response header:
+
 ```
 Strict-Transport-Security: max-age=31536000
 ```
+
 where `31536000` means the `365` days period in seconds for which this setting should be remembered by the particular user's web browser.
 
 I recommend to start from the shorter time (minutes to days), and extend it once everything works as expected.
 
 If all subdomains for particular domain work under HTTPS, we can also add the directive `includeSubDomains`:
+
 ```
 Strict-Transport-Security: max-age=31536000; includeSubDomains
 ```
@@ -245,39 +250,40 @@ Strict-Transport-Security: max-age=31536000; includeSubDomains
 In such case, this header needs to be sent from the root domain, so even if the application runs from `www.example.com`, at least one asset (including the HSTS header) needs to be loaded from `example.com` (non-www) domain.
 
 Interesting note, confirming the choice of `307` redirect header in the previous chapter is that Chrome's internal redirect used for HSTS-based redirects uses the same `307` HTTP response code:
+
 ```
 HTTP 307
 Non-Authoritative-Reason: HSTS
 ```
 
-# Further actions
+## Further actions
 
 After all these measures are applied, we have a web application fully operating via HTTPS. However the following measures can also be considered:
 
-## HSTS Preload
+### HSTS Preload
 
 While HSTS works for the particular web browser instance, the new visitors of the web application can be attacked.
 The `HSTS Preload` feature can be used to include the certain domain to the [HSTS Preload](https://hstspreload.org/) list.
 This list is hardcoded in all major web browsers. To include the domain to the list the following needs to be done:
 
- * Include the following HSTS header (note that the value of `max-age` is equal to 2 years):
+* Include the following HSTS header (note that the value of `max-age` is equal to 2 years):
 
 ```
 Strict-Transport-Security: max-age=63072000; includeSubDomains; preload
 ```
 
- * Submit the domain to the [HSTS Preload](https://hstspreload.org/) list.
+* Submit the domain to the [HSTS Preload](https://hstspreload.org/) list.
 
 As the side-effect, you need to be aware that there will be no easy way back from HTTPS :)
 
-## Tuning CSP
+### Tuning CSP
 
 Content Security Policy can ease migration to HTTPS, but its main purpose is to protect agains code injection attacks (i.e. XSS).
 Although during the migration project we might whitelist the insecure origins like `unsafe-eval`, `unsafe-inline` and others, such CSP policy does not do what it's meant for. The is even a list of such [Useless CSP](https://uselesscsp.com/).
 
 The assessment of the application, identification of threats and remediating them, potentially utilizing CSP as a tool is a good follow-up activity.
 
-## Learning more about web application security
+### Learning more about web application security
 
 There are way more topics and techniques to ensure the web application security.
 

@@ -22,7 +22,6 @@ For non-ubuntu users the same extension can be installed from [(K)StatusNotifier
 
 The legacy tray icons can be "moved" to the top panel using the [Top Icons Plus extension](https://extensions.gnome.org/extension/1031/topicons/).
 
-
 ### Ubuntu Dock
 
 Ubuntu comes with the application launcher known as **Dock**. It is slightly modified version of [Dash to Dock extension](https://extensions.gnome.org/extension/307/dash-to-dock/), which is very popular among non-Ubuntu users of Gnome Shell. Its alternative [Dock to Panel](https://extensions.gnome.org/extension/1160/dash-to-panel/) is another good choice, considering that it combines the launcher and the application tray into the single panel.
@@ -79,7 +78,6 @@ Apparently, one of the most popular Gnome extension is [OpenWeather extension](h
 
 ![After No Title Bar](/assets/img/posts/2018/openweather.png)
 
-
 ### Removable Drive Menu
 
 The [Removable Drive Menu](https://extensions.gnome.org/extension/7/removable-drive-menu/) is an extension that provides quick access to the mounted drives or network shares and allows quick unmount:
@@ -115,7 +113,7 @@ $ sudo apt install gir1.2-gtop-2.0 gir1.2-networkmanager-1.0  gir1.2-clutter-1.0
 Also, I had troubles installing this extension from extensions.gnome.org, so I had to install it from the command shell:
 
 ```
-$ sudo apt install gnome-shell-extension-system-monitor 
+$ sudo apt install gnome-shell-extension-system-monitor
 ```
 
 More information on this extension can be found in the [extension's Github page](https://github.com/paradoxxxzero/gnome-shell-system-monitor-applet).
@@ -140,9 +138,9 @@ Although the default window controls are now placed on the right side, I don't t
 
 I also tweak some of the top menu configuration parameters:
 
- * Enable activity hot corner
- * Display week numbers in the calendar
- * Show battery percentage
+* Enable activity hot corner
+* Display week numbers in the calendar
+* Show battery percentage
 
 ![Top menu tweaks](/assets/img/posts/2018/top-menu-tweaks.png)
 

@@ -15,12 +15,14 @@ If you are using Google Kubernetes Engine (GKE) on Google Cloud Platform (CGP), 
 > Also, this service is currently in Beta stage, so it has some limitations and potential issues.
 
 The workflow of using the managed TLS certificates is relatively simple:
+
 * Create K8s ManagedCertificate object(s)
 * Configure the Ingress controller to use these certificates
 * Make an HTTPS request to your domain
 * Wait 10-20 minutes for magic to happen
 
 The K8s `ManagedCertificates` object structure is the following (real world example from my blog):
+
 ```yaml
 apiVersion: networking.gke.io/v1beta1
 kind: ManagedCertificate
@@ -46,9 +48,11 @@ metadata:
     networking.gke.io/managed-certificates: "lescinskas-lt-cert,www-lescinskas-lt-cert"
 ...
 ```
+
 Certificate objects are listed using comma as the separator. In this example I use both `lescinskas.lt` and `www.lescinskas.lt` domains to expose this website to the Internet.
 
 During the provisioning the HTTPS version of the website will return various errors:
+
 * `502` HTTP error
 * `SSL_ERROR_NO_CYPHER_OVERLAP` TLS error
 * `Some backend services are in UNKNOWN state` error in Google Cloud console

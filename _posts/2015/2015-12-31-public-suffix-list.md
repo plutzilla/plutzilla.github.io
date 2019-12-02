@@ -18,34 +18,34 @@ The same situation might happen not only with TLDs, but with hosting providers a
 
 The similar issues might occur with wildcard SSL certificates, i.e. issuing wildcard certificate for the whole public suffix. Validating/invalidating an SSL certificate of the whole public suffix seems to be also under consideration ([RFC6125 section 7.2](http://tools.ietf.org/html/rfc6125#section-7.2)).
 
-Since there is no easy way to distinguish which part of the particular domain is a publix suffix (especially, considering 4th level domain scenarios), the publix suffix list has been created: [publicsuffix.org](https://publicsuffix.org). It is maintained by [Mozilla foundation](http://www.mozilla.org/) and is used by the most common web browsers. According to the [learn page](https://publicsuffix.org/learn/) at publixsuffix.org these are the main use cases of the list for the browsers: 
+Since there is no easy way to distinguish which part of the particular domain is a publix suffix (especially, considering 4th level domain scenarios), the publix suffix list has been created: [publicsuffix.org](https://publicsuffix.org). It is maintained by [Mozilla foundation](http://www.mozilla.org/) and is used by the most common web browsers. According to the [learn page](https://publicsuffix.org/learn/) at publixsuffix.org these are the main use cases of the list for the browsers:
 
 ### Firefox
 
- * Restricting cookie setting
- * Restricting the setting of the document.domain property
- * Sorting in the download manager
- * Sorting in the cookie manager
- * Searching in history
- * Domain highlighting in the URL bar
- * In the future it may be used for, for example, restricting DOM Storage allowances on a per-domain basis.
+* Restricting cookie setting
+* Restricting the setting of the document.domain property
+* Sorting in the download manager
+* Sorting in the cookie manager
+* Searching in history
+* Domain highlighting in the URL bar
+* In the future it may be used for, for example, restricting DOM Storage allowances on a per-domain basis.
 
 ### Chromium/Google Chrome (pre-processing, parser)
 
- * Restricting cookie setting
- * Determining whether entered text is a search or a website URL
+* Restricting cookie setting
+* Determining whether entered text is a search or a website URL
 
 ### Opera
 
- * Restricting cookie setting
- * Restricting the setting of the document.domain property
- 
+* Restricting cookie setting
+* Restricting the setting of the document.domain property
+
 ### Internet Explorer
 
- * Restricting cookie setting
- * Domain highlighting in the URL bar
- * Zone determination
- * ActiveX opt-in list security restriction
+* Restricting cookie setting
+* Domain highlighting in the URL bar
+* Zone determination
+* ActiveX opt-in list security restriction
 
 More generic list of use cases can be found at [Mozilla.org](https://wiki.mozilla.org/Public_Suffix_List/Use_Cases).
 
@@ -55,6 +55,6 @@ As modern browsers are dependent on such single sources of truth (like this list
 
 ## Links
 
- * [publicsuffix.org](https://publicsuffix.org/)
- * [Mozilla](https://wiki.mozilla.org/Public_Suffix_List)
- * [Wikipedia](https://en.wikipedia.org/wiki/Public_Suffix_List)
+* [publicsuffix.org](https://publicsuffix.org/)
+* [Mozilla](https://wiki.mozilla.org/Public_Suffix_List)
+* [Wikipedia](https://en.wikipedia.org/wiki/Public_Suffix_List)
