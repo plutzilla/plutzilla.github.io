@@ -115,6 +115,7 @@ While `docker container run` command has many option keys, the most commonly use
 * `-it` - these are separate keys `-i` (interactive) and `-t` (pseudo-TTY) usually used together to provide the interactive TTY
 * `-v` - mounts the volume from the host machine to the container. When used as `-v /path/to/dir/on/host/machine/:/dir/in/container` the volume persists.
 * `-e` - sets the environment variables in the container
+* `-p` - maps the TCP port from the container to the host machine. I.e.: setting the value `"8080:4000"` will expose the port `4000` from the container to the host machine as `8080` port, so it could be accessed as this port within the host's loopack network interface (`localhost` host /`127.0.0.1` IPv4 address)
 
 For example, the following command runs `bash` in the Ubuntu distribution from a Docker container:
 
@@ -238,7 +239,7 @@ services:
       - ".:/site" # Mounts current directory to the container
       - "dbdata:/path/to/db/files" # Reusable volume among the containers
     ports:
-      - '8080:4000' # Exposed port mapping
+      - '8080:4000' # Exposed port mapping. This will expose the TCP port 4000 from the container to the host machine as 8080 port
     networks:
       - my-network # Network name. Needed for multiple servers to communicate between each other
 
