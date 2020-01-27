@@ -17,6 +17,9 @@ steps:
   when:
     branches: [master]
     event: [push]
+  commands:
+    - npm install
+    - gulp
 
 image_pull_secrets:
 - docker_config
