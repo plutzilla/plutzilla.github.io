@@ -12,5 +12,11 @@ steps:
     branches: [master]
     event: [push]
 
+- name: minify
+  image: plutzilla/lescinskas.lt:gulp
+  when:
+    branches: [master]
+    event: [push]
+
 image_pull_secrets:
 - docker_config

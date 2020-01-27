@@ -7,22 +7,22 @@ var rev = require('gulp-rev');
 var revCollector = require('gulp-rev-collector');
 var runSequence = require('run-sequence');
 
-var environment = 'development';
+// var environment = 'development';
 
-gulp.task('build:jekyll', function (gulpCallBack) {
-    var spawn = require('child_process').spawn;
-    if(environment == 'production') {
-        var jekyll = spawn('jekyll', ['build'], { stdio: 'inherit' });
-    } else if(environment == 'development') {
-        var jekyll = spawn('jekyll', ['build', '--drafts'], {stdio: 'inherit'}); // Build with drafts only in dev env
-    } else {
-        throw 'Unknown environment';
-    }
+// gulp.task('build:jekyll', function (gulpCallBack) {
+//     var spawn = require('child_process').spawn;
+//     if(environment == 'production') {
+//         var jekyll = spawn('jekyll', ['build'], { stdio: 'inherit' });
+//     } else if(environment == 'development') {
+//         var jekyll = spawn('jekyll', ['build', '--drafts'], {stdio: 'inherit'}); // Build with drafts only in dev env
+//     } else {
+//         throw 'Unknown environment';
+//     }
 
-    jekyll.on('exit', function (code) {
-        gulpCallBack(code === 0 ? null : 'ERROR: Jekyll process exited with code: ' + code);
-    });
-});
+//     jekyll.on('exit', function (code) {
+//         gulpCallBack(code === 0 ? null : 'ERROR: Jekyll process exited with code: ' + code);
+//     });
+// });
 
 gulp.task('serve', function() {
     var spawn = require('child_process').spawn;
