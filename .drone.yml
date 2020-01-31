@@ -21,5 +21,19 @@ steps:
     - npm install
     - gulp
 
+- name: publish
+  image: plugins/gcr
+  when:
+    branches: [master]
+    event: [push]
+  settings:
+    repo: lescinskas-lt/nginx-server
+    tags:
+      - ${DRONE_COMMIT_SHA:0:8}
+      - latest
+    registry: eu.gcr.io
+    dockerfile: nginx.Dockerfile
+    json_key: > $${google_container_registry}
+
 image_pull_secrets:
 - docker_config
