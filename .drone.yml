@@ -10,13 +10,17 @@ steps:
     - bundle exec jekyll build
   when:
     branches: [master]
-    event: [push]
+    event:
+      - push
+      - deployment
 
 - name: minify
   image: plutzilla/lescinskas.lt:gulp
   when:
     branches: [master]
-    event: [push]
+    event:
+      - push
+      - deployment
   commands:
     - npm install
     - gulp
@@ -25,7 +29,9 @@ steps:
   image: plugins/gcr
   when:
     branches: [master]
-    event: [push]
+    event:
+      - push
+      - deployment
   settings:
     repo: lescinskas-lt/nginx-server
     tags:
