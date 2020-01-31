@@ -33,7 +33,8 @@ steps:
       - latest
     registry: eu.gcr.io
     dockerfile: nginx.Dockerfile
-    json_key: > $${google_container_registry}
+    json_key: >
+      $${google_container_registry}
 
 image_pull_secrets:
 - docker_config
