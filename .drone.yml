@@ -50,7 +50,7 @@ steps:
       - push
       - deployment
   commands:
-    - echo $GOOGLE_KUBERNETES_ENGINE > /gke.json
+    - echo $${GOOGLE_KUBERNETES_ENGINE} > /gke.json
     - gcloud auth activate-service-account --key-file=/gke.json
     - gcloud config set project lescinskas-lt
     - gcloud config set compute/zone europe-north1-a
