@@ -55,7 +55,7 @@ steps:
     - gcloud config set project lescinskas-lt
     - gcloud config set compute/zone europe-north1-a
     - gcloud container clusters get-credentials lescinskas-lt-web-cluster
-    - kubectl set image deployment/beta-lescinskas-lt-deploy nginx-server=eu.gcr.io/lescinskas-lt/nginx-server:${DRONE_COMMIT_SHA:0:8} --record
+    - kubectl set image deployment/beta-lescinskas-lt-deploy nginx-server=eu.gcr.io/lescinskas-lt/nginx-server:$${DRONE_COMMIT_SHA:0:8} --record
 
 image_pull_secrets:
 - docker_config
