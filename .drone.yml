@@ -63,9 +63,8 @@ steps:
   image: google/cloud-sdk
   when:
     branches: [master]
-    event:
-      - promote
-    environment: [production]
+    event: promote
+    environment: production
   commands:
     - echo $${GKE_BASE64} | base64 -d > gke.json
     - gcloud auth activate-service-account --key-file=gke.json
