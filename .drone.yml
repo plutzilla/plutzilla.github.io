@@ -12,7 +12,6 @@ steps:
     branches: [master]
     event:
       - push
-      - deployment
 
 - name: minify
   image: plutzilla/lescinskas.lt:gulp
@@ -20,7 +19,6 @@ steps:
     branches: [master]
     event:
       - push
-      - deployment
   commands:
     - npm install
     - gulp
@@ -31,7 +29,6 @@ steps:
     branches: [master]
     event:
       - push
-      - deployment
   settings:
     repo: lescinskas-lt/nginx-server
     tags:
@@ -42,13 +39,33 @@ steps:
     json_key:
       from_secret: google_container_registry
 
-- name: deploy
+- name: deploy to beta
   image: google/cloud-sdk
   when:
     branches: [master]
     event:
       - push
-      - deployment
+      - promote
+    environment: beta
+  commands:
+    - echo $${GKE_BASE64} | base64 -d > gke.json
+    - gcloud auth activate-service-account --key-file=gke.json
+    - gcloud config set project lescinskas-lt
+    - gcloud config set compute/zone europe-north1-a
+    - gcloud container clusters get-credentials lescinskas-lt-web-cluster
+    - kubectl set image deployment/beta-lescinskas-lt-deploy nginx-server=eu.gcr.io/lescinskas-lt/nginx-server:$${IMAGE_TAG} --record
+  environment:
+    GKE_BASE64:
+      from_secret: gke_base64
+    IMAGE_TAG: ${DRONE_COMMIT_SHA:0:8}
+
+- name: deploy to production
+  image: google/cloud-sdk
+  when:
+    branches: [master]
+    event:
+      - promote
+    environment: production
   commands:
     - echo $${GKE_BASE64} | base64 -d > gke.json
     - gcloud auth activate-service-account --key-file=gke.json
