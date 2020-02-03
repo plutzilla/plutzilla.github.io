@@ -72,7 +72,7 @@ steps:
     - gcloud config set project lescinskas-lt
     - gcloud config set compute/zone europe-north1-a
     - gcloud container clusters get-credentials lescinskas-lt-web-cluster
-    - kubectl set image deployment/beta-lescinskas-lt-deploy nginx-server=eu.gcr.io/lescinskas-lt/nginx-server:$${IMAGE_TAG} --record
+    - kubectl set image deployment/lescinskas-lt-deploy nginx-server=eu.gcr.io/lescinskas-lt/nginx-server:$${IMAGE_TAG} --record
   environment:
     GKE_BASE64:
       from_secret: gke_base64
