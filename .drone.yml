@@ -45,9 +45,6 @@ steps:
     branches: [master]
     event:
       - push
-      - promote
-    target:
-      - beta
   commands:
     - echo $${GKE_BASE64} | base64 -d > gke.json
     - gcloud auth activate-service-account --key-file=gke.json
