@@ -7,7 +7,7 @@ steps:
   environment:
     JEKYLL_ENV: production
   commands:
-    - bundle exec jekyll build
+    - build -s src -d _site
   when:
     branches: [master]
     event:
