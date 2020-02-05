@@ -11,4 +11,4 @@ WORKDIR /site
 
 ENTRYPOINT ["bundle", "exec", "jekyll"]
 
-CMD ["serve", "--drafts", "--watch", "-H", "0.0.0.0", "-P", "4000"]
+CMD ["serve", "--drafts", "--watch", "-H", "0.0.0.0", "-P", "4000", "-s", "src", "-d", "_site"]

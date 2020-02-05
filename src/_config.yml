@@ -17,6 +17,6 @@ date_format_archive: "%B %e"
 markdown: kramdown
 permalink: /blog/:year/:month/:day/:title/
 
-exclude: ['node_modules', 'nbproject', 'gulpfile.js', '.gitignore', 'package.json', 'README.md', 'Gemfile', 'Gemfile.lock', 'nginx.Dockerfile', 'Dockerfile', 'docker-compose.yml', '.dockerignore', 'package-lock.json', 'deploy.sh', 'build', '.drone.yml']
+exclude: []
 
 host: 0.0.0.0

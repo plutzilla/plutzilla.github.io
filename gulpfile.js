@@ -12,9 +12,9 @@ var runSequence = require('run-sequence');
 // gulp.task('build:jekyll', function (gulpCallBack) {
 //     var spawn = require('child_process').spawn;
 //     if(environment == 'production') {
-//         var jekyll = spawn('jekyll', ['build'], { stdio: 'inherit' });
+//         var jekyll = spawn('jekyll', ['build', '-s', 'src', '-d', '_site'], { stdio: 'inherit' });
 //     } else if(environment == 'development') {
-//         var jekyll = spawn('jekyll', ['build', '--drafts'], {stdio: 'inherit'}); // Build with drafts only in dev env
+//         var jekyll = spawn('jekyll', ['build', '--drafts', '-s', 'src', '-d', '_site'], {stdio: 'inherit'}); // Build with drafts only in dev env
 //     } else {
 //         throw 'Unknown environment';
 //     }
@@ -26,7 +26,7 @@ var runSequence = require('run-sequence');
 
 gulp.task('serve', function() {
     var spawn = require('child_process').spawn;
-    spawn('jekyll', ['serve', '--drafts', '--watch'], { stdio: 'inherit' });
+    spawn('jekyll', ['serve', '--drafts', '--watch', '-s', 'src', '-d', '_site'], { stdio: 'inherit' });
 });
 
 gulp.task('minify:html', function () {
@@ -49,16 +49,16 @@ gulp.task('minify:css', function () {
 });
 
 
-gulp.task('deploy:prod', function () {
+// gulp.task('deploy:prod', function () {
 
-    return gulp.src(['./_site/**/*'], { dot: true })
-        .pipe(rsync({
-            root: '_site',
-            hostname: 'lescinskas.lt',
-            destination: '~/lescinskas.lt/data',
-            incremental: true
-        }));
-});
+//     return gulp.src(['./_site/**/*'], { dot: true })
+//         .pipe(rsync({
+//             root: '_site',
+//             hostname: 'lescinskas.lt',
+//             destination: '~/lescinskas.lt/data',
+//             incremental: true
+//         }));
+// });
 
 gulp.task('setenv:production', function() {
     environment = 'production';
@@ -73,7 +73,7 @@ gulp.task('setenv:production', function() {
  * Should be run after build and before minification
  */
 gulp.task('revision', function() {
-    return gulp.src(['./assets/**/*.{css,js}'])
+    return gulp.src(['./src/assets/**/*.{css,js}'])
         .pipe(rev())
         .pipe(gulp.dest('./_site/assets/'))
         .pipe(rev.manifest({ path: 'manifest.json'}))
@@ -93,7 +93,7 @@ gulp.task('default', function (callback) {
     //@TODO: delete _site folder
 });
 
-gulp.task('release', function (callback) {
-    runSequence('setenv:production', /*'build:jekyll',*/ 'revision', ['minify:html', 'minify:css'], 'revision:collect', 'deploy:prod', callback);
-    //@TODO: delete _site folder
-});
+// gulp.task('release', function (callback) {
+//     runSequence('setenv:production', /*'build:jekyll',*/ 'revision', ['minify:html', 'minify:css'], 'revision:collect', 'deploy:prod', callback);
+//     //@TODO: delete _site folder
+// });

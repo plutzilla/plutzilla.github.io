@@ -2,7 +2,7 @@
 
 sudo rm -rf ../_site
 
-docker run -v $(dirname "$(pwd)"):/site -e JEKYLL_ENV=production plutzilla/lescinskas.lt:jekyll build
+docker run -v $(dirname "$(pwd)"):/site -e JEKYLL_ENV=production plutzilla/lescinskas.lt:jekyll build -s src -d _site
 docker run -v $(dirname $(pwd)):/site plutzilla/lescinskas.lt:gulp
 
 #sudo chown -R paulius:paulius ../_site
