@@ -21,7 +21,7 @@ $ docker-compose build
 
 Building the static site:
 ```
-$ docker run -v $(pwd):/site plutzilla/lescinskas.lt:jekyll build
+$ docker run -v $(pwd):/site -e JEKYLL_ENV=production plutzilla/lescinskas.lt:jekyll build -s src -d _site
 ```
 
 Starting the local server to watch changes while editing the content:
@@ -30,16 +30,17 @@ $ docker-compose up
 ```
 The container listens to 4000 port which is forwarded to `localhost:8080`
 
-## Manual build 
+## Manual build
 
-The content is generated with [Jekyll](http://jekyllrb.com). 
+The content is generated with [Jekyll](http://jekyllrb.com).
 ```
 $ gem install jekyll
-$ jekyll build
+$ JEYLL_ENV=production budle exec jekyll build -s src -d _site
 ```
 
 ## Deployment
 
-I use [Gulp](http://gulpjs.com/) to build, compress and release the site to production. You can refer to [gulpfile.js](gulpfile.js).
+The site is deployed in Kubernetes cluster on Google Kubernetes Engine using (Drone)[https://www.drone.io] as the CI/CD runner.
+Please see the [build pipeline](.drone.yml) for more details.
 
 Please share your feedback via email: paulius.lescinskas@gmail.com
