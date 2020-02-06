@@ -5,7 +5,7 @@ var rsync = require('gulp-rsync');
 var env = require('gulp-env');
 var rev = require('gulp-rev');
 var revCollector = require('gulp-rev-collector');
-var runSequence = require('run-sequence');
+var runSequence = require('gulp4-run-sequence');
 
 // var environment = 'development';
 
