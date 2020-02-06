@@ -40,7 +40,7 @@ $ JEYLL_ENV=production budle exec jekyll build -s src -d _site
 
 ## Deployment
 
-The site is deployed in Kubernetes cluster on Google Kubernetes Engine using (Drone)[https://www.drone.io] as the CI/CD runner.
+The site is deployed in Kubernetes cluster on Google Kubernetes Engine using [Drone](https://www.drone.io) as the CI/CD runner.
 Please see the [build pipeline](.drone.yml) for more details.
 
 Please share your feedback via email: paulius.lescinskas@gmail.com
