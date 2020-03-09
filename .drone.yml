@@ -3,7 +3,7 @@ name: lescinskas.lt release
 
 steps:
 - name: build
-  image: plutzilla/lescinskas.lt:jekyll
+  image: plutzilla/jekyll:4.0.0
   environment:
     JEKYLL_ENV: production
   commands:
@@ -14,14 +14,14 @@ steps:
       - push
 
 - name: minify
-  image: plutzilla/lescinskas.lt:gulp
+  image: node:13
   when:
     branches: [master]
     event:
       - push
   commands:
     - npm install
-    - gulp
+    - npx gulp
 
 - name: publish
   image: plugins/gcr
