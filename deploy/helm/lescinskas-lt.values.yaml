@@ -1,0 +1,16 @@
+replicaCount: 2
+
+image:
+  repository: plutzilla/lescinskas.lt
+  tag: latest
+  pullPolicy: IfNotPresent
+
+ingress:
+  enabled: true
+  annotations: {}
+  hosts:
+    - host: lescinskas.lt
+      paths: ['/']
+    - host: www.lescinskas.lt
+      paths: ['/']
+  tls: []
