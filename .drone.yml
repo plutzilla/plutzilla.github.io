@@ -63,7 +63,7 @@ steps:
     - list --kubeconfig=.kubeconfig
 
 
-- name: Authenticate to DigitalOcean
+- name: Authenticate to DigitalOcean (branch)
   image: digitalocean/doctl
   when:
     branches: [do-cicd]
@@ -75,7 +75,7 @@ steps:
   commands:
     - doctl k8s cluster kubeconfig show do-k8s-lescinskas-lt-cluster > .kubeconfig
 
-- name: List helm deployments
+- name: List helm deployments (branch)
   image: alpine/helm
   when:
     branches: [do-cicd]
