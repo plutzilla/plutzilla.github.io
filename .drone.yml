@@ -60,4 +60,4 @@ steps:
     branch: [do-cicd]
     event: [push]
   commands:
-    - list --kubeconfig=.kubeconfig
+    - helm list --kubeconfig=.kubeconfig
