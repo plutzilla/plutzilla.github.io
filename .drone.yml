@@ -44,7 +44,7 @@ steps:
   when:
     branch: [master, do-cicd]
     event: [tag, promote]
-    target: production
+    # target: production
   environment:
     DIGITALOCEAN_ACCESS_TOKEN:
       from_secret: DIGITALOCEAN_ACCESS_TOKEN
@@ -65,6 +65,6 @@ steps:
   when:
     branch: [master, do-cicd]
     event: [tag, promote]
-    target: production
+    # target: production
   commands:
     - helm upgrade --install --kubeconfig=.kubeconfig -f ./deploy/helm/www-lescinskas-lt.values.yaml --set image.tag=${DRONE_TAG##v} www-lescinskas-lt ./deploy/helm/lescinskas.lt
