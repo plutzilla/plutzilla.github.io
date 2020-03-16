@@ -43,7 +43,8 @@ steps:
   image: digitalocean/doctl
   when:
     branch: [master, do-cicd]
-    event: [tag]
+    event: [tag, promote]
+    target: production
   environment:
     DIGITALOCEAN_ACCESS_TOKEN:
       from_secret: DIGITALOCEAN_ACCESS_TOKEN
@@ -59,4 +60,11 @@ steps:
   commands:
     - helm upgrade --install --kubeconfig=.kubeconfig -f ./deploy/helm/beta-lescinskas-lt.values.yaml --set image.tag=${DRONE_TAG##v} beta-lescinskas-lt ./deploy/helm/lescinskas.lt
 
-# TODO: Deployment to Production
+- name: Deploy Helm Chart to Production
+  image: alpine/helm
+  when:
+    branch: [master, do-cicd]
+    event: [tag, promote]
+    target: production
+  commands:
+    - helm upgrade --install --kubeconfig=.kubeconfig -f ./deploy/helm/www-lescinskas-lt.values.yaml --set image.tag=${DRONE_TAG##v} www-lescinskas-lt ./deploy/helm/lescinskas.lt
