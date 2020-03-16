@@ -57,5 +57,5 @@ steps:
     branch: [do-cicd]
     event: [push]
   commands:
-    # - helm upgrade --install --kubeconfig=.kubeconfig -v ./deploy/helm/beta-lescinskas-lt.values.yaml beta-lescinskas-lt plutzilla/lescinskas.lt:${DRONE_COMMIT_SHA:0:8}
-    - helm upgrade --install --kubeconfig=.kubeconfig -v ./deploy/helm/beta-lescinskas-lt.values.yaml beta-lescinskas-lt plutzilla/lescinskas.lt:d9561ea6
+    # - helm upgrade --install --kubeconfig=.kubeconfig -f ./deploy/helm/beta-lescinskas-lt.values.yaml --set image.tag=${DRONE_COMMIT_SHA:0:8} beta-lescinskas-lt ./deploy/helm/lescinskas.lt
+    - helm upgrade --install --kubeconfig=.kubeconfig -f ./deploy/helm/beta-lescinskas-lt.values.yaml --set image.tag=latest beta-lescinskas-lt ./deploy/helm/lescinskas.lt
