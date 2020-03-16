@@ -72,7 +72,7 @@ steps:
     DIGITALOCEAN_ACCESS_TOKEN:
       fron_secret: DIGITALOCEAN_ACCESS_TOKEN
   commands:
-    - ./doctl k8s cluster kubeconfig show do-k8s-lescinskas-lt-cluster > .kubeconfig
+    - /app/doctl k8s cluster kubeconfig show do-k8s-lescinskas-lt-cluster > .kubeconfig
 
 - name: List helm deployments (branch)
   image: alpine/helm
