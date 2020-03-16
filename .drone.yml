@@ -4,7 +4,7 @@ type: docker
 name: lescinskas.lt release
 
 steps:
-- name: build
+- name: Build
   image: plutzilla/jekyll:4.0.0
   environment:
     JEKYLL_ENV: production
@@ -15,7 +15,7 @@ steps:
     event:
       - push
 
-- name: minify
+- name: Minify
   image: node:13
   when:
     branches: [master]
@@ -25,7 +25,7 @@ steps:
     - npm install
     - npx gulp
 
-- name: publish to DockerHub
+- name: Publish to DockerHub
   image: plugins/docker
   when:
     branches: [master]
@@ -42,38 +42,20 @@ steps:
     password:
       from_secret: DOCKERHUB_TOKEN
 
-- name: deploy to beta
-  image: google/cloud-sdk
+- name: Authenticate to DigitalOcean
+  image: digitalocean/doctl
   when:
     branches: [master]
-    event:
-      - push
-  commands:
-    - echo $${GKE_BASE64} | base64 -d > gke.json
-    - gcloud auth activate-service-account --key-file=gke.json
-    - gcloud config set project lescinskas-lt
-    - gcloud config set compute/zone europe-north1-a
-    - gcloud container clusters get-credentials lescinskas-lt-web-cluster
-    - kubectl set image deployment/beta-lescinskas-lt-deploy nginx-server=plutzilla/lescinskas.lt:$${IMAGE_TAG} --record
+    event: [push]
   environment:
-    GKE_BASE64:
-      from_secret: gke_base64
-    IMAGE_TAG: ${DRONE_COMMIT_SHA:0:8}
+    - DIGITALOCEAN_ACCESS_TOKEN: ${DIGITALOCEAN_ACCESS_TOKEN}
+  commands:
+    - doctl k8s cluster kubeconfig show do-k8s-lescinskas-lt-cluster > .kubeconfig
 
-- name: deploy to production
-  image: google/cloud-sdk
+- name: List helm deployments
+  image: alpine/helm
   when:
     branches: [master]
-    event: promote
-    target: production
+    event: [push]
   commands:
-    - echo $${GKE_BASE64} | base64 -d > gke.json
-    - gcloud auth activate-service-account --key-file=gke.json
-    - gcloud config set project lescinskas-lt
-    - gcloud config set compute/zone europe-north1-a
-    - gcloud container clusters get-credentials lescinskas-lt-web-cluster
-    - kubectl set image deployment/lescinskas-lt-deploy nginx-server=plutzilla/lescinskas.lt:$${IMAGE_TAG} --record
-  environment:
-    GKE_BASE64:
-      from_secret: gke_base64
-    IMAGE_TAG: ${DRONE_COMMIT_SHA:0:8}
+    - list --kubeconfig=.kubeconfig
