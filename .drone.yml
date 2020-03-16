@@ -11,14 +11,14 @@ steps:
   commands:
     - bundle exec jekyll build -s src -d _site
   when:
-    branches: [master]
+    branch: [master]
     event:
       - push
 
 - name: Minify
   image: node:13
   when:
-    branches: [master]
+    branch: [master]
     event:
       - push
   commands:
@@ -28,7 +28,7 @@ steps:
 - name: Publish to DockerHub
   image: plugins/docker
   when:
-    branches: [master]
+    branch: [master]
     event:
       - push
   settings:
@@ -45,7 +45,7 @@ steps:
 - name: Authenticate to DigitalOcean
   image: digitalocean/doctl
   when:
-    branches: [master]
+    branch: [master]
     event:
       - push
   environment:
@@ -57,7 +57,7 @@ steps:
 - name: List helm deployments
   image: alpine/helm
   when:
-    branches: [master]
+    branch: [master]
     event: [push]
   commands:
     - list --kubeconfig=.kubeconfig
@@ -66,9 +66,8 @@ steps:
 - name: Authenticate to DigitalOcean (branch)
   image: digitalocean/doctl
   when:
-    branches: [do-cicd]
-    event:
-      - push
+    branch: [do-cicd]
+    event: [push]
   environment:
     DIGITALOCEAN_ACCESS_TOKEN:
       fron_secret: DIGITALOCEAN_ACCESS_TOKEN
@@ -78,7 +77,7 @@ steps:
 - name: List helm deployments (branch)
   image: alpine/helm
   when:
-    branches: [do-cicd]
+    branch: [do-cicd]
     event: [push]
   commands:
     - list --kubeconfig=.kubeconfig
