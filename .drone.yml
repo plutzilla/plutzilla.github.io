@@ -12,15 +12,13 @@ steps:
     - bundle exec jekyll build -s src -d _site
   when:
     branch: [master]
-    event:
-      - push
+    event: [push]
 
 - name: Minify
   image: node:13
   when:
     branch: [master]
-    event:
-      - push
+    event: [push]
   commands:
     - npm install
     - npx gulp
@@ -29,8 +27,7 @@ steps:
   image: plugins/docker
   when:
     branch: [master]
-    event:
-      - push
+    event: [push]
   settings:
     repo: plutzilla/lescinskas.lt
     tags:
@@ -60,4 +57,5 @@ steps:
     branch: [do-cicd]
     event: [push]
   commands:
-    - helm list --kubeconfig=.kubeconfig
+    # - helm upgrade --install --kubeconfig=.kubeconfig -v ./deploy/helm/beta-lescinskas-lt.values.yaml beta-lescinskas-lt plutzilla/lescinskas.lt:${DRONE_COMMIT_SHA:0:8}
+    - helm upgrade --install --kubeconfig=.kubeconfig -v ./deploy/helm/beta-lescinskas-lt.values.yaml beta-lescinskas-lt plutzilla/lescinskas.lt:d9561ea6
