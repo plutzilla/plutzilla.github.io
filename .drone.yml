@@ -45,37 +45,16 @@ steps:
 - name: Authenticate to DigitalOcean
   image: digitalocean/doctl
   when:
-    branch: [master]
-    event:
-      - push
-  environment:
-    DIGITALOCEAN_ACCESS_TOKEN:
-      fron_secret: DIGITALOCEAN_ACCESS_TOKEN
-  commands:
-    - ./doctl k8s cluster kubeconfig show do-k8s-lescinskas-lt-cluster > .kubeconfig
-
-- name: List helm deployments
-  image: alpine/helm
-  when:
-    branch: [master]
-    event: [push]
-  commands:
-    - list --kubeconfig=.kubeconfig
-
-
-- name: Authenticate to DigitalOcean (branch)
-  image: digitalocean/doctl
-  when:
     branch: [do-cicd]
     event: [push]
   environment:
     DIGITALOCEAN_ACCESS_TOKEN:
-      fron_secret: DIGITALOCEAN_ACCESS_TOKEN
+      from_secret: DIGITALOCEAN_ACCESS_TOKEN
   commands:
-    - /app/doctl auth init --access-token=$DIGITALOCEAN_ACCESS_TOKEN
+    - /app/doctl auth init --access-token $DIGITALOCEAN_ACCESS_TOKEN
     - /app/doctl k8s cluster kubeconfig show do-k8s-lescinskas-lt-cluster > .kubeconfig
 
-- name: List helm deployments (branch)
+- name: List helm deployments
   image: alpine/helm
   when:
     branch: [do-cicd]
