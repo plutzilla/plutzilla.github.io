@@ -46,7 +46,8 @@ steps:
   image: digitalocean/doctl
   when:
     branches: [master]
-    event: [push]
+    event:
+      - push
   environment:
     - DIGITALOCEAN_ACCESS_TOKEN: ${DIGITALOCEAN_ACCESS_TOKEN}
   commands:
