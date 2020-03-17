@@ -8,7 +8,7 @@ steps:
 - name: Authenticate to DigitalOcean (deployment)
   image: digitalocean/doctl
   when:
-    ref: [refs/tags/*]
+    # ref: [refs/tags/*]
     event: promote
     target: production
   environment:
@@ -21,7 +21,7 @@ steps:
 - name: Deploy Helm Chart to Production
   image: alpine/helm
   when:
-    ref: [refs/tags/*]
+    # ref: [refs/tags/*]
     event: promote
     target: production
   commands:
