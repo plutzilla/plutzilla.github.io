@@ -5,10 +5,65 @@ name: lescinskas.lt release
 
 steps:
 
+- name: Build
+  image: plutzilla/jekyll:4.0.0
+  environment:
+    JEKYLL_ENV: production
+  commands:
+    - bundle exec jekyll build -s src -d _site
+  when:
+    branch: [master, do-cicd]
+    event: [push, tag]
+
+- name: Minify
+  image: node:13
+  when:
+    branch: [master, do-cicd]
+    event: [push, tag]
+  commands:
+    - npm install
+    - npx gulp
+
+- name: Publish to DockerHub
+  image: plugins/docker
+  when:
+    branch: [master, do-cicd]
+    event: [tag]
+  settings:
+    repo: plutzilla/lescinskas.lt
+    tags:
+      - ${DRONE_TAG##v}
+      - latest
+    dockerfile: nginx.Dockerfile
+    username:
+      from_secret: DOCKERHUB_USERNAME
+    password:
+      from_secret: DOCKERHUB_TOKEN
+
+- name: Authenticate to DigitalOcean
+  image: digitalocean/doctl
+  when:
+    branch: [master, do-cicd]
+    event: [tag]
+  environment:
+    DIGITALOCEAN_ACCESS_TOKEN:
+      from_secret: DIGITALOCEAN_ACCESS_TOKEN
+  commands:
+    - /app/doctl auth init --access-token $DIGITALOCEAN_ACCESS_TOKEN
+    - /app/doctl k8s cluster kubeconfig show do-k8s-lescinskas-lt-cluster > .kubeconfig
+
+- name: Deploy Helm Chart to Staging
+  image: alpine/helm
+  when:
+    branch: [master, do-cicd]
+    event: [tag]
+  commands:
+    - helm upgrade --install --kubeconfig=.kubeconfig -f ./deploy/helm/beta-lescinskas-lt.values.yaml --set image.tag=${DRONE_TAG##v} beta-lescinskas-lt ./deploy/helm/lescinskas.lt
+
 - name: Authenticate to DigitalOcean (deployment)
   image: digitalocean/doctl
   when:
-    # ref: [refs/tags/*]
+    ref: [refs/tags/*]
     event: promote
     target: production
   environment:
@@ -21,8 +76,8 @@ steps:
 - name: Deploy Helm Chart to Production
   image: alpine/helm
   when:
-    # ref: [refs/tags/*]
+    ref: [refs/tags/*]
     event: promote
     target: production
   commands:
-    - helm upgrade --install --kubeconfig=.kubeconfig -f ./deploy/helm/www-lescinskas-lt.values.yaml --set image.tag=0.1.1 www-lescinskas-lt ./deploy/helm/lescinskas.lt
+    - helm upgrade --install --kubeconfig=.kubeconfig -f ./deploy/helm/www-lescinskas-lt.values.yaml --set image.tag=${DRONE_TAG##v} www-lescinskas-lt ./deploy/helm/lescinskas.lt
