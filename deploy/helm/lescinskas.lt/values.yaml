@@ -72,4 +72,5 @@ nodeSelector: {}
 
 tolerations: []
 
-distributeBetweenNodes: true
+# Sets pod AntiAffinity rules
+distributeBetweenNodes: false

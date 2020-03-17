@@ -4,6 +4,7 @@ type: docker
 name: lescinskas.lt release
 
 steps:
+
 - name: Build
   image: plutzilla/jekyll:4.0.0
   environment:
@@ -11,16 +12,14 @@ steps:
   commands:
     - bundle exec jekyll build -s src -d _site
   when:
-    branches: [master]
-    event:
-      - push
+    branch: [master, do-cicd]
+    event: [push, tag]
 
 - name: Minify
   image: node:13
   when:
-    branches: [master]
-    event:
-      - push
+    branch: [master, do-cicd]
+    event: [push, tag]
   commands:
     - npm install
     - npx gulp
@@ -28,13 +27,12 @@ steps:
 - name: Publish to DockerHub
   image: plugins/docker
   when:
-    branches: [master]
-    event:
-      - push
+    branch: [master, do-cicd]
+    event: [tag]
   settings:
     repo: plutzilla/lescinskas.lt
     tags:
-      - ${DRONE_COMMIT_SHA:0:8}
+      - ${DRONE_TAG##v}
       - latest
     dockerfile: nginx.Dockerfile
     username:
@@ -45,19 +43,41 @@ steps:
 - name: Authenticate to DigitalOcean
   image: digitalocean/doctl
   when:
-    branches: [master]
-    event:
-      - push
+    branch: [master, do-cicd]
+    event: [tag]
   environment:
     DIGITALOCEAN_ACCESS_TOKEN:
-      fron_secret: DIGITALOCEAN_ACCESS_TOKEN
+      from_secret: DIGITALOCEAN_ACCESS_TOKEN
   commands:
-    - doctl k8s cluster kubeconfig show do-k8s-lescinskas-lt-cluster > .kubeconfig
+    - /app/doctl auth init --access-token $DIGITALOCEAN_ACCESS_TOKEN
+    - /app/doctl k8s cluster kubeconfig show do-k8s-lescinskas-lt-cluster > .kubeconfig
 
-- name: List helm deployments
+- name: Deploy Helm Chart to Staging
   image: alpine/helm
   when:
-    branches: [master]
-    event: [push]
+    branch: [master, do-cicd]
+    event: [tag]
   commands:
-    - list --kubeconfig=.kubeconfig
+    - helm upgrade --install --kubeconfig=.kubeconfig -f ./deploy/helm/beta-lescinskas-lt.values.yaml --set image.tag=${DRONE_TAG##v} beta-lescinskas-lt ./deploy/helm/lescinskas.lt
+
+- name: Authenticate to DigitalOcean (deployment)
+  image: digitalocean/doctl
+  when:
+    ref: [refs/tags/*]
+    event: promote
+    target: production
+  environment:
+    DIGITALOCEAN_ACCESS_TOKEN:
+      from_secret: DIGITALOCEAN_ACCESS_TOKEN
+  commands:
+    - /app/doctl auth init --access-token $DIGITALOCEAN_ACCESS_TOKEN
+    - /app/doctl k8s cluster kubeconfig show do-k8s-lescinskas-lt-cluster > .kubeconfig
+
+- name: Deploy Helm Chart to Production
+  image: alpine/helm
+  when:
+    ref: [refs/tags/*]
+    event: promote
+    target: production
+  commands:
+    - helm upgrade --install --kubeconfig=.kubeconfig -f ./deploy/helm/www-lescinskas-lt.values.yaml --set image.tag=${DRONE_TAG##v} www-lescinskas-lt ./deploy/helm/lescinskas.lt
