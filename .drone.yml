@@ -12,13 +12,13 @@ steps:
   commands:
     - bundle exec jekyll build -s src -d _site
   when:
-    branch: [master, do-cicd]
+    branch: [master]
     event: [push, tag]
 
 - name: Minify
   image: node:13
   when:
-    branch: [master, do-cicd]
+    branch: [master]
     event: [push, tag]
   commands:
     - npm install
@@ -27,7 +27,6 @@ steps:
 - name: Publish to DockerHub
   image: plugins/docker
   when:
-    branch: [master, do-cicd]
     event: [tag]
   settings:
     repo: plutzilla/lescinskas.lt
@@ -43,7 +42,6 @@ steps:
 - name: Authenticate to DigitalOcean
   image: digitalocean/doctl
   when:
-    branch: [master, do-cicd]
     event: [tag]
   environment:
     DIGITALOCEAN_ACCESS_TOKEN:
@@ -55,7 +53,6 @@ steps:
 - name: Deploy Helm Chart to Staging
   image: alpine/helm
   when:
-    branch: [master, do-cicd]
     event: [tag]
   commands:
     - helm upgrade --install --kubeconfig=.kubeconfig -f ./deploy/helm/beta-lescinskas-lt.values.yaml --set image.tag=${DRONE_TAG##v} beta-lescinskas-lt ./deploy/helm/lescinskas.lt
