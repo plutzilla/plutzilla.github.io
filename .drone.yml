@@ -63,7 +63,7 @@ steps:
   image: digitalocean/doctl
   when:
     branch: [master, do-cicd]
-    event: [promote]
+    event: promote
     target: production
   environment:
     DIGITALOCEAN_ACCESS_TOKEN:
@@ -76,7 +76,7 @@ steps:
   image: alpine/helm
   when:
     branch: [master, do-cicd]
-    event: [promote]
+    event: promote
     target: production
   commands:
     - helm upgrade --install --kubeconfig=.kubeconfig -f ./deploy/helm/www-lescinskas-lt.values.yaml --set image.tag=${DRONE_TAG##v} www-lescinskas-lt ./deploy/helm/lescinskas.lt
