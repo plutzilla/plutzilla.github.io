@@ -8,7 +8,7 @@ steps:
 - name: Authenticate to DigitalOcean (deployment)
   image: digitalocean/doctl
   when:
-    branch: [master, do-cicd]
+    ref: [refs/tags/*]
     event: promote
     target: production
   environment:
@@ -21,8 +21,8 @@ steps:
 - name: Deploy Helm Chart to Production
   image: alpine/helm
   when:
-    branch: [master, do-cicd]
+    ref: [refs/tags/*]
     event: promote
     target: production
   commands:
-    - helm upgrade --install --kubeconfig=.kubeconfig -f ./deploy/helm/www-lescinskas-lt.values.yaml --set image.tag=0.1.0 www-lescinskas-lt ./deploy/helm/lescinskas.lt
+    - helm upgrade --install --kubeconfig=.kubeconfig -f ./deploy/helm/www-lescinskas-lt.values.yaml --set image.tag=0.1.1 www-lescinskas-lt ./deploy/helm/lescinskas.lt
