@@ -11,24 +11,18 @@ You can use all the content of this weblog, as long as it meets [Creative Common
 ### Docker build
 
 Docker container can be used both to build the site and serve the content while composing blogposts.
-Prerequisites: `docker-ce`, `docker-compose`.
-
-Building the docker image:
-
-```bash
-cd /path/to/cloned/repo
-docker-compose build
-```
 
 Building the static site:
 
 ```bash
+rm Gemfile.lock
 docker run -v $(pwd):/site -e JEKYLL_ENV=production plutzilla/lescinskas.lt:jekyll build -s src -d _site
 ```
 
 Starting the local server to watch changes while editing the content:
 
 ```bash
+rm Gemfile.lock
 docker-compose up
 ```
 

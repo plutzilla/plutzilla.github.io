@@ -5,7 +5,7 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
-    image: plutzilla/lescinskas.lt:jekyll
+    image: plutzilla/jekyll
     volumes:
       - .:/site
     ports:
