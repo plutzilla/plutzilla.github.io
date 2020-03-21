@@ -40,7 +40,7 @@ steps:
       from_secret: DOCKERHUB_TOKEN
 
 - name: Authenticate to DigitalOcean
-  image: digitalocean/doctl
+  image: digitalocean/doctl:1-latest
   when:
     event: [tag]
   environment:
@@ -58,7 +58,7 @@ steps:
     - helm upgrade --install --kubeconfig=.kubeconfig -f ./deploy/helm/beta-lescinskas-lt.values.yaml --set image.tag=${DRONE_TAG##v} beta-lescinskas-lt ./deploy/helm/lescinskas.lt
 
 - name: Authenticate to DigitalOcean (deployment)
-  image: digitalocean/doctl
+  image: digitalocean/doctl:1-latest
   when:
     ref: [refs/tags/*]
     event: promote
