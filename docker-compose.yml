@@ -4,7 +4,7 @@ services:
   jekyll:
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: jekyll.Dockerfile
     image: plutzilla/jekyll
     volumes:
       - .:/site
