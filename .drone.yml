@@ -51,7 +51,7 @@ steps:
     - /app/doctl k8s cluster kubeconfig show do-k8s-lescinskas-lt-cluster > .kubeconfig
 
 - name: Deploy Helm Chart to Staging
-  image: alpine/helm
+  image: alpine/helm:3.1.2
   when:
     event: [tag]
   commands:
@@ -71,7 +71,7 @@ steps:
     - /app/doctl k8s cluster kubeconfig show do-k8s-lescinskas-lt-cluster > .kubeconfig
 
 - name: Deploy Helm Chart to Production
-  image: alpine/helm
+  image: alpine/helm:3.1.2
   when:
     ref: [refs/tags/*]
     event: promote
