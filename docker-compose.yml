@@ -2,11 +2,9 @@ version: '3'
 
 services:
   jekyll:
-    build:
-      context: .
-      dockerfile: jekyll.Dockerfile
-    image: plutzilla/jekyll
+    image: jekyll/minimal:4
     volumes:
-      - .:/site
+      - .:/srv/jekyll
     ports:
       - '8080:4000'
+    command: ['jekyll', 'serve', '-s', 'src', '-d', '_site', '--drafts', '--watch', '-H', '0.0.0.0', '-P', '4000']
