@@ -10,7 +10,7 @@ steps:
   environment:
     JEKYLL_ENV: production
   commands:
-    - jekyll build -s src -d _site
+    - jekyll build -s src -d _site --trace
   when:
     branch: [master]
     event: [push, tag]
