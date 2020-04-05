@@ -6,11 +6,11 @@ name: lescinskas.lt release
 steps:
 
 - name: Build
-  image: plutzilla/jekyll:4.0.0
+  image: jekyll/minimal:4
   environment:
     JEKYLL_ENV: production
   commands:
-    - bundle exec jekyll build -s src -d _site
+    - jekyll build -s src -d _site
   when:
     branch: [master]
     event: [push, tag]
