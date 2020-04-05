@@ -9,6 +9,8 @@ steps:
   image: jekyll/minimal:4
   environment:
     JEKYLL_ENV: production
+    JEKYLL_UID: 0
+    JEKYLL_GID: 0
   commands:
     - jekyll build -s src -d _site --trace
   when:
