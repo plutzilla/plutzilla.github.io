@@ -11,7 +11,7 @@ title: Continuous deployment to Digital Ocean Kubernetes cluster using Drone and
 
 Hosting web applications and services in Kubernetes clusters is the common practice nowadays. Most hosting service providers offer managed Kubernetes services.
 
-Digital Ocean is one of the hosting service providers, which offers reasonable pricing. As it does have a Kubernetes cluster fee (unlike Amazon and Google), it allows running a managed Kubernetes cluster for 10 or 20 USD per month, making it a pretty good option for personal projects.
+Digital Ocean is one of the hosting service providers, providing managed Kubernetes service for a resonable price and without cluster fees.
 
 I have recently migrated from Google Kubernetes Engine (GKE) to DigitalOcean and want to share with you how to setup the continuous deployment pipeline to deploy service to DigitalOcean Kubernetes Service (DOKS).
 
@@ -25,16 +25,16 @@ There are many great resources on the Internet regarding that: [DigitalOcean Kub
 
 ## Helm
 
-In this example I will be using Helm to install the Ingress Controller and to deploy the web application to the Kubernetes cluster.
+In this blogpost I will be using Helm to install the Ingress Controller and to deploy the web application to the Kubernetes cluster.
 
-[Helm](https://helm.sh/) is a tool used package and deploy Kubernetes applications (technically - multiple Kubernetes object files). It is very useful as it:
+[Helm](https://helm.sh/) is a tool used to package and deploy Kubernetes applications (technically - multiple Kubernetes resource files). It is very useful as it:
 
-* Uses a templating engine ([Go Sprig](https://masterminds.github.io/sprig/)) allowing to reuse the same Kubernetes objects (services, deployments, ingresses, service accounts etc.) with different values. Also, allowing to use conditional logic, loops etc. in the object files;
+* Uses a templating engine ([Go Sprig](https://masterminds.github.io/sprig/)) allowing to reuse the same Kubernetes resources (services, deployments, ingresses, service accounts etc.) with different values. Also, allowing to use conditional logic, loops etc. in the object files;
 * Allows applying all objects in a single run (no need to run `kubectl apply -f <file>` multiple times). Also, allows release versioning and rollbacks;
-* Provides ability to package (Helm packages are named `Charts`) and reuse the Kubernetes applications, also ditribution via the repositories and package discovery via [Helm Hub](https://hub.helm.sh/);
+* Provides ability to package (Helm packages are named `Charts`) and reuse the Kubernetes applications, also distribution via the repositories and package discovery via [Helm Hub](https://hub.helm.sh/);
 * Provides the ability to define dependencies and install them along the Kubernetes application installation via Helm.
 
-The Helm v.3 stores all metadata in the Kubernetes cluster as the `Secret` objects and (unlike previous versions) does not require specific containers to be run in the namespace.
+The Helm v3 stores all metadata in the Kubernetes cluster as the `Secret` objects and (unlike previous versions) does not require specific containers (Tiller) to be run in the namespace.
 
 ## Cluster setup
 
@@ -90,25 +90,25 @@ helm upgrade --install --kubeconfig=.kubeconfig <INSTALLATION_NAME> /path/to/hel
 ```
 
 In this case the Chart is stored in the source code. If the Chart was published to the repository, it should have been added before.
-Values to the Chart can be passed via `--set key=value` parameter, also having a Values file with multiple values, it can be provided using `-f /path/to/value/file.yaml` parameter.
+Values to the Chart can be passed via `--set key=value` parameter, also having a Values file with multiple values, it can be provided using `-f /path/to/values/file.yaml` parameter.
 
 ## Deployment pipeline
 
-I use [Drone](https://drone.io/) for Continuous Deployment. This service provides deployment pipelines for container-based applications, is availabe both as a service and as a product that can be run on-premises.
+I use [Drone](https://drone.io/) for Continuous Deployment. It provides deployment pipeline execution for container-based applications, and is availabe both as a service and as a product that can be installed and run on-premises.
 
-However there are other tools available, also source hosting services provide native CI/CD services ([GitLab CI](https://docs.gitlab.com/ee/ci/), [Github actions](https://github.com/features/actions)), so the pipelines should be similar when used in other tools.
+There are other tools available, also source hosting services provide native CI/CD services ([GitLab CI](https://docs.gitlab.com/ee/ci/), [Github actions](https://github.com/features/actions)), so the pipelines should be similar when used in other tools.
 
 In the deployment pipeline the following Docker images will be used:
 
-* [doctl Docker image](https://hub.docker.com/r/digitalocean/doctl);
-* [Helm image](https://hub.docker.com/r/alpine/helm).
+* [digitalocean/doctl](https://hub.docker.com/r/digitalocean/doctl);
+* [alpine/helm](https://hub.docker.com/r/alpine/helm).
 
 Notes:
 
 * `doctl` in the image is not included in `$PATH`. Overriding the `entrypoint`, we will need to provide full path to the doctl which is at `/app/doctl`.
-* For the backwards compatibility is is advised to use the specific tag version instead of latest. I will be using `digitalocean/doctl:1-latest` and `alpine/helm:3.1.2` at the time of writing.
+* For the backwards compatibility is is advised to use the specific tag version instead of "latest". I will be using `digitalocean/doctl:1-latest` and `alpine/helm:3.1.2` at the time of writing.
 * The DigitalOcean access token will be saved as a Secret in Drone and will be injected to the command from the environment variable.
-* The deployment will be triggered using a `promotion` event and will deploy the Docker image tagged with the same name as the tag name in git. The event triggered from `tag` event which builds and published Docker image are out of scope (but should be included in the pipeline).
+* The deployment will be triggered using a `promotion` event and will deploy the Docker image tagged with the same name as the tag name in git. The event triggered from `tag` event which builds and publishes Docker image are out of scope (but should be included in the full pipeline).
 * The Helm Chart contains the value `image`:
 
 ```yaml
@@ -146,7 +146,7 @@ The deployment deploys the pods with the containers from the defined image. We w
 
 ## Invoking deployment
 
-Deployment event is meant to promote the specific build (in this case - tag) to the defined environment.
+Deployment event is meant to promote the specific build (in this case - build invoked on `tag` event) to the defined environment.
 
 This event can be invoked using a `drone` CLI application (see [CLI reference](https://readme.drone.io/cli/build/drone-build-promote/) for more info) or the [REST API](https://docs.drone.io/api/builds/build_promote/):
 
