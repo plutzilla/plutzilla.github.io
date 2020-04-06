@@ -14,7 +14,7 @@ steps:
     # JEKYLL_GID: 0
     # JEKYLL_DATA_DIR: /drone/src
   commands:
-    - mkdir .jekyll-cache
+    - mkdir src/.jekyll-cache
     - mkdir _site
     - jekyll build -s src -d _site --trace
   when:
