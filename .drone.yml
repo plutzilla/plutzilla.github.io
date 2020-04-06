@@ -7,11 +7,12 @@ steps:
 
 - name: Build
   image: jekyll/minimal:4
+  user: root
   environment:
     JEKYLL_ENV: production
     # JEKYLL_UID: 0
     # JEKYLL_GID: 0
-    JEKYLL_DATA_DIR: /drone/src
+    # JEKYLL_DATA_DIR: /drone/src
   commands:
     - jekyll build -s src -d _site --trace
   when:
