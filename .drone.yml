@@ -13,9 +13,10 @@ steps:
     # JEKYLL_UID: 0
     # JEKYLL_GID: 0
     # JEKYLL_DATA_DIR: /drone/src
+    JEKYLL_ROOTLESS: true
   commands:
-    - mkdir src/.jekyll-cache
-    - mkdir _site
+    # - mkdir src/.jekyll-cache
+    # - mkdir _site
     - jekyll build -s src -d _site --trace
   when:
     branch: [master]
