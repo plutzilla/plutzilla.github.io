@@ -7,7 +7,7 @@ steps:
 
 - name: Build
   image: jekyll/minimal:4
-  user: root
+  user: jekyll
   environment:
     JEKYLL_ENV: production
     # JEKYLL_UID: 0
