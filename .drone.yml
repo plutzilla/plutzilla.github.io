@@ -15,7 +15,9 @@ steps:
     # JEKYLL_DATA_DIR: /drone/src
   commands:
     - mkdir src/.jekyll-cache
+    - chown  jekyll:jekyll src/.jekyll-cache
     - mkdir _site
+    - chown jekyll:jekyll _site
     - jekyll build -s src -d _site --trace
   when:
     branch: [master]
