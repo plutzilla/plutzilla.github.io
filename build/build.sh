@@ -2,7 +2,7 @@
 
 sudo rm -rf ../_site
 
-docker run -v $(dirname "$(pwd)"):/site -e JEKYLL_ENV=production plutzilla/jekyll:latest build -s src -d _site
+docker run -v $(dirname "$(pwd)"):/srv/jekyll -e JEKYLL_ENV=production jekyll/minimal:4 jekyll build -s src -d _site
 docker run -v $(dirname "$(pwd)"):/site -w /site node:13 /bin/bash -c "npm install; npx gulp;"
 
 #sudo chown -R paulius:paulius ../_site

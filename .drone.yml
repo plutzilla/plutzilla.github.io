@@ -7,13 +7,8 @@ steps:
 
 - name: Build
   image: jekyll/minimal:4
-  # user: root
   environment:
     JEKYLL_ENV: production
-    # JEKYLL_UID: 0
-    # JEKYLL_GID: 0
-    # JEKYLL_DATA_DIR: /drone/src
-    JEKYLL_ROOTLESS: true
   commands:
     - mkdir src/.jekyll-cache
     - chown  jekyll:jekyll src/.jekyll-cache

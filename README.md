@@ -15,27 +15,16 @@ Docker container can be used both to build the site and serve the content while 
 Building the static site:
 
 ```bash
-rm Gemfile.lock
-docker run -v $(pwd):/site -e JEKYLL_ENV=production plutzilla/lescinskas.lt:jekyll build -s src -d _site
+docker run -v $(pwd):/srv/jekyll -e JEKYLL_ENV=production jekyll/minimal:4 jekyll build -s src -d _site
 ```
 
-Starting the local server to watch changes while editing the content:
+Starting the local server to watch changes while editing the content (including drafts):
 
 ```bash
-rm Gemfile.lock
 docker-compose up
 ```
 
 The container listens to 4000 port which is forwarded to `localhost:8080`
-
-### Manual build
-
-The content is generated with [Jekyll](http://jekyllrb.com):
-
-```bash
-gem install jekyll
-JEYLL_ENV=production budle exec jekyll build -s src -d _site
-```
 
 ### Deployment
 
