@@ -11,8 +11,11 @@
         <p>
             <span class="label label-default">{{ page.date | date: site.date_format }}</span>
         </p>
+        {% if page.image %}
+        <img src="{{ page.image | prepend:site.baseurl }}" {% if page.imageAltText %}alt="{{ page.imageAltText | escape }}"{% endif %} class="img-responsive img-rounded" />
+        {% endif %}
       {{ content }}
-      
+
     <nav>
         <ul class="pager">
             {% if page.previous %} <!-- Older post -->
