@@ -10,6 +10,6 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - uses: docker://jekyll:minimal@
+      - uses: docker://jekyll/minimal:4
         with:
-          cmd: jekyll build -s src -d _site --trace
+          args: jekyll build -s src -d _site --trace
