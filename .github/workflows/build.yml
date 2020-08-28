@@ -14,6 +14,12 @@ jobs:
       - run: chmod 0777 src/.jekyll-cache
       - run: mkdir _site
       - run: chmod 0777 _site
-      - uses: docker://jekyll/minimal:4
+      - name: Build using Jekyll Docker container
+        uses: docker://jekyll/minimal:4
         with:
           args: jekyll build -s src -d _site --trace
+      - name: Store artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: Website Build
+          path: _src
