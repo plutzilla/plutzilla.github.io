@@ -12,4 +12,9 @@ jobs:
       - uses: actions/checkout@v2
       - uses: docker://jekyll/minimal:4
         with:
-          args: jekyll build -s src -d _site --trace
+          args: >
+            mkdir src/.jekyll-cache &&
+            chown  jekyll:jekyll src/.jekyll-cache &&
+            mkdir _site &&
+            chown jekyll:jekyll _site &&
+            jekyll build -s src -d _site --trace
