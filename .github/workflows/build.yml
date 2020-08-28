@@ -10,11 +10,10 @@ jobs:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
+      - run: mkdir src/.jekyll-cache
+      - run: chown jekyll:jekyll src/.jekyll-cache
+      - run: mkdir _site
+      - run: chown jekyll:jekyll _site
       - uses: docker://jekyll/minimal:4
         with:
-          args: >
-            mkdir src/.jekyll-cache &&
-            chown  jekyll:jekyll src/.jekyll-cache &&
-            mkdir _site &&
-            chown jekyll:jekyll _site &&
-            jekyll build -s src -d _site --trace
+          args: jekyll build -s src -d _site --trace
