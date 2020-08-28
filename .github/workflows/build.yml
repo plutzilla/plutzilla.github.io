@@ -32,7 +32,7 @@ jobs:
         with:
           name: website-build
       - name: Setup Node
-        uses: actions/setup-node
+        uses: actions/setup-node@v1
         with:
           node-version: 13
       - run: npm install
