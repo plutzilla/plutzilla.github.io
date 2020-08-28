@@ -18,8 +18,26 @@ jobs:
         uses: docker://jekyll/minimal:4
         with:
           args: jekyll build -s src -d _site --trace
-      - name: Store artifact
+      - name: Store built website
         uses: actions/upload-artifact@v2
         with:
-          name: Website Build
+          name: website-build
           path: _site
+  minify:
+    name: Minify website files
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Download built artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: website-build
+      - name: Setup Node
+        uses: actions/setup-node
+        with:
+          node-version: 13
+      - run: npm install
+      - run: npx gulp
+      - name: Store minified website
+        uses: actions/upload-artifact@v2
+        with:
+          name: website-minified
