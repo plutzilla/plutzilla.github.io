@@ -11,9 +11,9 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - run: mkdir src/.jekyll-cache
-      - run: chown jekyll:jekyll src/.jekyll-cache
+      - run: chmod 0777 src/.jekyll-cache
       - run: mkdir _site
-      - run: chown jekyll:jekyll _site
+      - run: chown 0777 _site
       - uses: docker://jekyll/minimal:4
         with:
           args: jekyll build -s src -d _site --trace
