@@ -54,6 +54,7 @@ jobs:
           path: _site
   publish-docker-image:
     name: Publish Docker image to Github Packages
+    needs: minify
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
