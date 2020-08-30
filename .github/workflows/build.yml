@@ -52,3 +52,23 @@ jobs:
         with:
           name: website-minified
           path: _site
+  publish-docker-image:
+    name: Publish Docker image to Github Packages
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Download minified website artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: website-minified
+          path: _site
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v1
+        with:
+          dockerfile: nginx.Dockerfile
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: plutzilla/lescinskas.lt/lescinskas.lt
+          tags: latest
+          tag_with_ref: true
