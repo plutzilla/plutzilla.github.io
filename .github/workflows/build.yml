@@ -68,7 +68,7 @@ jobs:
         with:
           dockerfile: nginx.Dockerfile
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.GHCR_PAT }}
           registry: ghcr.io
           repository: plutzilla/lescinskas.lt
           tag_with_ref: true
