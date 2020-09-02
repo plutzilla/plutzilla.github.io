@@ -54,7 +54,7 @@ jobs:
           path: _site
   publish-docker-image:
     name: Publish Docker image to GitHub Container Registry (GHCR)
-    needs: minify
+    needs: [build, minify]
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -70,5 +70,5 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_PAT }}
           registry: ghcr.io
-          repository: plutzilla/lescinskas.lt
+          repository: plutzilla/lescinskas.lt-website
           tag_with_ref: true
