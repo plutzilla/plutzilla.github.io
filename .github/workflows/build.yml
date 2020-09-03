@@ -70,5 +70,5 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GHCR_PAT }}
           registry: ghcr.io
-          repository: plutzilla/lescinskas.lt-website
+          repository: plutzilla/lescinskas-lt-website
           tag_with_ref: true
