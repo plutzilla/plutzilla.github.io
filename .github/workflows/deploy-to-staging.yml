@@ -84,6 +84,9 @@ jobs:
           token: ${{ secrets.DIGITALOCEAN_TOKEN }}
       - name: Get kubeconfig
         run: doctl k8s cluster kubeconfig show do-k8s-lescinskas-lt-cluster > .kubeconfig
+      - name: Get the tag version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
       - name: Deploy using helm
         uses: docker://alpine/helm:3.3.1
         with:
@@ -94,6 +97,6 @@ jobs:
             --kubeconfig=.kubeconfig
             -f ./deploy/helm/beta-lescinskas-lt.values.yaml
             --set image.repository=ghcr.io/plutzilla/lescinskas-lt-website
-            --set image.tag=${{ github.ref }}
+            --set image.tag=${{ steps.get_version.outputs.VERSION }}
             beta-lescinskas-lt
             ./deploy/helm/lescinskas.lt
