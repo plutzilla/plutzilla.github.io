@@ -1,4 +1,4 @@
-name: Build and deploy lescinskas.lt website
+name: Build lescinskas.lt website
 
 on:
   push:
@@ -47,28 +47,3 @@ jobs:
           key: ${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
       - run: npm install
       - run: npx gulp
-      - name: Store minified website
-        uses: actions/upload-artifact@v2
-        with:
-          name: website-minified
-          path: _site
-  publish-docker-image:
-    name: Publish Docker image to GitHub Container Registry (GHCR)
-    needs: [build, minify]
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v2
-      - name: Download minified website artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: website-minified
-          path: _site
-      - name: Push to GitHub Container Registry
-        uses: docker/build-push-action@v1
-        with:
-          dockerfile: nginx.Dockerfile
-          username: ${{ github.actor }}
-          password: ${{ secrets.GHCR_PAT }}
-          registry: ghcr.io
-          repository: plutzilla/lescinskas-lt-website
-          tag_with_ref: true
