@@ -6,7 +6,7 @@ on:
 
 jobs:
   deploy-to-staging:
-    name: Deploy to staging
+    name: Deploy to production
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
@@ -25,7 +25,7 @@ jobs:
         with:
           step: start
           token: ${{ secrets.GITHUB_TOKEN }}
-          env: beta
+          env: production
       - name: Deploy using helm
         uses: docker://alpine/helm:3.3.1
         with:
