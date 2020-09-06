@@ -1,8 +1,6 @@
 name: Build lescinskas.lt website
 
-on:
-  push:
-    branches: [cicd-with-actions]
+on: push
 
 jobs:
   build:

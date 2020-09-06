@@ -1,0 +1,50 @@
+name: Deploy lescinskas.lt website to production
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  deploy-to-staging:
+    name: Deploy to staging
+    runs-on: ubuntu-20.04
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install doctl
+        uses: digitalocean/action-doctl@v2
+        with:
+          token: ${{ secrets.DIGITALOCEAN_TOKEN }}
+      - name: Get kubeconfig
+        run: doctl k8s cluster kubeconfig show do-k8s-lescinskas-lt-cluster > .kubeconfig
+      - name: Get the tag version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      - name: Start deployment
+        uses: tallyb/deployments@master
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: beta
+      - name: Deploy using helm
+        uses: docker://alpine/helm:3.3.1
+        with:
+          # entrypoint: helm
+          args: >
+            upgrade
+            --install
+            --kubeconfig=.kubeconfig
+            -f ./deploy/helm/www-lescinskas-lt.values.yaml
+            --set image.repository=ghcr.io/plutzilla/lescinskas-lt-website
+            --set image.tag=${{ steps.get_version.outputs.VERSION }}
+            www-lescinskas-lt
+            ./deploy/helm/lescinskas.lt
+      - name: Update deployment status
+        uses: tallyb/deployments@master
+        if: always()
+        with:
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}
+          env_url: https://lescinskas.lt
