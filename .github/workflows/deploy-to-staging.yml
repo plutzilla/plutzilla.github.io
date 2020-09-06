@@ -1,4 +1,4 @@
-name: Deploy lescinskas.lt website to staging
+name: Build and deploy lescinskas.lt website to staging
 
 on:
   create:
@@ -87,6 +87,13 @@ jobs:
       - name: Get the tag version
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      - name: Start deployment
+        uses: bobheadxi/deployments@master
+        id: deployment
+        with:
+          step: start
+          token: ${{ secrets.GITHUB_TOKEN }}
+          env: beta
       - name: Deploy using helm
         uses: docker://alpine/helm:3.3.1
         with:
@@ -100,3 +107,11 @@ jobs:
             --set image.tag=${{ steps.get_version.outputs.VERSION }}
             beta-lescinskas-lt
             ./deploy/helm/lescinskas.lt
+      - name: Update deployment status
+        uses: bobheadxi/deployments@master
+        if: always()
+        with:
+          step: finish
+          token: ${{ secrets.GITHUB_TOKEN }}
+          status: ${{ job.status }}
+          deployment_id: ${{ steps.deployment.outputs.deployment_id }}

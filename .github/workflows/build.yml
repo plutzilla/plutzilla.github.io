@@ -37,7 +37,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v1
         with:
-          node-version: 13
+          node-version: 12
       - name: Cache Node modules
         uses: actions/cache@v2
         env:
