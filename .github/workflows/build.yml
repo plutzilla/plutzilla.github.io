@@ -1,6 +1,9 @@
 name: Build lescinskas.lt website
 
-on: push
+on:
+  push:
+    tags-ignore:
+      - "*"
 
 jobs:
   build:

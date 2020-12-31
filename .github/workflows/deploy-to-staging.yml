@@ -1,8 +1,11 @@
 name: Build and deploy lescinskas.lt website to staging
 
 on:
-  create:
-    ref_type: tag
+  push:
+    tags:
+      - "*"
+    branches-ignore:
+      - "*"
 
 jobs:
   build:
