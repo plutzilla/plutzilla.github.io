@@ -10,7 +10,7 @@ permalink: /about/
 
 I am Paulius Leščinskas.
 
-I work as the Enterprise Architect at [Adform][adform-link].
+I work as the Security Architect at [Adform][adform-link].
 
 Previously I was working at [Tipro][tipro-link] as CTO, [Epasas.lt][epasas-link], [Klase.lt][klase-link], [Interprekyba][interprekyba-link] as developer,
 also as an IT engineer at [KPVM][kpvm-link] and lecturer at [KTU JKM][jkm-link].
