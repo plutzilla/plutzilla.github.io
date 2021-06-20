@@ -10,9 +10,9 @@ permalink: /about/
 
 I am Paulius Leščinskas.
 
-I work as the Security Architect at [Adform][adform-link].
+I work as the Security Solutions Architect at [Railsbank][railsbank-link].
 
-Previously I was working at [Tipro][tipro-link] as CTO, [Epasas.lt][epasas-link], [Klase.lt][klase-link], [Interprekyba][interprekyba-link] as developer,
+Previously I was working at [Adform][adform-link] as Engineering Manager, Product Manager, Solutions and Enterprise Architect, [Tipro][tipro-link] as CTO, [Epasas.lt][epasas-link], [Klase.lt][klase-link], [Interprekyba][interprekyba-link] as developer,
 also as an IT engineer at [KPVM][kpvm-link] and lecturer at [KTU JKM][jkm-link].
 
 I have studied at [JJG][jjg-link], [VIKO][viko-link], [KTU][ktu-link], [UCN][noea-link] and had the trainings and workshops with [Alistair Cockburn], [Esther Derby], [Lasse Ziegler], [Niels Pflaeging], [Bob Marshall], [James Bach] and other great people.
@@ -49,7 +49,8 @@ You can find the source of this site on Github: [https://github.com/plutzilla/le
 [klase-link]: http://www.klase.lt
 [epasas-link]: http://www.epasas.lt
 [tipro-link]: http://www.tipro.lt
-[adform-link]: http://www.adform.com
+[adform-link]: https://www.adform.com
+[railsbank-link]: https://www.railsbank.com
 
 [Alistair Cockburn]: http://alistair.cockburn.us/
 [Esther Derby]: http://www.estherderby.com/
