@@ -23,7 +23,7 @@ jobs:
         env:
           JEKYLL_ENV: production
       - name: Store built website
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: website-build
           path: _site
@@ -34,7 +34,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Download built artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: website-build
           path: _site
@@ -52,7 +52,7 @@ jobs:
       - run: npm install
       - run: npx gulp
       - name: Store minified website
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: website-minified
           path: _site
