@@ -8,6 +8,8 @@ on:
 jobs:
   build:
     uses: ./.github/workflows/_build.yml
+  minify:
+    uses: ./.github/workflows/_build.yml
   publish:
     name: Publish Docker image to GitHub Container Registry (GHCR)
     needs: [build, minify]
