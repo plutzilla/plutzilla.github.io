@@ -9,6 +9,7 @@ jobs:
     uses: ./.github/workflows/_build.yml
   minify:
     uses: ./.github/workflows/_minify.yml
+    needs: build
   deploy-to-staging:
     name: Deploy to production
     runs-on: ubuntu-20.04
