@@ -3,8 +3,8 @@ name: Build lescinskas.lt website
 on:
   workflow_call:
   push:
-    branches:
-      - "*"
+    branches-ignore:
+      - "master"
 
 jobs:
   build:
