@@ -2,61 +2,12 @@ name: Build and deploy lescinskas.lt website to staging
 
 on:
   push:
-    tags:
-      - "*"
-    branches-ignore:
-      - "*"
+    branches:
+      - "main"
 
 jobs:
   build:
-    name: Build Jekyll website
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v2
-      - run: mkdir src/.jekyll-cache
-      - run: chmod 0777 src/.jekyll-cache
-      - run: mkdir _site
-      - run: chmod 0777 _site
-      - name: Build using Jekyll Docker container
-        uses: docker://jekyll/minimal:4
-        with:
-          args: jekyll build -s src -d _site --trace
-        env:
-          JEKYLL_ENV: production
-      - name: Store built website
-        uses: actions/upload-artifact@v2
-        with:
-          name: website-build
-          path: _site
-  minify:
-    name: Minify website files
-    needs: build
-    runs-on: ubuntu-20.04
-    steps:
-      - uses: actions/checkout@v2
-      - name: Download built artifact
-        uses: actions/download-artifact@v2
-        with:
-          name: website-build
-          path: _site
-      - name: Setup Node
-        uses: actions/setup-node@v1
-        with:
-          node-version: 13
-      - name: Cache Node modules
-        uses: actions/cache@v2
-        env:
-          cache-name: node-module-cache
-        with:
-          path: ~/.npm
-          key: ${{ env.cache-name }}-${{ hashFiles('**/package-lock.json') }}
-      - run: npm install
-      - run: npx gulp
-      - name: Store minified website
-        uses: actions/upload-artifact@v2
-        with:
-          name: website-minified
-          path: _site
+    uses: ./.github/workflows/_build.yml
   publish:
     name: Publish Docker image to GitHub Container Registry (GHCR)
     needs: [build, minify]
@@ -64,7 +15,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: Download minified website artifact
-        uses: actions/download-artifact@v2
+        uses: actions/download-artifact@v3
         with:
           name: website-minified
           path: _site
