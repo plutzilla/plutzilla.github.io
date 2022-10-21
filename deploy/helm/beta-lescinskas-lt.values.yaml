@@ -10,5 +10,7 @@ ingress:
   annotations: {}
   hosts:
     - host: beta.lescinskas.lt
-      paths: ['/']
+      paths:
+        - path: '/'
+          pathType: ImplementationSpecific
   tls: []

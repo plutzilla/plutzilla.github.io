@@ -10,7 +10,11 @@ ingress:
   annotations: {}
   hosts:
     - host: lescinskas.lt
-      paths: ['/']
+      paths:
+        - path: '/'
+          pathType: ImplementationSpecific
     - host: www.lescinskas.lt
-      paths: ['/']
+      paths:
+        - path: '/'
+          pathType: ImplementationSpecific
   tls: []
