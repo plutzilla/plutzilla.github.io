@@ -82,9 +82,9 @@ jobs:
           token: ${{ secrets.DIGITALOCEAN_TOKEN }}
       - name: Get kubeconfig
         run: doctl k8s cluster kubeconfig show do-k8s-lescinskas-lt-cluster > .kubeconfig
-      - name: Get the tag version
-        id: get_version
-        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+      - name: Get the tag
+        id: get_tag
+        run: echo ::set-output name=VERSION::sha-${{ github.sha }} | cut -c1-8
       - name: Start deployment
         uses: tallyb/deployments@master
         id: deployment
@@ -102,7 +102,7 @@ jobs:
             --kubeconfig=.kubeconfig
             -f ./deploy/helm/beta-lescinskas-lt.values.yaml
             --set image.repository=ghcr.io/plutzilla/lescinskas-lt-website
-            --set image.tag=sha-${GITHUB_SHA::8}
+            --set image.tag=sha-${{ steps.get_tag.outputs.VERSION }}
             beta-lescinskas-lt
             ./deploy/helm/lescinskas.lt
       - name: Update deployment status
