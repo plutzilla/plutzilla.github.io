@@ -102,7 +102,7 @@ jobs:
             --kubeconfig=.kubeconfig
             -f ./deploy/helm/beta-lescinskas-lt.values.yaml
             --set image.repository=ghcr.io/plutzilla/lescinskas-lt-website
-            --set image.tag=${{ steps.get_version.outputs.VERSION }}
+            --set image.tag=sha-${GITHUB_SHA::8}
             beta-lescinskas-lt
             ./deploy/helm/lescinskas.lt
       - name: Update deployment status
