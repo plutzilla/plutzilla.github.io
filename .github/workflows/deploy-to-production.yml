@@ -3,6 +3,7 @@ name: Deploy lescinskas.lt website to production
 on:
   release:
     types: [published]
+  workflow_dispatch:
 
 jobs:
   deploy-to-production:
@@ -44,4 +45,4 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           status: ${{ job.status }}
           deployment_id: ${{ steps.deployment.outputs.deployment_id }}
-          env_url: https://beta.lescinskas.lt
+          env_url: https://lescinskas.lt
